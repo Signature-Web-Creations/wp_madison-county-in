@@ -16,9 +16,7 @@
       justify="center"
       align="center"
     >
-      <v-col v-if="!category.posts.length < 1" cols="12" lg="6" class="px-0"
-
-      >
+      <v-col v-if="!category.posts.length < 1" cols="12" lg="6" class="px-0">
         <v-container class="two-col-content pa-5 px-xl-6 mt-15 mt-xl-0">
           <v-sheet
             rounded
@@ -37,7 +35,7 @@
               }"
             >
               <h2
-                class="section-name display-2 mb-10 text-center text-uppercase"
+                class="section-name display-2 mb-10 text-center"
                 :class="{
                   'text-lg-right ml-lg-4': index % 2 === 0,
                   'text-lg-left mr-lg-4 lightgrey--text': index % 2 !== 0,
@@ -103,11 +101,13 @@
         </v-container>
       </v-col>
 
-      <v-col cols="12" lg="6" class="pa-0"
-      :class="{
-        'd-none d-lg-block d-xl-block' : index === 0
-      }"
-
+      <v-col
+        cols="12"
+        lg="6"
+        class="pa-0"
+        :class="{
+          'd-none d-lg-block d-xl-block': index === 0,
+        }"
       >
         <v-sheet class="full-height transparent" elevation="0">
           <v-img
