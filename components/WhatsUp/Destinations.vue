@@ -8,7 +8,7 @@
       </h2>
     </div>
 
-    <v-container>
+    <v-container fluid>
       <v-row>
         <v-col
           v-for="destination in randomDestinations"
@@ -18,24 +18,25 @@
           lg="4"
         >
           <v-hover v-slot="{ hover }">
-            <nuxt-link
+            <v-card
+              class="mx-auto"
+              color="grey lighten-4"
+              max-width="600"
               :to="{ name: 'destinations-id', params: { id: destination.id } }"
             >
-              <v-card class="mx-auto" color="grey lighten-4" max-width="600">
-                <v-img :aspect-ratio="16 / 10" :src="destination.listing_image">
-                  <v-expand-transition>
-                    <div
-                      v-if="hover"
-                      class="transition-fast-in-fast-out v-card--reveal white--text"
-                      style="height: 35%;"
-                    >
-                      <h3>{{ destination.name }}</h3>
-                      <p>{{ destination.city }}, {{ destination.state }}</p>
-                    </div>
-                  </v-expand-transition>
-                </v-img>
-              </v-card>
-            </nuxt-link>
+              <v-img :aspect-ratio="16 / 10" :src="destination.listing_image">
+                <v-expand-transition>
+                  <div
+                    v-if="hover"
+                    class="transition-fast-in-fast-out v-card--reveal white--text"
+                    style="height: 30%;"
+                  >
+                    <h3>{{ destination.name }}</h3>
+                    <p>{{ destination.city }}, {{ destination.state }}</p>
+                  </div>
+                </v-expand-transition>
+              </v-img>
+            </v-card>
           </v-hover>
         </v-col>
       </v-row>
