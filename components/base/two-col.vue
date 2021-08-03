@@ -4,10 +4,10 @@
       v-for="(category, index) in categories"
       :key="category.slug"
       :id="category.slug"
-      class="flex-sm-column ma-0"
+      class="flex-md-column-reverse ma-0"
       :class="{
-        'flex-md-row': index % 2 === 0,
-        'flex-md-row-reverse ': index % 2 !== 0,
+        'flex-lg-row': index % 2 === 0,
+        'flex-lg-row-reverse ': index % 2 !== 0,
         lightgrey: index % 5 === 0,
         secondary: index % 5 === 1,
         lightgrey: index % 5 === 2,
@@ -16,29 +16,31 @@
       justify="center"
       align="center"
     >
-      <v-col v-if="!category.posts.length < 1" cols="12" lg="6" class="px-0">
-        <v-container class="two-col-content pa-5 px-xl-6 mb-15 mb-xl-0">
+      <v-col v-if="!category.posts.length < 1" cols="12" lg="6" class="px-0"
+
+      >
+        <v-container class="two-col-content pa-5 px-xl-6 mt-15 mt-xl-0">
           <v-sheet
             rounded
             shaped
             class="icon-section transparent text-center"
             :class="{
-              'text-md-left': index % 2 === 0,
-              'text-md-right': index % 2 !== 0,
+              'text-lg-left': index % 2 === 0,
+              'text-lg-right': index % 2 !== 0,
             }"
           >
             <div
               class="mb-5 text-center"
               :class="{
-                'text-md-right': index % 2 !== 0,
-                'text-md-left': index % 2 === 0,
+                'text-lg-right': index % 2 !== 0,
+                'text-lg-left': index % 2 === 0,
               }"
             >
               <h2
                 class="section-name display-2 mb-10 text-center text-uppercase"
                 :class="{
-                  'text-md-right ml-md-4': index % 2 === 0,
-                  'text-md-left mr-md-4 lightgrey--text': index % 2 !== 0,
+                  'text-lg-right ml-lg-4': index % 2 === 0,
+                  'text-lg-left mr-lg-4 lightgrey--text': index % 2 !== 0,
                 }"
               >
                 {{ category.name }}
@@ -55,8 +57,8 @@
             <p
               class="px-sm-5 my-10 mb-lg-5"
               :class="{
-                'text-md-left': index % 2 === 0,
-                'text-md-right lightgrey--text': index % 2 !== 0,
+                'text-lg-left': index % 2 === 0,
+                'text-lg-right lightgrey--text': index % 2 !== 0,
               }"
             >
               Lorem ipsum dolor sit amet consectetur adipisicing elit.
@@ -101,7 +103,12 @@
         </v-container>
       </v-col>
 
-      <v-col v-if="!category.posts.length < 1" cols="12" lg="6" class="pa-0">
+      <v-col cols="12" lg="6" class="pa-0"
+      :class="{
+        'd-none d-lg-block d-xl-block' : index === 0
+      }"
+
+      >
         <v-sheet class="full-height transparent" elevation="0">
           <v-img
             height="100%"
@@ -167,7 +174,7 @@ export default {
 
 <style lang="scss" scoped>
 .row {
-  padding-top: 50px;
+  padding-bottom: 50px;
   @media screen and (min-width: 1264px) {
     padding: 100px 0;
   }
