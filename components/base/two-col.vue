@@ -35,7 +35,7 @@
               }"
             >
               <h2
-                class="section-name display-2 mb-10 text-center"
+                class="section-name display-2 mb-10 text-center text-uppercase"
                 :class="{
                   'text-md-right ml-md-4': index % 2 === 0,
                   'text-md-left mr-md-4 lightgrey--text': index % 2 !== 0,
@@ -222,6 +222,13 @@ export default {
 .two-col-content {
   @media screen and (min-width: 1904px) {
     padding: 0 150px !important;
+  }
+  h2 {
+    font-weight: 500 !important;
+    &::after {
+      bottom: -6px;
+      width: 95%;
+    }
   }
   p {
     font-size: 18px;

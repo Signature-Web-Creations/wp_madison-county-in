@@ -4,24 +4,26 @@
     src="https://images.unsplash.com/photo-1573344176794-e7f9403f5a43?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1032&q=80"
     cover
     class="pa-0"
+    id="visitors"
   >
-    <v-overlay value="true" absolute>
+    <v-overlay value="true" absolute opacity=".6">
       <v-container>
         <v-row>
-          <v-col cols="12" lg="6">
-            <h2 class="display-1 mb-8">Madison County Visitor's Bureau</h2>
-            <div class="white--text mt-8 mb-6">
+          <v-col cols="12" lg="8" xl="6">
+            <h2 class="display-2 mb-8">Madison County Visitor's Bureau</h2>
+            <p class="white--text mt-8 mb-6">
               Lorem ipsum, dolor sit amet consectetur adipisicing elit.
               Quibusdam officiis corporis deleniti tempora atque adipisci minima
               omnis non asperiores distinctio optio maiores ipsam, alias saepe
               mollitia aspernatur ipsa, impedit libero!
-            </div>
+            </p>
 
             <v-btn
               id="visitorsbtn"
-              color="primary"
+              color="blueish"
               class="ma-2 white--text"
               href="https://visitandersonmadisoncounty.com/"
+              x-large
             >
               Learn More
             </v-btn>
@@ -40,7 +42,19 @@
   opacity: 0.5 !important;
   left: 0;
 }
-#visitorsbtn {
-  width: 150px;
+// #visitorsbtn {
+//   width: 150px;
+// }
+
+#visitors {
+  p {
+    font-size: 18px;
+    @media screen and (min-width: 1904px) {
+      font-size: 25px;
+    }
+    @media screen and (min-width: 960px) {
+      font-size: 20px;
+    }
+  }
 }
 </style>
