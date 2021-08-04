@@ -33,12 +33,12 @@
           <v-tabs-items v-model="tab">
             <v-tab-item id="tabs-icons-text-1">
               <div class="tab-pane fade active show">
-                <p
+                <div
                   v-if="!item.content || item.content === ''"
-                  class="description"
+                  class="description text-body-1"
                   v-html="item.description"
                 />
-                <p v-else class="description" v-html="item.content" />
+                <div v-else class="text-body-1" v-html="item.content" />
               </div>
             </v-tab-item>
 
