@@ -55,17 +55,13 @@
                         }"
                       >
                         <template>
-                          <v-list-item-avatar
-                            v-if="event.image"
-                            size="100"
-                            tile
-                          >
-                            <v-img :src="event.image" />
-                            <!-- <v-img
+                          <v-list-item-avatar size="100" tile>
+                            <v-img v-if="event.image" :src="event.image" />
+                            <v-img
                               v-else
-                              src="https://www.whatsup247.com/img/wu-logo-icon.svg"
+                              :src="require('~/assets/logo-icon.png')"
                               height="80"
-                            /> -->
+                            />
                           </v-list-item-avatar>
                           <v-list-item-content>
                             <v-list-item-title

@@ -24,11 +24,20 @@
             :to="{ name: 'events-id', params: { id: event.id } }"
           >
             <v-img
+              v-if="event.image"
               height="250"
               class="img-fluid"
               :src="event.image"
               :alt="event.name"
             />
+            <v-img
+              v-else
+              height="250"
+              class="img-fluid"
+              :src="require('~/assets/wu-logo-fb.png')"
+              :alt="event.name"
+            />
+
             <v-card-title class="font-weight-normal event_name">
               {{ event.name }}
             </v-card-title>
