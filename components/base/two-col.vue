@@ -4,7 +4,7 @@
       v-for="(category, index) in categories"
       :key="category.slug"
       :id="category.slug"
-      class="flex-md-column-reverse ma-0"
+      class="flex-column-reverse ma-0"
       :class="{
         'flex-lg-row': index % 2 === 0,
         'flex-lg-row-reverse ': index % 2 !== 0,
@@ -17,7 +17,7 @@
       align="center"
     >
       <v-col v-if="!category.posts.length < 1" cols="12" lg="6" class="px-0">
-        <v-container class="two-col-content pa-5 px-xl-6 mt-15 mt-xl-0">
+        <v-container class="two-col-content pa-5 px-xl-6 mt-15 mt-lg-0">
           <v-sheet
             rounded
             shaped
@@ -114,7 +114,7 @@
             height="100%"
             elevation="4"
             :src="category.featured_media_url"
-            :aspect-ratio="961 / 762"
+            :aspect-ratio="setImageAspectRatio"
             cover
           ></v-img>
         </v-sheet>
@@ -138,7 +138,20 @@ export default {
     }
   },
 
-  computed: mapState(["categoriesWithPosts"]),
+  computed: {
+    setImageAspectRatio() {
+      switch (this.$vuetify.breakpoint.name) {
+        case "xs":
+        case "sm":
+        case "md":
+          return 16 / 9
+        case "lg":
+        case "xl":
+          return 961 / 762
+      }
+    },
+    ...mapState(["categoriesWithPosts"]),
+  },
 
   methods: {
     /**

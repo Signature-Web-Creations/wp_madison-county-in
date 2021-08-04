@@ -8,7 +8,7 @@
       </h2>
     </div>
 
-    <v-container fluid>
+    <v-container :fluid="sizeContainer" class="px-md-10 px-xl-0">
       <v-row class="row d-flex justify-space-between">
         <v-col
           cols="12"
@@ -70,6 +70,19 @@ export default {
           return this.latestEvents
       }
     },
+
+    sizeContainer() {
+      switch (this.$vuetify.breakpoint.name) {
+        case "xs":
+        case "sm":
+        case "md":
+        case "lg":
+          return true
+        case "xl":
+          return false
+      }
+    },
+
     ...mapState({
       latestEvents: (state) => state.wuapi.latestEvents,
     }),

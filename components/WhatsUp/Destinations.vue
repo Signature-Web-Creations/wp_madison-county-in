@@ -8,7 +8,7 @@
       </h2>
     </div>
 
-    <v-container fluid>
+    <v-container :fluid="sizeContainer" class="px-md-10 px-xl-0">
       <v-row>
         <v-col
           v-for="destination in randomDestinations"
@@ -81,6 +81,18 @@ export default {
       }
 
       return array
+    },
+
+    sizeContainer() {
+      switch (this.$vuetify.breakpoint.name) {
+        case "xs":
+        case "sm":
+        case "md":
+        case "lg":
+          return true
+        case "xl":
+          return false
+      }
     },
 
     ...mapState({
