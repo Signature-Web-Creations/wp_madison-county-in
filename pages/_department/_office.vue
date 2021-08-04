@@ -2,104 +2,11 @@
   <v-sheet>
     <v-row justify="end">
       <v-col cols="4">
-        <v-navigation-drawer
-          fixed
-          permanent
-          left
-          width="33.66%"
-          height="100vh"
-          class="px-10 pt-16 blackish"
-        >
-          <v-sheet
-            class="blackish"
-            v-if="office.acf.two_column_layout[3].resoures"
-          >
-            <v-card-title class="lightgrey--text text-h4">
-              Resources
-            </v-card-title>
-            <!-- {{ office.acf.two_column_layout[3].resoures }} -->
-            <!-- <v-divider color="white" /> -->
-            <v-list>
-              <v-list-item-group
-                v-model="selectedItem"
-                class=""
-                color="lightgrey"
-              >
-                <v-list-item
-                  v-for="item in office.acf.two_column_layout[3].resoures"
-                  :key="item.id"
-                >
-                  <v-list-item-content>
-                    <v-list-item-title
-                      ><a
-                        class="lightgrey--text text-decoration-none"
-                        target="_blank"
-                        v-html="item.document.title"
-                        :href="item.document.url"
-                        download
-                      ></a
-                    ></v-list-item-title>
-                  </v-list-item-content>
-                </v-list-item>
-              </v-list-item-group>
-            </v-list>
-          </v-sheet>
-
-          <v-sheet class="blackish">
-            <v-card-title class="lightgrey--text text-h4"
-              >Office Contact</v-card-title
-            >
-            <!-- {{ office.acf.two_column_layout[3].resoures }} -->
-            <!-- <v-divider color="white" /> -->
-            <v-list flat>
-              <v-list-item class="lightgrey--text">
-                <v-list-item-icon>
-                  <v-icon dense class="fa-fw lightgrey--text">
-                    fa-user-circle
-                  </v-icon>
-                </v-list-item-icon>
-                <v-list-item-content>
-                  <v-list-item-title
-                    class="lightgrey--text"
-                    v-text="'Office Administrator'"
-                  />
-                </v-list-item-content>
-              </v-list-item>
-
-              <v-list-item>
-                <v-list-item-icon>
-                  <v-icon dense class="fa-fw lightgrey--text">
-                    fa-phone
-                  </v-icon>
-                </v-list-item-icon>
-                <v-list-item-content>
-                  <v-list-item-title
-                    class="lightgrey--text"
-                    v-text="'1231234567'"
-                  />
-                </v-list-item-content>
-              </v-list-item>
-
-              <v-list-item>
-                <v-list-item-icon>
-                  <v-icon dense class="fa-fw lightgrey--text">
-                    fa-envelope
-                  </v-icon>
-                </v-list-item-icon>
-                <v-list-item-content>
-                  <v-list-item-title
-                    class="lightgrey--text"
-                    v-text="'noreply@madisoncounty.in.gov'"
-                  />
-                </v-list-item-content>
-              </v-list-item>
-            </v-list>
-          </v-sheet>
-        </v-navigation-drawer>
+        <BaseLeftPanel :resources="office.acf.two_column_layout[3].resoures" />
       </v-col>
     </v-row>
-    <v-row justify="end">
-      <v-col cols="8">
+    <v-row justify="end" class="ma-0">
+      <v-col cols="8" class="pa-0 ma-0">
         <BaseSubpageheader :office="office" />
         <div class="nav-wrapper">
           <v-tabs
@@ -386,5 +293,8 @@ export default {
 }
 .v-tabs-slider {
   border: 2px solid;
+}
+.font-condensed {
+  font-family: $font-condensed !important;
 }
 </style>

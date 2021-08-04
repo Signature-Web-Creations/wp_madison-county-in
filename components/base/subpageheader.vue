@@ -1,7 +1,7 @@
 <template>
   <v-sheet
     class="theme--light grey lighten-3"
-    style="height: 20vh; min-height: 200px;"
+    style="height: 20vh; min-height: 300px;"
     :style="
       office.media_url != ''
         ? 'background-image: url(' + office.media_url + ');'
