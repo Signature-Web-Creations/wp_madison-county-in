@@ -72,9 +72,8 @@ export default {
         case "xs":
           return array.slice(0, 4)
         case "sm":
-          return array.slice(0, 6)
         case "md":
-          return array.slice(0, 8)
+          return array.slice(0, 6)
         case "lg":
         case "xl":
           return array
