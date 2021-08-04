@@ -6,8 +6,6 @@
     <v-main class="pt-0">
       <nuxt />
     </v-main>
-
-    <Footer />
   </v-app>
 </template>
 
@@ -15,10 +13,9 @@
 import { mapState } from "vuex"
 import NavigationDrawer from "~/layouts/partials/NavigationDrawer"
 import NavigationBar from "~/layouts/partials/NavigationBar"
-import Footer from "~/layouts/partials/Footer"
 
 export default {
-  components: { NavigationDrawer, NavigationBar, Footer },
+  components: { NavigationDrawer, NavigationBar },
 
   data() {
     return {
@@ -38,29 +35,7 @@ export default {
 
 <style lang="scss" scoped>
 .v-app-bar.v-app-bar--is-scrolled {
-  /* background-image: url('http://madisoncounty.signaturewebcreations.com/wp-content/uploads/2021/06/navbg.png');
-   */
-  background-color: rgba(255, 255, 255, 0.3) !important;
-
-  /* background-repeat: no-repeat;
-	background-size: 100%;
-	background-attachment: fixed; */
-  .blur-container {
-    height: 100%;
-    left: 0;
-    overflow: hidden;
-    position: relative;
-    top: 0;
-    transform: translate3d(0, 0, 0);
-  }
-  .blur-content {
-    filter: blur(1rem);
-    left: 0px;
-    top: 0px;
-    transform: translateY(-447px);
-    position: absolute;
-    width: 100vw;
-  }
+  background-color: transparent !important;
 }
 /* Enter and leave animations can use different */
 /* durations and timing functions.              */

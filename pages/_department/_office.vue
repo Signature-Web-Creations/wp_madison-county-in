@@ -280,6 +280,8 @@
 import { mapState, mapActions } from "vuex"
 
 export default {
+  layout: "office",
+
   data: () => ({
     collapseOnScroll: true,
     category_id: "",
