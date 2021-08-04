@@ -6,11 +6,11 @@
       :name="event.name"
     />
     <!-- Content -->
-    <v-container class="container">
+    <v-container fluid>
       <v-row
         class="d-flex flex-md-row justify-center flex-sm-column-reverse pa-10 pt-15"
       >
-        <v-col class="col-md-7 col-lg-7 mb-3">
+        <v-col cols="12" lg="7" class="mb-3">
           <div class="">
             <div class="detail-tile mb-4">
               <h1 v-html="event.name" />
@@ -28,7 +28,7 @@
               <v-btn
                 disabled
                 rounded
-                class="text-uppercase primary mr-2"
+                class="text-uppercase primary mr-2 mb-2"
                 v-for="item in event.categories"
                 :key="item.name"
                 small
@@ -44,7 +44,7 @@
             />
           </div>
         </v-col>
-        <v-col md="3" lg="3" class="pt-md-16">
+        <v-col cols="12" lg="3" class="pt-md-16">
           <BaseSidebar
             :email="event.contact_email"
             :phone="event.contact_phone"
