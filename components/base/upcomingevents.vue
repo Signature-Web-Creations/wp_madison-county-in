@@ -61,6 +61,7 @@ export default {
     let options = {
       type: "latest",
       limit: "6",
+      categories: "18,7,11,9,6,3,4,16",
     }
     await this.getEvents(options)
   },

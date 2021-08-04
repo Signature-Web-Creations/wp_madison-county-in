@@ -33,7 +33,7 @@
     </v-btn> -->
 
     <v-app-bar-nav-icon @click.stop="drawer = !drawer">
-      <v-icon small>fas fa-bars</v-icon>
+      <v-icon>fas fa-bars</v-icon>
     </v-app-bar-nav-icon>
   </v-app-bar>
 </template>
@@ -112,7 +112,9 @@ export default {
   }
 }
 
-a,
+.v-application a {
+  color: #fff;
+}
 .v-icon {
   color: #fff;
 }
