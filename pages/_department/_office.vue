@@ -10,10 +10,13 @@
           height="100vh"
           class="px-10 pt-16 blackish"
         >
-          <v-sheet class="blackish">
-            <v-card-title class="lightgrey--text text-h4"
-              >Resources</v-card-title
-            >
+          <v-sheet
+            class="blackish"
+            v-if="office.acf.two_column_layout[3].resoures"
+          >
+            <v-card-title class="lightgrey--text text-h4">
+              Resources
+            </v-card-title>
             <!-- {{ office.acf.two_column_layout[3].resoures }} -->
             <!-- <v-divider color="white" /> -->
             <v-list>
