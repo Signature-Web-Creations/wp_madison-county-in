@@ -96,11 +96,12 @@ export default {
           success: colors.green.accent3,
         },
         light: {
-          primary: "#8BC0BF",
+          primary: "#507F88",
           secondary: "#3E363D",
           lightgrey: "#F5F5F5",
           blackish: "#413E39",
           redish: "#C95243",
+          yellowish: "#ead11b",
           accent: "#FFE75E",
           blueish: "#507F88",
           hyperlink: "#6A8383",

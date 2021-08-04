@@ -1,7 +1,7 @@
 <template>
   <v-sheet
     class="theme--light grey lighten-3"
-    style="height: 20vh; min-height: 600px;"
+    style="height: 20vh; min-height: 200px;"
     :style="
       office.media_url != ''
         ? 'background-image: url(' + office.media_url + ');'
@@ -17,9 +17,9 @@
               v-html="office.name"
             ></h1>
           </v-col>
-          <v-col cols="12" md="6">
+          <!-- <v-col cols="12" md="6">
             <span v-html="office.acf.description" />
-          </v-col>
+          </v-col> -->
         </v-row>
       </v-container>
     </v-overlay>

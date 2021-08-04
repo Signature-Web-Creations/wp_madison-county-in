@@ -7,15 +7,15 @@
       <nuxt />
     </v-main>
 
-    <Footer />
+    <!-- <Footer /> -->
   </v-app>
 </template>
 
 <script>
-import { mapState } from "vuex";
-import NavigationDrawer from "~/layouts/partials/NavigationDrawer";
-import NavigationBar from "~/layouts/partials/NavigationBar";
-import Footer from "~/layouts/partials/Footer";
+import { mapState } from "vuex"
+import NavigationDrawer from "~/layouts/partials/NavigationDrawer"
+import NavigationBar from "~/layouts/partials/NavigationBar"
+import Footer from "~/layouts/partials/Footer"
 
 export default {
   components: { NavigationDrawer, NavigationBar, Footer },
@@ -26,14 +26,14 @@ export default {
         county: "Madison County",
         state: {
           name: "Indiana",
-          abbrv: "IN"
-        }
-      }
-    };
+          abbrv: "IN",
+        },
+      },
+    }
   },
 
-  computed: mapState(["categories"])
-};
+  computed: mapState(["categories"]),
+}
 </script>
 
 <style lang="scss" scoped>
