@@ -5,34 +5,26 @@
     left
     width="33.66%"
     height="100vh"
-    class="px-10 pt-16 blackish"
+    class="px-10 pt-5 blackish"
   >
-    <v-sheet class="blackish" v-if="resources">
-      <v-card-title
-        class="lightgrey--text font-condensed text-h4 text-uppercase"
-      >
-        Resources
-      </v-card-title>
-      <!-- {{ resoures }} -->
-      <!-- <v-divider color="white" /> -->
-      <v-list>
-        <v-list-item-group v-model="selectedItem" class="" color="lightgrey">
-          <v-list-item v-for="item in resources" :key="item.id">
-            <v-list-item-content>
-              <v-list-item-title>
-                <a
-                  class="lightgrey--text text-decoration-none"
-                  target="_blank"
-                  v-html="item.document.title"
-                  :href="item.document.url"
-                  download
-                ></a>
-              </v-list-item-title>
-            </v-list-item-content>
-          </v-list-item>
-        </v-list-item-group>
-      </v-list>
-    </v-sheet>
+    <nuxt-link
+      class="d-flex text-decoration-none justify-center align-center flex-nowrap mb-5"
+      :to="{ name: 'index' }"
+    >
+      <v-img
+        class="mr-3"
+        max-height="80"
+        max-width="80"
+        src="https://madisoncounty.in.gov/images/recoloredlogo.png"
+      />
+
+      <v-toolbar-title class="mr-16 text-decoration-none lightgrey--text">
+        <strong>Madison County</strong><br />
+        Indiana
+      </v-toolbar-title>
+    </nuxt-link>
+
+    <v-divider></v-divider>
 
     <v-sheet class="blackish">
       <v-card-title
@@ -40,8 +32,7 @@
       >
         Office Contact
       </v-card-title>
-      <!-- {{ resoures }} -->
-      <!-- <v-divider color="white" /> -->
+
       <v-list flat>
         <v-list-item class="lightgrey--text">
           <v-list-item-icon>
@@ -83,6 +74,37 @@
         </v-list-item>
       </v-list>
     </v-sheet>
+
+    <v-sheet class="blackish mt-2" v-if="resources">
+      <v-card-title
+        class="lightgrey--text font-condensed text-h4 text-uppercase"
+      >
+        Resources
+      </v-card-title>
+
+      <v-list>
+        <v-list-item-group>
+          <v-list-item
+            v-for="item in resources"
+            :key="item.id"
+            :href="item.document.url"
+            target="_blank"
+          >
+            <v-list-item-icon>
+              <v-icon dense class="fa-fw lightgrey--text">
+                fa-file
+              </v-icon>
+            </v-list-item-icon>
+            <v-list-item-content>
+              <v-list-item-title
+                class="lightgrey--text"
+                v-html="item.document.title"
+              />
+            </v-list-item-content>
+          </v-list-item>
+        </v-list-item-group>
+      </v-list>
+    </v-sheet>
   </v-navigation-drawer>
 </template>
 
@@ -94,4 +116,15 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.v-card__title {
+  padding-top: 20px;
+  padding-bottom: 5px;
+}
+.v-list-item:hover {
+  background-color: #507f88;
+}
+.font-condensed {
+  font-family: $font-condensed !important;
+}
+</style>

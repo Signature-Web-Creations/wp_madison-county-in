@@ -285,16 +285,11 @@ export default {
 .rtl {
   direction: rtl;
 }
-.v-list-item:hover {
-  background-color: #507f88;
-}
+
 .v-tabs-slider-wrapper {
   height: 5px !important;
 }
 .v-tabs-slider {
   border: 2px solid;
-}
-.font-condensed {
-  font-family: $font-condensed !important;
 }
 </style>
