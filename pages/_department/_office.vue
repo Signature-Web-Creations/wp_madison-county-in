@@ -2,7 +2,7 @@
   <v-sheet>
     <v-row justify="end">
       <v-col cols="4">
-        <BaseLeftPanel :resources="office.acf.two_column_layout[3].resoures" />
+        <BaseLeftPanel :resources="office.acf.resources" />
       </v-col>
     </v-row>
     <v-row justify="end" class="ma-0">
