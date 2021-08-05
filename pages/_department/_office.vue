@@ -15,9 +15,10 @@
             class=""
             id="tabs-icons-text"
             role="tablist"
-            color="blueish"
-            slider-color
-            slider-size="3"
+            background-color="blueish"
+            color="lightgrey"
+            slider-color="blue-grey darken-2"
+            slider-size="5"
           >
             <v-tab
               v-for="(tab, index) in tabs"
@@ -27,7 +28,7 @@
                   ? `tabs-icons-text-${index + 1}-tab active show`
                   : `tabs-icons-text-${index + 1}-tab`
               "
-              class=""
+              class="lightgrey--text"
               data-toggle="tab"
               :href="`#tabs-icons-text-${index + 1}`"
               role="tab"
