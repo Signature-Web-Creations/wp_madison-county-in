@@ -12,10 +12,10 @@
       <v-container>
         <v-row class="fill-height justify-left align-content-center pa-10">
           <v-col cols="12">
-            <h1
+            <!-- <h1
               class="display-2 lightgrey--text text-left"
               v-html="office.name"
-            ></h1>
+            ></h1> -->
           </v-col>
         </v-row>
       </v-container>

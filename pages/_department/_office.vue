@@ -39,143 +39,37 @@
             </v-tab>
           </v-tabs>
         </div>
+
         <div class="tab-content" id="eventTabContent">
           <v-tabs-items v-model="tab">
-            <v-tab-item id="tabs-icons-text-1">
-              <section
-                v-for="(row, index) in office.acf.two_column_layout"
-                :key="row.services"
-                :class="{
-                  'white blackish--text': index === 0,
-                  'redish lightgrey--text': index % 5 === 1,
-                  'white blackish--text': index % 5 === 2,
-                }"
-              >
-                <v-container>
-                  <v-row
-                    class="d-flex flex-md-row flex-sm-column-reverse pa-10"
-                    :class="{
-                      'flex-md-row': index % 2 === 0,
-                      'flex-md-row-reverse ': index % 2 !== 0,
-                    }"
-                  >
-                    <v-col
-                      class="mt-3 col-sm-12"
-                      :class="{
-                        'col-md-12':
-                          row.two_col_image && row.two_col_image === false,
-                        'col-md-6': row.two_col_image !== false,
-                        'col-md-8':
-                          row.resource_bar === true &&
-                          row.two_col_image === false,
-                      }"
-                    >
+            <v-tab-item id="tabs-icons-text-1" :style="adjustWidth">
+              <v-container>
+                <h1 v-html="office.name"></h1>
+                <section
+                  v-for="row in office.acf.two_column_layout"
+                  :key="row.services"
+                >
+                  <v-row>
+                    <v-col cols="12" class="mt-1">
                       <h2 v-html="row.two_column_header" />
-                      <div class="mt-7" v-html="row.services" />
-                    </v-col>
-
-                    <v-col class="col-md-4 col-sm-12" v-if="row.resoures">
-                      <v-sheet class="blueish" elevation="5">
-                        <v-card-title class="lightgrey--text text-h4"
-                          >Resources</v-card-title
-                        >
-                        <v-divider dark />
-                        <v-list>
-                          <v-list-item-group
-                            v-model="selectedItem"
-                            color="primary"
-                          >
-                            <v-list-item
-                              v-for="item in row.resoures"
-                              :key="item.id"
-                            >
-                              <v-list-item-content>
-                                <v-list-item-title
-                                  ><a
-                                    class="text-decoration-none"
-                                    target="_blank"
-                                    v-html="item.document.title"
-                                    :href="item.document.url"
-                                    download
-                                  ></a
-                                ></v-list-item-title>
-                              </v-list-item-content>
-                            </v-list-item>
-                          </v-list-item-group>
-                        </v-list>
-                      </v-sheet>
-                    </v-col>
-                    <v-divider
-                      v-if="row.resoures"
-                      class="d-sm-none"
-                      vertical
-                    ></v-divider>
-                    <v-col
-                      class="col-md-6 col-sm-12"
-                      v-else-if="row.two_col_image"
-                    >
-                      <v-sheet elevation="5">
-                        <v-img :src="row.two_col_image" max-height="700" />
-                      </v-sheet>
+                      <div class="mt-2" v-html="row.services" />
                     </v-col>
                   </v-row>
-                </v-container>
-              </section>
+                </section>
+              </v-container>
             </v-tab-item>
 
-            <v-tab-item id="tabs-icons-text-2">
-              <div class="tab-pane fade">
-                <v-list two-line>
-                  <v-list-item-group active-class="primary--text">
-                    <template v-for="(event, index) in listOfEvents">
-                      <v-list-item
-                        :key="event.id"
-                        :to="{
-                          name: 'events-id',
-                          params: { id: event.id },
-                        }"
-                      >
-                        <template>
-                          <v-list-item-avatar
-                            v-if="event.image"
-                            size="100"
-                            tile
-                          >
-                            <v-img :src="event.image" />
-                          </v-list-item-avatar>
-                          <v-list-item-content>
-                            <v-list-item-title
-                              class="font-weight-bold"
-                              v-text="event.name"
-                            />
-
-                            <v-list-item-subtitle class="mt-2 font-italic">
-                              {{ event.start | formatDate($moment, "MMMM D") }}
-                              at
-                              {{ event.start | formatDate($moment, "h:mm a") }}
-                            </v-list-item-subtitle>
-
-                            <v-list-item-subtitle>
-                              {{ event.city }},
-                              {{ event.state }}
-                            </v-list-item-subtitle>
-                          </v-list-item-content>
-                        </template>
-                      </v-list-item>
-
-                      <v-divider
-                        v-if="index < listOfEvents.length - 1"
-                        :key="index"
-                      ></v-divider>
-                    </template>
-                  </v-list-item-group>
-                </v-list>
-              </div>
+            <v-tab-item id="tabs-icons-text-2" :style="adjustWidth">
+              <v-container class="tab-pane fade px-md-16">
+                <h1 v-html="office.name + ' Events'"></h1>
+                <BaseEventList :events="listOfEvents" />
+              </v-container>
             </v-tab-item>
-            <v-tab-item id="tabs-icons-text-3">
-              <div class="tab-pane fade">
-                <BaseTeam />
-              </div>
+            <v-tab-item id="tabs-icons-text-3" :style="adjustWidth">
+              <v-container class="tab-pane fade px-md-16">
+                <h1 v-html="office.name + ' Team'"></h1>
+                <BaseTeam :team="profiles" :title="office.name" />
+              </v-container>
             </v-tab-item>
           </v-tabs-items>
         </div>
@@ -185,7 +79,7 @@
 </template>
 
 <script>
-import { mapState, mapActions } from "vuex"
+import { mapState } from "vuex"
 
 export default {
   layout: "office",
@@ -211,7 +105,7 @@ export default {
       },
       {
         name: "Team",
-        icon: "fa-users-alt",
+        icon: "fa-user-alt",
       },
     ],
   }),
@@ -221,6 +115,12 @@ export default {
     await store.dispatch("getCategories")
     await store.dispatch("getTags")
     await store.dispatch("getCountyProfiles")
+
+    let options = {
+      type: "latest",
+      limit: "20",
+    }
+    await store.dispatch("wuapi/getEvents", options)
   },
 
   computed: {
@@ -242,6 +142,18 @@ export default {
       )
     },
 
+    adjustWidth() {
+      switch (this.$vuetify.breakpoint.name) {
+        case "xs":
+        case "sm":
+        case "md":
+          return "padding: 40px 0px;"
+        case "lg":
+        case "xl":
+          return "padding: 40px 150px;"
+      }
+    },
+
     ...mapState({
       offices: (state) => state.offices,
       listOfEvents: (state) => state.wuapi.latestEvents,
@@ -251,7 +163,7 @@ export default {
       tags: (state) => state.tags,
     }),
   },
-  methods: mapActions("wuapi", ["getEvent", "getEvents"]),
+  // methods: mapActions("wuapi", ["getEvent", "getEvents"]),
 
   async created() {
     this.category_id = this.categoryMap[this.$route.params.department]
@@ -270,17 +182,14 @@ export default {
     font-size: 28px;
   }
 }
-.h2 {
-  font-size: 30px !important;
-  font-weight: 400 !important;
+
+h1 {
+  font-family: $font-condensed !important;
+}
+h2 {
+  font-size: 24px !important;
   &::after {
-    content: "";
-    position: absolute;
-    width: 100%;
-    height: 4px;
-    background-color: #ead11b;
-    bottom: -10px;
-    left: 0;
+    background: none;
   }
 }
 .rtl {
