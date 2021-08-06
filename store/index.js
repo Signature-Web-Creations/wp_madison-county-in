@@ -13,7 +13,8 @@ export const state = () => ({
   featuredImages: [],
   countyProfiles: [],
   categoriesWithPosts: [],
-  profilePage: null
+  profilePage: null,
+  jobs: [],
 })
 /*
 this will update the state
@@ -49,7 +50,10 @@ export const mutations = {
   },
   UPDATE_COUNTY_PROFILES: (state, array) => {
     state.countyProfiles = array
-  }
+  },
+  UPDATE_JOBS: (state, array) => {
+    state.jobs = array
+  },
 }
 
 function getFeaturedMediaURL(featuredImages, featured_media_id) {
@@ -77,10 +81,10 @@ export const actions = {
     try {
       let landingPages = await fetch(
         this.$config.apiUrl + "pages?per_page=100"
-      ).then(res => res.json())
+      ).then((res) => res.json())
 
       landingPages = landingPages.filter(
-        el => el.status === "publish" && el.parent === 0
+        (el) => el.status === "publish" && el.parent === 0
       )
       landingPages = landingPages.map(
         ({
@@ -91,7 +95,7 @@ export const actions = {
           content,
           categories,
           parent,
-          featured_media
+          featured_media,
         }) => ({
           ACF,
           title,
@@ -100,7 +104,7 @@ export const actions = {
           content,
           categories,
           parent,
-          featured_media
+          featured_media,
         })
       )
       commit("UPDATE_LANDING_PAGES", landingPages)
@@ -113,7 +117,7 @@ export const actions = {
     try {
       const homePage = await fetch(
         this.$config.apiUrl + "pages/11?dbi-ajaxx"
-      ).then(res => res.json())
+      ).then((res) => res.json())
       commit("updateHome", homePage)
     } catch (err) {
       console.log(err)
@@ -144,14 +148,14 @@ export const actions = {
       "tags",
       "title",
       "content",
-      "icon"
+      "icon",
     ]
     const fieldParameter = fields.join(",")
     const url =
       this.$config.apiUrl + `office?per_page=100&_fields=${fieldParameter}`
 
     try {
-      let offices = await fetch(url).then(res => res.json())
+      let offices = await fetch(url).then((res) => res.json())
       offices = offices.map(
         ({
           acf,
@@ -162,7 +166,7 @@ export const actions = {
           tags,
           title,
           content,
-          icon
+          icon,
         }) => {
           return {
             acf,
@@ -177,7 +181,7 @@ export const actions = {
             name: title.rendered,
             acf_content: acf.content,
             content,
-            icon: acf.icon
+            icon: acf.icon,
           }
         }
       )
@@ -193,7 +197,7 @@ export const actions = {
     const url = this.$config.apiUrl + `categories?_fields=${parameters}`
 
     try {
-      let categories = await fetch(url).then(res => res.json())
+      let categories = await fetch(url).then((res) => res.json())
       let map = {}
 
       categories.forEach(({ slug, id }) => {
@@ -213,7 +217,7 @@ export const actions = {
     const url = this.$config.apiUrl + `tags?_fields=${parameters}&per_page=100`
 
     try {
-      const tags = await fetch(url).then(res => res.json())
+      const tags = await fetch(url).then((res) => res.json())
       let tagMap = {}
       tags.forEach(({ id, slug }) => {
         tagMap[slug] = id
@@ -229,7 +233,7 @@ export const actions = {
     const parameters = fields.join(",")
     const url = this.$config.apiUrl + `media?_fields=${parameters}`
     try {
-      let featuredImages = await fetch(url).then(res => res.json())
+      let featuredImages = await fetch(url).then((res) => res.json())
       commit("UPDATE_FEATURED_IMAGES", featuredImages)
     } catch (error) {
       console.log(error)
@@ -246,14 +250,14 @@ export const actions = {
       "acf.phone",
       "featured_media",
       "tags",
-      "categories"
+      "categories",
     ]
 
     const fieldParameter = fields.join(",")
     const url =
       this.$config.apiUrl + `profile?per_page=100&_fields=${fieldParameter}`
     try {
-      let profiles = await fetch(url).then(res => res.json())
+      let profiles = await fetch(url).then((res) => res.json())
       profiles = profiles.map(
         ({ id, title, content, acf, featured_media, tags, categories }) => {
           return {
@@ -266,7 +270,7 @@ export const actions = {
             phone: acf ? acf.phone : "",
             tags,
             title: title.rendered,
-            titlerole: acf ? acf.titlerole : ""
+            titlerole: acf ? acf.titlerole : "",
           }
         }
       )
@@ -278,7 +282,7 @@ export const actions = {
 
   getCategoriesWithPosts({ commit, state }) {
     function categoryOffices(category_id) {
-      let hasCategory = function(office) {
+      let hasCategory = function (office) {
         // console.log(office.categories.includes(category_id));
         return office.categories.includes(category_id)
       }
@@ -301,7 +305,7 @@ export const actions = {
       throw new `Couldn't find page for slug ${slug}`()
     }
 
-    const result = state.categories.map(c => {
+    const result = state.categories.map((c) => {
       let category = Object.assign({}, c)
       try {
         const page = getPageWithSlug(category.slug)
@@ -316,5 +320,43 @@ export const actions = {
     })
 
     commit("UPDATE_CATEGORIES_WITH_POSTS", result)
-  }
+  },
+
+  async getJobsList({ commit }) {
+    const fields = [
+      "id",
+      "title.rendered",
+      "date",
+      "modified",
+      "tags",
+      "categories",
+      "content.rendered",
+      "slug",
+    ]
+
+    const fieldParameter = fields.join(",")
+    const url =
+      this.$config.apiUrl + `posts?per_page=100&_fields=${fieldParameter}`
+
+    try {
+      let jobs = await fetch(url).then((res) => res.json())
+      jobs = jobs.map(
+        ({ id, title, date, modified, tags, categories, content, slug }) => {
+          return {
+            id,
+            title: title.rendered,
+            date,
+            modified,
+            tags,
+            categories,
+            content: content.rendered,
+            slug,
+          }
+        }
+      )
+      commit("UPDATE_JOBS", jobs)
+    } catch (err) {
+      console.log(err)
+    }
+  },
 }
