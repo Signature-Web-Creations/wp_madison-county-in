@@ -9,9 +9,9 @@
     style="z-index: 2;"
     dark
   >
-    <nuxt-link
+    <a
       class="d-flex text-decoration-none justify-center align-center flex-nowrap"
-      :to="{ name: 'index' }"
+      href="/"
     >
       <v-img
         class="mr-3"
@@ -24,7 +24,7 @@
         class="mr-16 text-decoration-none"
         v-text="location.county + ', ' + location.state.abbrv"
       />
-    </nuxt-link>
+    </a>
 
     <v-spacer />
 
