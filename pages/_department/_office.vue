@@ -68,7 +68,6 @@
 
             <v-tab-item id="tabs-icons-text-3" :style="adjustWidth">
               <v-container class="tab-pane fade px-md-16">
-                {{ jobPositions.length != 0 }}
                 <h1 v-html="office.name + ' Team'"></h1>
                 <BaseTeam :team="profiles" :title="office.name" />
               </v-container>
