@@ -1,13 +1,17 @@
 <template>
   <v-sheet>
-    <v-row justify="end">
+    <v-row class="d-none d-lg-flex" justify="end">
       <v-col cols="4">
         <BaseLeftPanel :resources="office.acf.resources" />
       </v-col>
     </v-row>
     <v-row justify="end" class="ma-0">
-      <v-col cols="8" class="pa-0 ma-0">
+      <v-col cols="12" lg="8" class="pa-0 ma-0">
         <BaseSubpageheader :office="office" />
+        <BaseMobileresourcepanel
+          :resources="office.acf.resources"
+          class="d-lg-none"
+        />
         <div class="nav-wrapper">
           <v-tabs
             grow
