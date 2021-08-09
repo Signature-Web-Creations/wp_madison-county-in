@@ -34,7 +34,6 @@
           color="lightgrey"
           slider-color="blue-grey darken-2"
           slider-size="5"
-          align-with-title
         >
           <v-tab
             v-for="(tab, index) in tabs"
