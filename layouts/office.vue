@@ -1,21 +1,18 @@
 <template>
   <v-app>
-    <NavigationDrawer :location="location" />
-    <NavigationBar :location="location" />
-
     <v-main class="pt-0">
       <nuxt />
     </v-main>
+    <NavigationDrawer :location="location" />
   </v-app>
 </template>
 
 <script>
 import { mapState } from "vuex"
 import NavigationDrawer from "~/layouts/partials/NavigationDrawer"
-import NavigationBar from "~/layouts/partials/NavigationBar"
 
 export default {
-  components: { NavigationDrawer, NavigationBar },
+  components: { NavigationDrawer },
 
   data() {
     return {

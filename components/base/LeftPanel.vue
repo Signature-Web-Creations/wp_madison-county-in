@@ -1,16 +1,14 @@
 <template>
   <v-navigation-drawer
-    fixed
-    permanent
-    left
+    app
+    :permanent="isPermanent"
     width="33.66%"
-    height="100vh"
     class="pt-5 blackish"
   >
     <div class="px-10">
-      <nuxt-link
+      <a
         class="d-flex text-decoration-none justify-center align-center flex-nowrap mb-5"
-        :to="{ name: 'index' }"
+        href="/"
       >
         <v-img
           class="mr-3"
@@ -23,7 +21,7 @@
           <strong>Madison County</strong><br />
           Indiana
         </v-toolbar-title>
-      </nuxt-link>
+      </a>
 
       <v-divider></v-divider>
 
@@ -122,6 +120,20 @@
 export default {
   props: {
     resources: Array,
+  },
+
+  computed: {
+    isPermanent() {
+      switch (this.$vuetify.breakpoint.name) {
+        case "xs":
+        case "sm":
+          return false
+        case "md":
+        case "lg":
+        case "xl":
+          return true
+      }
+    },
   },
 }
 </script>
