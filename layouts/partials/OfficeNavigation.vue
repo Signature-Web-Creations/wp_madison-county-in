@@ -19,7 +19,7 @@
       </template>
 
       <a
-        class="d-flex text-decoration-none justify-center align-center flex-nowrap"
+        class="d-flex text-decoration-none justify-center align-center flex-nowrap d-md-none"
         href="/"
       >
         <v-img
@@ -202,7 +202,7 @@ export default {
         case "md":
         case "lg":
         case "xl":
-          return "padding-top: 350px;"
+          return "padding-top: 375px;"
       }
     },
 
