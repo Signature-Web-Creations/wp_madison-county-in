@@ -124,7 +124,7 @@
           </v-tab-item>
         </v-tabs-items>
       </v-container>
-      <BaseMobileresourcepanel class="d-md-none" />
+      <BaseBottomNavigation :docs="resources" class="d-md-none" />
     </v-sheet>
   </div>
 </template>
@@ -138,6 +138,7 @@ export default {
       type: Array,
       required: true,
     },
+    resources: Array,
     backgroundImage: {
       type: String,
       default:
