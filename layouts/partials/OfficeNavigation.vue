@@ -18,6 +18,22 @@
         />
       </template>
 
+      <a
+        class="d-flex text-decoration-none justify-center align-center flex-nowrap"
+        href="/"
+      >
+        <v-img
+          class="mr-3"
+          max-height="45"
+          max-width="45"
+          src="https://madisoncounty.in.gov/images/recoloredlogo.png"
+        />
+
+        <v-toolbar-title>
+          Madison County, IN
+        </v-toolbar-title>
+      </a>
+
       <v-spacer></v-spacer>
 
       <v-app-bar-nav-icon @click.stop="drawer = !drawer">
@@ -61,7 +77,7 @@
       id="scrolling-techniques"
       class="overflow-y-auto"
       height="100vh"
-      style="padding-top: 400px;"
+      :style="adjustContentPadding"
     >
       <v-container class="tab-content">
         <v-tabs-items v-model="tab">
@@ -156,6 +172,7 @@ export default {
     getHeight() {
       switch (this.$vuetify.breakpoint.name) {
         case "xs":
+          return "200px"
         case "sm":
         case "md":
         case "lg":
@@ -176,6 +193,18 @@ export default {
       }
     },
 
+    adjustContentPadding() {
+      switch (this.$vuetify.breakpoint.name) {
+        case "xs":
+          return "padding-top: 250px;"
+        case "sm":
+        case "md":
+        case "lg":
+        case "xl":
+          return "padding-top: 350px;"
+      }
+    },
+
     ...mapState({
       stateDrawer: (state) => state.navigation.drawer,
     }),
@@ -192,31 +221,21 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-// .v-app-bar {
-//   background: linear-gradient(
-//     180deg,
-//     rgba(0, 0, 0, 5) 0%,
-//     rgba(0, 0, 0, 0.3) 50%,
-//     rgba(0, 0, 0, 0) 100%
-//   );
-//   &.v-app-bar--is-scrolled {
-//     &.blur-primary-color {
-//       // background-color:rgba(68,100,100,.75) !important;
-//       // background-color: rgba(255, 255, 255, 0.75) !important;
-//       background: #fff !important;
-//       // backdrop-filter: blur(10px);
-//     }
-//     a,
-//     .v-icon {
-//       color: rgba(68, 100, 100) !important;
-//     }
-//   }
-// }
-
-// .v-application a {
-//   color: #fff;
-// }
-// .v-icon {
-//   color: #fff;
-// }
+.v-app-bar {
+  &.v-app-bar--shrink-on-scroll {
+    background: linear-gradient(
+      180deg,
+      rgba(0, 0, 0, 5) 0%,
+      rgba(0, 0, 0, 0.3) 50%,
+      rgba(0, 0, 0, 0) 100%
+    );
+    .v-toolbar__title {
+      color: #fff;
+      font-size: 1.25rem;
+    }
+  }
+  &.v-app-bar--is-scrolled {
+    background: none;
+  }
+}
 </style>
