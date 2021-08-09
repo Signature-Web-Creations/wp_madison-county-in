@@ -108,6 +108,7 @@
           </v-tab-item>
         </v-tabs-items>
       </v-container>
+      <BaseMobileresourcepanel class="d-md-none" />
     </v-sheet>
   </div>
 </template>
