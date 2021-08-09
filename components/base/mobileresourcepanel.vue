@@ -1,31 +1,34 @@
 <template>
-  <div class="text-center">
-    <v-bottom-sheet v-model="sheet">
+  <v-bottom-navigation absolute>
+    <v-btn>
+      <span>Recent</span>
+
+      <v-icon>mdi-history</v-icon>
+    </v-btn>
+
+    <v-btn value="favorites">
+      <span>Favorites</span>
+
+      <v-icon>mdi-heart</v-icon>
+    </v-btn>
+
+    <v-btn value="nearby">
+      <span>Nearby</span>
+
+      <v-icon>mdi-map-marker</v-icon>
+    </v-btn>
+  </v-bottom-navigation>
+  <!-- <div class="text-center">
+    <v-bottom-navigation>
       <template v-slot:activator="{ on, attrs }">
         <v-btn color="purple" dark v-bind="attrs" v-on="on">
-          Resources & Information
+          Resources
         </v-btn>
       </template>
+    </v-bottom-navigation>
+    <v-bottom-sheet v-model="sheet">
       <v-row no-gutters>
         <v-col col="6">
-          <!-- <v-list>
-            <v-subheader>Resources & Information</v-subheader>
-            <v-list-item
-              v-for="tile in tiles"
-              :key="tile.title"
-              @click="sheet = false"
-            >
-              <v-list-item-avatar>
-                <v-avatar size="32px" tile>
-                  <img
-                    :src="`https://cdn.vuetifyjs.com/images/bottom-sheets/${tile.img}`"
-                    :alt="tile.title"
-                  />
-                </v-avatar>
-              </v-list-item-avatar>
-              <v-list-item-title>{{ tile.title }}</v-list-item-title>
-            </v-list-item>
-          </v-list> -->
           <v-list>
             <v-subheader> Office Resources</v-subheader>
             <v-virtual-scroll height="100" item-height="20">
@@ -98,7 +101,7 @@
         </v-col>
       </v-row>
     </v-bottom-sheet>
-  </div>
+  </div> -->
 </template>
 
 <script>

@@ -10,28 +10,6 @@
       :jobs="jobPositions"
     />
   </div>
-  <!-- <v-sheet>
-    <v-row justify="end">
-      <v-col cols="4">
-        <BaseLeftPanel :resources="office.acf.resources" />
-      </v-col>
-    </v-row>
-    <v-row justify="end" class="ma-0">
-      <v-col cols="8" class="pa-0 ma-0">
-        <OfficeNavigation
-          :tabs="tabs"
-          :backgroundImage="
-            office.media_url == '' ? undefined : office.media_url
-          "
-          :events="listOfEvents"
-          :team="profiles"
-          :office="office"
-          :jobs="jobPositions"
-        />
-        <v-container style="height: 1000px;"></v-container>
-      </v-col>
-    </v-row>
-  </v-sheet> -->
 </template>
 
 <script>
