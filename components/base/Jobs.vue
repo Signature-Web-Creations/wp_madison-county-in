@@ -10,6 +10,12 @@
               <em>{{ job.date | formatDate($moment, "MMMM D, YYYY") }}</em>
             </small>
           </h2>
+          <v-spacer />
+          <div class="text-right mr-5">
+            <v-btn depressed :to="{ path: '/government/human-resources' }">
+              Apply
+            </v-btn>
+          </div>
         </template>
       </v-expansion-panel-header>
       <v-expansion-panel-content>
