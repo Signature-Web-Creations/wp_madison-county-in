@@ -2,7 +2,7 @@
   <v-expansion-panels focusable class="mt-5">
     <v-expansion-panel v-for="job in jobs" :key="job.id">
       <v-expansion-panel-header class="py-8">
-        <template v-slot:default="{ open }">
+        <template v-slot="{ open }">
           <h2>
             {{ job.title }}<br />
             <small class="text-subtitle-1">
@@ -10,12 +10,16 @@
               <em>{{ job.date | formatDate($moment, "MMMM D, YYYY") }}</em>
             </small>
           </h2>
-          <v-spacer />
+          <!-- <v-spacer />
           <div class="text-right mr-5">
-            <v-btn depressed :to="{ path: '/government/human-resources' }">
+            <v-btn
+              depressed
+              :to="{ path: '/government/human-resources' }"
+              @click="open = false"
+            >
               Apply
             </v-btn>
-          </div>
+          </div> -->
         </template>
       </v-expansion-panel-header>
       <v-expansion-panel-content>
@@ -36,4 +40,21 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.v-expansion-panels {
+  z-index: 0;
+}
+h2 {
+  font-size: 20px !important;
+  font-weight: 500 !important;
+  &::after {
+    background: none;
+  }
+  small {
+    text-transform: uppercase;
+    em {
+      text-transform: capitalize;
+    }
+  }
+}
+</style>
