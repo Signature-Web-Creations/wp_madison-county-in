@@ -8,6 +8,7 @@
       :team="profiles"
       :office="office"
       :jobs="jobPositions"
+      :resources="office.acf.resources"
     />
   </div>
 </template>
