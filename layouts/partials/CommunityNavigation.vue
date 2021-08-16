@@ -39,7 +39,6 @@
       <v-app-bar-nav-icon @click.stop="drawer = !drawer">
         <v-icon>fas fa-bars</v-icon>
       </v-app-bar-nav-icon>
-
       <template v-slot:extension>
         <v-tabs
           grow
@@ -84,7 +83,6 @@
           <v-tab-item id="tabs-icons-text-1" :style="adjustWidth">
             <v-container>
               <h1 v-html="community.name"></h1>
-
               <section>
                 <v-row>
                   <v-col cols="12" class="mt-10">
@@ -103,6 +101,18 @@
           </v-tab-item>
 
           <v-tab-item id="tabs-icons-text-3" :style="adjustWidth">
+            <v-container class="tab-pane fade px-md-16">
+              <h1 v-html="community.name + ' Destinations'"></h1>
+              <BaseEventList :events="events" />
+            </v-container>
+          </v-tab-item>
+          <v-tab-item id="tabs-icons-text-4" :style="adjustWidth">
+            <v-container class="tab-pane fade px-md-16">
+              <h1 v-html="community.name + ' Directory'"></h1>
+              <BaseEventList :events="events" />
+            </v-container>
+          </v-tab-item>
+          <v-tab-item id="tabs-icons-text-5" :style="adjustWidth">
             <v-container class="tab-pane fade px-md-16">
               <h1 v-html="community.name + ' Team'"></h1>
               <BaseTeam :team="team" :title="community.name" />

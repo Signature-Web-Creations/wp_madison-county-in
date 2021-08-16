@@ -68,6 +68,14 @@ export default {
           icon: "fa-calendar-alt",
         },
         {
+          name: "Destination",
+          icon: "fa-map-signs",
+        },
+        {
+          name: "Directory",
+          icon: "fa-address-book",
+        },
+        {
           name: "Team",
           icon: "fa-user-alt",
         },
