@@ -107,11 +107,11 @@ export default {
           url: "/#government",
           icon: "fas fa-university",
         },
-        {
-          name: "Business",
-          url: "/#business",
-          icon: "fas fa-handshake",
-        },
+        // {
+        //   name: "Business",
+        //   url: "/#business",
+        //   icon: "fas fa-handshake",
+        // },
         {
           name: "Residents",
           url: "/#residents",
