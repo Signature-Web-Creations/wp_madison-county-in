@@ -1,14 +1,17 @@
 <template>
   <div>
+    <!-- {{ community }} -->
+    <!-- {{ communities }}
+     -->
     <BaseLeftPanel :resources="community.acf.resources" />
-    <OfficeNavigation
+    <CommunityNavigation
       :tabs="tabs"
       :backgroundImage="
         community.media_url == '' ? undefined : community.media_url
       "
       :events="listOfEvents"
       :team="profiles"
-      :office="community"
+      :community="community"
       :jobs="jobPositions"
       :resources="community.acf.resources"
     />
@@ -17,12 +20,12 @@
 
 <script>
 import { mapState } from "vuex"
-import OfficeNavigation from "~/layouts/partials/OfficeNavigation"
+import CommunityNavigation from "~/layouts/partials/CommunityNavigation"
 
 export default {
   layout: "office",
 
-  components: { OfficeNavigation },
+  components: { CommunityNavigation },
 
   data: () => ({
     collapseOnScroll: true,
@@ -81,10 +84,9 @@ export default {
 
     community() {
       let array = this.communities.filter(
-        ({ categories, tags, slug }) =>
-          categories.includes(this.community_category_id) &&
-          tags.includes(this.city_tag_id) &&
-          slug
+        ({ tags, slug }) =>
+          // categories.includes(this.community_category_id) &&
+          tags.includes(this.city_tag_id) && slug
       )
 
       return array[0]
