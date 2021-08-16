@@ -54,10 +54,7 @@
               </v-icon>
             </v-list-item-icon>
             <v-list-item-content>
-              <v-list-item-title
-                class="lightgrey--text"
-                v-text="'1231234567'"
-              />
+              <v-list-item-title class="lightgrey--text" v-html="phone" />
             </v-list-item-content>
           </v-list-item>
 
@@ -68,10 +65,17 @@
               </v-icon>
             </v-list-item-icon>
             <v-list-item-content>
-              <v-list-item-title
-                class="lightgrey--text"
-                v-text="'noreply@madisoncounty.in.gov'"
-              />
+              <v-list-item-title class="lightgrey--text" v-text="email" />
+            </v-list-item-content>
+          </v-list-item>
+          <v-list-item :href="url" v-if="url">
+            <v-list-item-icon>
+              <v-icon dense class="fa-fw lightgrey--text">
+                fa-globe
+              </v-icon>
+            </v-list-item-icon>
+            <v-list-item-content>
+              <v-list-item-title class="lightgrey--text" v-text="url" />
             </v-list-item-content>
           </v-list-item>
         </v-list>
@@ -120,6 +124,9 @@
 export default {
   props: {
     resources: Array,
+    email: String,
+    phone: String,
+    url: String,
   },
 
   computed: {
