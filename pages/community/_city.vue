@@ -1,6 +1,11 @@
 <template>
   <div>
-    <BaseLeftPanel :resources="community.acf.resources" />
+    <BaseLeftPanel
+      :url="community.acf.url"
+      :phone="community.acf.phone"
+      :email="community.acf.email"
+      :resources="community.acf.resources"
+    />
     <CommunityNavigation
       :tabs="tabs"
       :backgroundImage="
