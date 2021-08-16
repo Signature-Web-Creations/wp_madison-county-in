@@ -1,8 +1,5 @@
 <template>
   <div>
-    <!-- {{ community }} -->
-    <!-- {{ communities }}
-     -->
     <BaseLeftPanel :resources="community.acf.resources" />
     <CommunityNavigation
       :tabs="tabs"
