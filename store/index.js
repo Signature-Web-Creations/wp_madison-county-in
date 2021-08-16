@@ -7,6 +7,7 @@ export const state = () => ({
   landingPages: [],
   homeMenus: [],
   offices: [],
+  communities: [],
   categories: [],
   tags: null,
   categoryMap: null,
@@ -41,6 +42,9 @@ export const mutations = {
   },
   UPDATE_OFFICES: (state, payload) => {
     state.offices = payload
+  },
+  UPDATE_COMMUNITES: (state, payload) => {
+    state.communities = payload
   },
   UPDATE_TAGS: (state, obj) => {
     state.tags = obj
@@ -124,20 +128,6 @@ export const actions = {
     }
   },
 
-  // async gethomeMenus({ state, commit }) {
-  //   try {
-  //     // console.log('menu method was tried')
-  //     const homeMenus = await fetch(
-  //       'http://localhost/wp-json/menus/v1/menus/2'
-  //       ).then((res) => res.json())
-  //       // console.log(homeMenus.items)
-
-  //     commit('updatehomeMenus', homeMenus)
-  //   } catch (err) {
-  //       console.log(err);
-  //   }
-  // },
-
   async getOffices({ state, commit }) {
     const fields = [
       "acf",
@@ -190,6 +180,56 @@ export const actions = {
       console.log(err)
     }
   },
+  async getCommunities({ state, commit }) {
+    const fields = [
+      "acf",
+      "slug",
+      "yoast_head",
+      "categories",
+      "featured_media",
+      "tags",
+      "title",
+      "content",
+      "icon",
+    ]
+    const fieldParameter = fields.join(",")
+    const url =
+      this.$config.apiUrl + `community?per_page=100&_fields=${fieldParameter}`
+
+    try {
+      let communities = await fetch(url).then((res) => res.json())
+      communities = communities.map(
+        ({
+          acf,
+          slug,
+          yoast_head,
+          categories,
+          featured_media,
+          tags,
+          title,
+          content,
+        }) => {
+          return {
+            acf,
+            slug,
+            yoast_head,
+            categories,
+            media_url: getFeaturedMediaURL(
+              state.featuredImages,
+              featured_media
+            ),
+            tags,
+            name: title.rendered,
+            acf_content: acf.content,
+            content,
+          }
+        }
+      )
+      commit("UPDATE_COMMUNITES", communities)
+    } catch (err) {
+      console.log(err)
+    }
+  },
 
   async getCategories({ commit }) {
     const fields = ["id", "name", "slug"]
@@ -198,6 +238,10 @@ export const actions = {
 
     try {
       let categories = await fetch(url).then((res) => res.json())
+      // categories = categories.filter(
+      //   (categories) =>
+      //     categories.slug === "government" || categories.slug === "residents"
+      // )
       let map = {}
 
       categories.forEach(({ slug, id }) => {
@@ -283,7 +327,7 @@ export const actions = {
   getCategoriesWithPosts({ commit, state }) {
     function categoryOffices(category_id) {
       let hasCategory = function (office) {
-        // console.log(office.categories.includes(category_id));
+        // console.log(office.categories.includes(category_id))
         return office.categories.includes(category_id)
       }
       return state.offices
@@ -297,25 +341,25 @@ export const actions = {
       /* Returns page with matching slug if found */
       for (let i = 0; i < state.landingPages.length; i++) {
         let current_page = state.landingPages[i]
-        // console.log(current_page)
         if (current_page.slug === slug) {
           return current_page
         }
       }
       throw new `Couldn't find page for slug ${slug}`()
     }
-
+    console.log(state.categories)
     const result = state.categories.map((c) => {
       let category = Object.assign({}, c)
       try {
         const page = getPageWithSlug(category.slug)
+        // console.log(page)
         category.content = page.content.rendered
         category.featured_media_id = page.featured_media
       } catch {
         category.featured_media_url = ""
       }
       category.posts = categoryOffices(category.id)
-      // console.log(category);
+
       return category
     })
 

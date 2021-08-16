@@ -73,7 +73,7 @@
           v-for="city in communityList"
           :key="city.name"
           link
-          :to="(city.url + '/' + city.name) | lowercase"
+          :to="('/community/' + city.name) | lowercase"
         >
           <!-- <v-list-item-icon>
           <v-icon dense>{{ item.icon }}</v-icon>
@@ -144,7 +144,7 @@ export default {
         { name: "Alexandria", url: "/community" },
         { name: "Anderson", url: "/community" },
         { name: "Chesterfield", url: "/community" },
-        { name: "Edgewoo", url: "/community" },
+        { name: "Edgewood", url: "/community" },
         { name: "Elwood", url: "/community" },
         { name: "Frankton", url: "/community" },
         { name: "Ingalls", url: "/community" },
