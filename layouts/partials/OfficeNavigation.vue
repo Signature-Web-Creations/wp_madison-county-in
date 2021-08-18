@@ -124,7 +124,11 @@
           </v-tab-item>
         </v-tabs-items>
       </v-container>
-      <BaseBottomNavigation :docs="resources" class="d-md-none" />
+      <BaseBottomNavigation
+        v-if="resources"
+        :docs="resources"
+        class="d-md-none"
+      />
     </v-sheet>
   </div>
 </template>
@@ -138,7 +142,7 @@ export default {
       type: Array,
       required: true,
     },
-    resources: Array,
+    resources: [Array, Boolean],
     backgroundImage: {
       type: String,
       default:

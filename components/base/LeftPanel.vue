@@ -80,6 +80,7 @@
           </v-list-item>
         </v-list>
       </v-sheet>
+
       <v-sheet class="blackish mt-2" v-if="resources">
         <v-card-title
           class="lightgrey--text font-condensed text-h4 text-uppercase"
@@ -123,7 +124,7 @@
 <script>
 export default {
   props: {
-    resources: Array,
+    resources: [Array, Boolean],
     email: String,
     phone: String,
     url: String,
