@@ -84,14 +84,10 @@
           <v-tab-item id="tabs-icons-text-1" :style="adjustWidth">
             <v-container>
               <h1 v-html="office.name"></h1>
-              <section
-                v-for="row in office.acf.two_column_layout"
-                :key="row.services"
-              >
+              <section>
                 <v-row>
                   <v-col cols="12" class="mt-1">
-                    <h2 v-html="row.two_column_header" />
-                    <div class="mt-2" v-html="row.services" />
+                    <div class="mt-2" v-html="office.acf.overview" />
                   </v-col>
                 </v-row>
               </section>

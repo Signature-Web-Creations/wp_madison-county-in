@@ -1,6 +1,9 @@
 <template>
   <div>
-    <BaseLeftPanel :resources="office.acf.resources" />
+    <BaseLeftPanel
+      :resources="office.acf.resources"
+      :contactInfo="primaryContact"
+    />
     <OfficeNavigation
       :tabs="tabs"
       :backgroundImage="office.media_url == '' ? undefined : office.media_url"
@@ -106,6 +109,15 @@ export default {
             tags.includes(this.office_tag_id) &&
             tags.includes(this.employment_tag_id)
         )
+      }
+    },
+
+    primaryContact() {
+      return {
+        title: "Office Administrator",
+        email: this.office.acf.email,
+        url: this.office.acf.url,
+        phone: this.office.acf.phone,
       }
     },
 
