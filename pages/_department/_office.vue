@@ -117,7 +117,6 @@ export default {
         (person) =>
           person.primary === true && person.tags[0] === this.office_tag_id
       )
-      console.log(primary)
 
       if (primary) {
         return {
