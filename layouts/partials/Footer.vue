@@ -20,14 +20,16 @@
                   16 East 9th Street<br />
                   Anderson, IN 46016
                 </p>
-                <a :to="{ path: '/directions' }">Get Directions</a>
+                <nuxt-link :to="{ name: 'map-directions' }">
+                  Get Directions
+                </nuxt-link>
               </v-col>
             </v-row>
           </v-col>
           <v-col cols="12" md="6" class="py-5 text-center text-md-left">
             <h4 class="text-uppercase">Help</h4>
             <div v-for="link in footerMenu" :key="link.name">
-              <a :to="link.url">{{ link.name }}</a>
+              <nuxt-link :to="link.url">{{ link.name }}</nuxt-link>
             </div>
           </v-col>
         </v-row>
@@ -42,9 +44,9 @@
           </v-col>
           <v-col cols="12" md="6" class="text-center text-md-right">
             <span v-for="(link, index) in bottomBarLinks" :key="link.name">
-              <a :to="link.url">
+              <nuxt-link :to="link.url">
                 {{ link.name }}
-              </a>
+              </nuxt-link>
               <span v-if="index + 1 < bottomBarLinks.length" class="mx-3">
                 |
               </span>

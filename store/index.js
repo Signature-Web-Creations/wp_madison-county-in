@@ -347,7 +347,7 @@ export const actions = {
       }
       throw new `Couldn't find page for slug ${slug}`()
     }
-    console.log(state.categories)
+    // console.log(state.categories)
     const result = state.categories.map((c) => {
       let category = Object.assign({}, c)
       try {
@@ -402,5 +402,13 @@ export const actions = {
     } catch (err) {
       console.log(err)
     }
+  },
+
+  getPageContent({}, slug) {
+    const url = this.$config.apiUrl + `posts?slug=${slug}`
+
+    return this.$axios.get(url).then(({ data }) => {
+      return data[0]
+    })
   },
 }

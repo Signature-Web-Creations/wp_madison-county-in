@@ -3,8 +3,8 @@
     class="theme--light grey lighten-3"
     style="height: 20vh; min-height: 300px;"
     :style="
-      office.media_url != ''
-        ? 'background-image: url(' + office.media_url + ');'
+      image != ''
+        ? 'background-image: url(' + image + ');'
         : 'background-image: url(http://mcapi.signaturewebcreations.com/wp-content/uploads/2021/07/photo-1602992708529-c9fdb12905c9-scaled.jpeg);'
     "
   >
@@ -26,9 +26,9 @@
 <script>
 export default {
   props: {
-    office: {
+    image: {
       type: Object,
-      required: true,
+      default: "",
     },
   },
 }
@@ -36,7 +36,6 @@ export default {
 
 <style lang="scss" scoped>
 .v-sheet.theme--light.grey.lighten-3 {
-  // background-image: url(http://mcapi.signaturewebcreations.com/wp-content/uploads/2021/07/photo-1602992708529-c9fdb12905c9-scaled.jpeg);
   background-size: cover;
   background-position: center;
   position: relative;
