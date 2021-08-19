@@ -113,11 +113,26 @@ export default {
     },
 
     primaryContact() {
-      return {
-        title: "Office Administrator",
-        email: this.office.acf.email,
-        url: this.office.acf.url,
-        phone: this.office.acf.phone,
+      const primary = this.countyProfiles.find(
+        (person) =>
+          person.primary === true && person.tags[0] === this.office_tag_id
+      )
+      console.log(primary)
+
+      if (primary) {
+        return {
+          title: primary.titlerole,
+          email: primary.email,
+          url: this.office.acf.url,
+          phone: primary.phone,
+        }
+      } else {
+        return {
+          title: "Office Administrator",
+          email: this.office.acf.email,
+          url: this.office.acf.url,
+          phone: this.office.acf.phone,
+        }
       }
     },
 

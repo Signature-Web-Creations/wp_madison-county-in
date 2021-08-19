@@ -255,7 +255,7 @@ export const actions = {
     }
   },
 
-  async getTags({ state, commit }) {
+  async getTags({ commit }) {
     const fields = ["id", "slug"]
     const parameters = fields.join(",")
     const url = this.$config.apiUrl + `tags?_fields=${parameters}&per_page=100`
@@ -272,7 +272,7 @@ export const actions = {
     }
   },
 
-  async getFeaturedImages({ state, commit }) {
+  async getFeaturedImages({ commit }) {
     const fields = ["id", "guid"]
     const parameters = fields.join(",")
     const url = this.$config.apiUrl + `media?_fields=${parameters}`
@@ -284,7 +284,7 @@ export const actions = {
     }
   },
 
-  async getCountyProfiles({ state, commit }) {
+  async getCountyProfiles({ commit }, getPrimary) {
     const fields = [
       "id",
       "title.rendered",
@@ -295,11 +295,13 @@ export const actions = {
       "featured_media",
       "tags",
       "categories",
+      "acf.office_primary",
     ]
 
     const fieldParameter = fields.join(",")
     const url =
       this.$config.apiUrl + `profile?per_page=100&_fields=${fieldParameter}`
+
     try {
       let profiles = await fetch(url).then((res) => res.json())
       profiles = profiles.map(
@@ -315,10 +317,15 @@ export const actions = {
             tags,
             title: title.rendered,
             titlerole: acf ? acf.titlerole : "",
+            primary: acf ? acf.office_primary : false,
           }
         }
       )
-      commit("UPDATE_COUNTY_PROFILES", profiles)
+      if (getPrimary) {
+        return profiles
+      } else {
+        commit("UPDATE_COUNTY_PROFILES", profiles)
+      }
     } catch (err) {
       console.log(err)
     }
