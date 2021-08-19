@@ -2,11 +2,7 @@
   <footer app>
     <section class="footer-top">
       <v-container>
-        <v-row
-          no-gutters
-          class="py-10"
-          align-content="center"
-        >
+        <v-row no-gutters class="py-10" align-content="center">
           <v-col cols="12" md="6" class="py-5">
             <v-row align-content="center" justify="center">
               <v-col class="col-auto">
@@ -24,7 +20,7 @@
                   16 East 9th Street<br />
                   Anderson, IN 46016
                 </p>
-                <a>Get Directions</a>
+                <a :to="{ path: '/directions' }">Get Directions</a>
               </v-col>
             </v-row>
           </v-col>
@@ -67,32 +63,32 @@ export default {
       bottomBarLinks: [
         {
           name: "Disclaimer",
-          url: "/disclaimer"
+          url: "/disclaimer",
         },
         {
           name: "Privacy",
-          url: "/privacy-policy"
+          url: "/privacy-policy",
         },
         {
           name: "Jobs",
-          url: "/human-resources"
-        }
+          url: "/human-resources",
+        },
       ],
       footerMenu: [
         {
           name: "Contact Madison County",
-          url: "/contact"
+          url: "/contact",
         },
         {
           name: "Find a County Service",
-          url: "/contact"
+          url: "/contact",
         },
         {
           name: "Report a Problem",
-          url: "/report"
-        }
-      ]
-    };
+          url: "/report",
+        },
+      ],
+    }
   },
 
   computed: {
@@ -100,15 +96,15 @@ export default {
       switch (this.$vuetify.breakpoint.name) {
         case "xs":
         case "sm":
-          return "shrink-width-mobile mx-auto";
+          return "shrink-width-mobile mx-auto"
         case "md":
         case "lg":
         case "xl":
-          return "";
+          return ""
       }
-    }
-  }
-};
+    },
+  },
+}
 </script>
 
 <style lang="scss" scoped>
