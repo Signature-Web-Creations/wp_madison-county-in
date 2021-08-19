@@ -1,5 +1,5 @@
 <template>
-  <v-container class="pt-15">
+  <v-container class="pt-15 pb-15">
     <v-row>
       <v-col cols="12">
         <h1 v-html="title" />
