@@ -162,21 +162,23 @@ export default {
      */
     async setFeaturedImageUrl() {
       let array = []
-
-      for (let i = 0; i < this.categoriesWithPosts.length; i++) {
+      let categories_With_Posts = this.categoriesWithPosts.filter(
+        (categoryobject) => categoryobject.posts.length > 0
+      )
+      for (let i = 0; i < categories_With_Posts.length; i++) {
         let image = await fetch(
           this.$config.apiUrl +
             "media/" +
-            this.categoriesWithPosts[i].featured_media_id
+            categories_With_Posts[i].featured_media_id
         )
           .then((response) => response.json())
           .catch((error) => error.response.status)
         if (!image.data) {
-          this.categoriesWithPosts[i].featured_media_url = image.guid.rendered
+          categories_With_Posts[i].featured_media_url = image.guid.rendered
         } else {
-          this.categoriesWithPosts[i].featured_media_url = ""
+          categories_With_Posts[i].featured_media_url = ""
         }
-        array.push(this.categoriesWithPosts[i])
+        array.push(categories_With_Posts[i])
       }
       this.categories = array
     },
