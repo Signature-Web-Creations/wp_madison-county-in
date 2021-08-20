@@ -115,7 +115,8 @@ export default {
     primaryContact() {
       const primary = this.countyProfiles.find(
         (person) =>
-          person.primary === true && person.tags[0] === this.office_tag_id
+          person.office_primary === true &&
+          person.tags[0] === this.office_tag_id
       )
 
       if (primary) {
