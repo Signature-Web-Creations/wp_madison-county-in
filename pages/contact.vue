@@ -25,9 +25,9 @@
               <tbody>
                 <tr v-for="item in primaryContacts" :key="item.name">
                   <td>
-                    <strong>{{ item.title }}</strong>
+                    <strong v-html="item.title" />
                     <br />
-                    <em>{{ item.titlerole }}</em>
+                    <em v-html="item.tags.name" />
                   </td>
                   <td>{{ item.phone }}</td>
                   <td>
@@ -47,15 +47,23 @@
 export default {
   async asyncData({ route, store }) {
     const profiles = await store.dispatch("getCountyProfiles", true)
+    const tags = await store.dispatch("getTags", true)
     const data = await store.dispatch("getPageContent", route.name)
     const content = data.content.rendered
     const title = data.title.rendered
-    return { content, title, profiles }
+    return { content, title, profiles, tags }
   },
 
   computed: {
     primaryContacts() {
-      return this.profiles.filter((person) => person.primary === true)
+      let array = this.profiles.filter((person) => person.primary === true)
+      array.forEach((element) => {
+        if (element.tags[0]) {
+          let tag = this.tags.find((item) => item.id === element.tags[0])
+          element.tags = tag
+        }
+      })
+      return array
     },
   },
 }

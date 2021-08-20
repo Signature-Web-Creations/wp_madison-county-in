@@ -255,8 +255,8 @@ export const actions = {
     }
   },
 
-  async getTags({ commit }) {
-    const fields = ["id", "slug"]
+  async getTags({ commit }, getPrimary) {
+    const fields = ["id", "slug", "name"]
     const parameters = fields.join(",")
     const url = this.$config.apiUrl + `tags?_fields=${parameters}&per_page=100`
 
@@ -266,7 +266,18 @@ export const actions = {
       tags.forEach(({ id, slug }) => {
         tagMap[slug] = id
       })
-      commit("UPDATE_TAGS", tagMap)
+      if (getPrimary) {
+        let tagsList = tags.map(({ id, name, slug }) => {
+          return {
+            id,
+            name,
+            slug,
+          }
+        })
+        return tagsList
+      } else {
+        commit("UPDATE_TAGS", tagMap)
+      }
     } catch (error) {
       console.log(error)
     }
