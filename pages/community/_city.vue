@@ -1,20 +1,13 @@
 <template>
   <div>
-    <BaseLeftPanel
-      :url="community.acf.url"
-      :phone="community.acf.phone"
-      :email="community.acf.email"
-      :resources="community.acf.resources"
-    />
+    <BaseLeftPanel :url="community.acf.url" :contactInfo="primaryContact" />
     <CommunityNavigation
       :tabs="tabs"
       :backgroundImage="
         community.media_url == '' ? undefined : community.media_url
       "
       :events="listOfEvents"
-      :team="profiles"
       :community="community"
-      :jobs="jobPositions"
       :resources="community.acf.resources"
     />
   </div>
@@ -75,20 +68,7 @@ export default {
           name: "Directory",
           icon: "fa-address-book",
         },
-        {
-          name: "Team",
-          icon: "fa-user-alt",
-        },
       ]
-
-      if (this.jobPositions != 0) {
-        let jobItem = {
-          name: "Jobs",
-          icon: "fa-briefcase",
-        }
-        array.push(jobItem)
-      }
-
       return array
     },
 
@@ -102,25 +82,27 @@ export default {
       return array[0]
     },
 
-    profiles() {
-      return this.countyProfiles.filter(
-        ({ categories, tags }) =>
-          categories.includes(this.community_category_id) &&
-          tags.includes(this.city_tag_id)
+    primaryContact() {
+      const primary = this.countyProfiles.find(
+        (person) =>
+          person.office_primary === true &&
+          person.tags[0] === this.office_tag_id
       )
-    },
 
-    jobPositions() {
-      if (this.$route.params.office === "human-resources") {
-        return this.listOfJobs.filter(({ tags }) =>
-          tags.includes(this.employment_tag_id)
-        )
+      if (primary) {
+        return {
+          title: primary.titlerole,
+          email: primary.email,
+          url: this.office.acf.url,
+          phone: primary.phone,
+        }
       } else {
-        return this.listOfJobs.filter(
-          ({ tags }) =>
-            tags.includes(this.city_tag_id) &&
-            tags.includes(this.employment_tag_id)
-        )
+        return {
+          title: "Office Administrator",
+          email: this.community.acf.email,
+          url: this.community.acf.url,
+          phone: this.community.acf.phone,
+        }
       }
     },
 
@@ -131,7 +113,6 @@ export default {
       categoryMap: (state) => state.categoryMap,
       countyProfiles: (state) => state.countyProfiles,
       tags: (state) => state.tags,
-      listOfJobs: (state) => state.jobs,
     }),
   },
 

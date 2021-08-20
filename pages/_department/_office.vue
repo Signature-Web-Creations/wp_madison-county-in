@@ -4,6 +4,8 @@
       :resources="office.acf.resources"
       :contactInfo="primaryContact"
     />
+    {{ primaryContact }}
+
     <OfficeNavigation
       :tabs="tabs"
       :backgroundImage="office.media_url == '' ? undefined : office.media_url"
@@ -30,6 +32,7 @@ export default {
     department_category_id: "",
     office_tag_id: "",
     employment_tag_id: 30,
+    // primary: "",
     items: [
       { title: "Home", icon: "mdi-home-city" },
       { title: "My Account", icon: "mdi-account" },
@@ -113,17 +116,14 @@ export default {
     },
 
     primaryContact() {
-      const primary = this.countyProfiles.find(
-        (person) =>
-          person.primary === true && person.tags[0] === this.office_tag_id
-      )
+      let primary = this.profiles.find((obj) => obj.acf.office_primary == true)
 
       if (primary) {
         return {
-          title: primary.titlerole,
-          email: primary.email,
+          title: primary.acf.titlerole,
+          email: primary.acf.email,
           url: this.office.acf.url,
-          phone: primary.phone,
+          phone: primary.acf.phone,
         }
       } else {
         return {

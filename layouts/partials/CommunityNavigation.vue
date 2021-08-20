@@ -112,23 +112,6 @@
               <BaseEventList :events="events" />
             </v-container>
           </v-tab-item>
-          <v-tab-item id="tabs-icons-text-5" :style="adjustWidth">
-            <v-container class="tab-pane fade px-md-16">
-              <h1 v-html="community.name + ' Team'"></h1>
-              <BaseTeam :team="team" :title="community.name" />
-            </v-container>
-          </v-tab-item>
-
-          <v-tab-item
-            v-if="jobs.length != 0"
-            id="tabs-icons-text-4"
-            :style="adjustWidth"
-          >
-            <v-container class="tab-pane fade px-md-16">
-              <h1>Open Positions</h1>
-              <BaseJobs :jobs="jobs" />
-            </v-container>
-          </v-tab-item>
         </v-tabs-items>
       </v-container>
       <BaseBottomNavigation :docs="resources" class="d-md-none" />
@@ -145,16 +128,15 @@ export default {
       type: Array,
       required: true,
     },
-    resources: Array,
+    resources: [Array, Boolean],
     backgroundImage: {
       type: String,
       default:
         "http://mcapi.signaturewebcreations.com/wp-content/uploads/2021/07/photo-1602992708529-c9fdb12905c9-scaled.jpeg",
     },
     events: Array,
-    team: Array,
+
     community: Object,
-    jobs: Array,
   },
 
   data() {
