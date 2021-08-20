@@ -25,7 +25,7 @@
             homepost.acf.hero_image.url +
             ')',
           'background-size': 'cover',
-          'background-position': 'center'
+          'background-position': 'center',
         }"
       ></v-carousel-item>
     </v-carousel>
@@ -40,7 +40,7 @@
           color="primary"
           class="lightgrey--text h2 ma-0 pa-0"
           :style="{
-            'font-size': header2
+            'font-size': header2,
           }"
           v-if="carouselIndex === index"
           v-html="post.acf.subheader"
@@ -75,57 +75,55 @@ export default {
   data() {
     return {
       carouselIndex: 0,
-      homeFeatures: []
-    };
+      homeFeatures: [],
+    }
   },
 
   async fetch() {
     this.homeFeatures = await fetch(
       this.$config.apiUrl + "home_features"
-    ).then(res => res.json());
+    ).then((res) => res.json())
     this.homeFeatures = this.homeFeatures.map(
       ({ acf, title, slug, yoast_head }) => ({
         acf,
         title,
         slug,
-        yoast_head
+        yoast_head,
       })
-    );
+    )
   },
 
   computed: {
     header2() {
       switch (this.$vuetify.breakpoint.name) {
-        case 'xs':
+        case "xs":
           return "30px"
-        case 'sm':
-        case 'md':
-        case 'lg':
-        case 'xl':
+        case "sm":
+        case "md":
+        case "lg":
+        case "xl":
           return "62px"
       }
     },
     header1() {
-      let object = {};
-
       switch (this.$vuetify.breakpoint.name) {
-        case 'xs':
-          return object = {
+        case "xs":
+          return {
             "font-size": "40px",
-            "line-height": "1.07"
+            "line-height": "1.07",
           }
-        case 'sm':
-        case 'md':
-        case 'lg':
-        case 'xl':
-          return object = {
+        case "sm":
+        case "md":
+        case "lg":
+        case "xl":
+          return {
             "font-size": "62px",
-            "line-height": "1.1"
+            "line-height": "1.1",
           }
       }
-    }
-  }
-};
+    },
+  },
+}
 </script>
 
 <style lang="scss" scoped>

@@ -1,7 +1,7 @@
 <template>
   <div id="events" class="lightgrey pb-10">
     <div class="d-flex justify-space-around mt-8 mb-10 pt-8 pb-5">
-      <h2 class="head-line display-3 text-center blackish--text">
+      <h2 class="head-line display-3 h2 text-center blackish--text">
         <small class="top-subheader primary--text text-left">
           How to Stay Engaged
         </small>

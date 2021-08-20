@@ -35,7 +35,7 @@
               }"
             >
               <h2
-                class="section-name display-2 mb-10 text-center"
+                class="section-name display-2 h2 mb-10 text-center"
                 :class="{
                   'text-lg-left ml-lg-4': index % 2 === 0,
                   'text-lg-right mr-lg-4 lightgrey--text': index % 2 !== 0,

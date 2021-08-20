@@ -10,7 +10,7 @@
       <v-container>
         <v-row>
           <v-col cols="12" lg="8" xl="6">
-            <h2 class="display-2 mb-8">Madison County Visitor's Bureau</h2>
+            <h2 class="display-2 h2 mb-8">Madison County Visitor's Bureau</h2>
             <p class="white--text mt-8 mb-6">
               Lorem ipsum, dolor sit amet consectetur adipisicing elit.
               Quibusdam officiis corporis deleniti tempora atque adipisci minima
