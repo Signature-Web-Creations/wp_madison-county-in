@@ -37,8 +37,8 @@
               <h2
                 class="section-name display-2 mb-10 text-center"
                 :class="{
-                  'text-lg-right ml-lg-4': index % 2 === 0,
-                  'text-lg-left mr-lg-4 lightgrey--text': index % 2 !== 0,
+                  'text-lg-left ml-lg-4': index % 2 === 0,
+                  'text-lg-right mr-lg-4 lightgrey--text': index % 2 !== 0,
                 }"
               >
                 {{ category.name }}
