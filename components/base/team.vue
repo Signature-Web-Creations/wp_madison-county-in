@@ -38,20 +38,40 @@
         </template>
 
         <v-card>
-          <v-card-title
-            v-html="profile.title"
-            class="headline grey lighten-2"
-          />
-          <v-card-subtitle class="grey lighten-2" v-html="profile.titlerole" />
-          <v-card-text class="mt-5" v-html="profile.content" />
+          <v-card-title class="headline grey lighten-2 py-5">
+            <v-avatar size="56">
+              <img
+                :alt="profile.title"
+                :src="
+                  profile.media_url != ''
+                    ? profile.media_url
+                    : require('~/assets/madison_silhouettes_1.png')
+                "
+              />
+            </v-avatar>
+            <div class="ml-3 mt-3">
+              <span v-html="profile.title" /><br />
+              <span class="v-card__subtitle" v-html="profile.titlerole" />
+            </div>
+          </v-card-title>
+          <v-card-text class="mt-5">
+            <p v-if="profile.phone != ''">
+              <strong>PHONE: </strong>{{ profile.phone }}
+            </p>
+            <p v-if="profile.email != ''">
+              <strong>EMAIL: </strong>
+              <a :href="`mailto:${profile.email}`">{{ profile.email }}</a>
+            </p>
+            <div v-if="profile.content != ''">
+              <p class="mb-0"><strong>BIOGRAPHY: </strong></p>
+              <div v-if="profile.content != ''" v-html="profile.content" />
+            </div>
+          </v-card-text>
           <v-divider />
           <v-card-actions>
             <v-spacer />
             <v-btn color="primary" text @click="$set(dialog, index, false)">
               Close
-            </v-btn>
-            <v-btn color="primary" text>
-              Email
             </v-btn>
           </v-card-actions>
         </v-card>
@@ -131,5 +151,11 @@ export default {
 }
 .profile_av {
   box-shadow: 0 0 2px #444;
+}
+.v-application .headline {
+  line-height: 1.2rem;
+}
+.v-card__subtitle {
+  padding-left: 2px;
 }
 </style>

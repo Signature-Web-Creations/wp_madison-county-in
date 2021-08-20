@@ -319,7 +319,6 @@ export const actions = {
         ({ id, title, content, acf, featured_media, tags, categories }) => {
           return {
             id,
-            acf,
             categories,
             content: content.rendered,
             email: acf ? acf.email : "",

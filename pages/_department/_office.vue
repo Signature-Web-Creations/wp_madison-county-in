@@ -116,14 +116,14 @@ export default {
     },
 
     primaryContact() {
-      let primary = this.profiles.find((obj) => obj.acf.office_primary == true)
+      let primary = this.profiles.find((obj) => obj.primary == true)
 
       if (primary) {
         return {
-          title: primary.acf.titlerole,
-          email: primary.acf.email,
+          title: primary.titlerole,
+          email: primary.email,
           url: this.office.acf.url,
-          phone: primary.acf.phone,
+          phone: primary.phone,
         }
       } else {
         return {
