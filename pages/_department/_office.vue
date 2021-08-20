@@ -2,8 +2,9 @@
   <div>
     <BaseLeftPanel
       :resources="office.acf.resources"
-      :contactInfo="primaryContact.primary"
+      :contactInfo="primaryContact"
     />
+    {{ primaryContact }}
 
     <OfficeNavigation
       :tabs="tabs"
@@ -115,13 +116,14 @@ export default {
     },
 
     primaryContact() {
-      const primary = this.profiles.find(
-        (obj) => obj.acf.office_primary == true
-      )
+      let primary = this.profiles.find((obj) => obj.acf.office_primary == true)
 
       if (primary) {
         return {
-          primary,
+          title: primary.acf.titlerole,
+          email: primary.acf.email,
+          url: this.office.acf.url,
+          phone: primary.acf.phone,
         }
       } else {
         return {
