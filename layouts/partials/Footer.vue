@@ -111,6 +111,13 @@ export default {
 
 <style lang="scss" scoped>
 footer {
+  a {
+    color: $color__text-light;
+    text-decoration: none;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
   .footer-top {
     background-color: $color__text-main;
     color: $color__text-light;
