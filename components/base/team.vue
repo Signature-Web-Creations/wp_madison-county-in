@@ -40,7 +40,7 @@
         <v-card>
           <v-card-title class="headline grey lighten-2 py-5">
             <v-avatar size="56">
-              <img
+              <v-img
                 :alt="profile.title"
                 :src="
                   profile.media_url != ''
