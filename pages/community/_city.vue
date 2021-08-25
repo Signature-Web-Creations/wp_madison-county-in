@@ -106,7 +106,6 @@ export default {
       }
     },
     async setHeroImageUrl() {
-      console.log("communities", this.communities)
       if (this.community.media_url) {
         let heroobj = await fetch(
           this.$config.apiUrl + "media/" + this.community.media_url

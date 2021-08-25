@@ -55,9 +55,7 @@ export default {
     }
     await store.dispatch("wuapi/getEvents", options)
   },
-  // async fetch() {
-  //   await this.setHeroImageUrl()
-  // },
+
   methods: {
     /**
      * Used this function to get the image from the Wordpress API because
@@ -128,9 +126,7 @@ export default {
 
     primaryContact() {
       let primary = this.profiles.find((obj) => obj.primary == true)
-      console.log("this is profile", primary)
 
-      // let primary = false
       if (primary) {
         return {
           title: primary.titlerole,
