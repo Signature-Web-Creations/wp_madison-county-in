@@ -4,17 +4,17 @@
       :resources="office.acf.resources"
       :contactInfo="primaryContact"
     />
-    {{ primaryContact }}
 
     <OfficeNavigation
       :tabs="tabs"
-      :backgroundImage="office.media_url == '' ? undefined : office.media_url"
+      :backgroundImage="image_url"
       :events="listOfEvents"
       :team="profiles"
       :office="office"
       :jobs="jobPositions"
       :resources="office.acf.resources"
     />
+    {{ setHeroImageUrl }}
   </div>
 </template>
 
@@ -30,6 +30,7 @@ export default {
   data: () => ({
     collapseOnScroll: true,
     department_category_id: "",
+    image_url: "",
     office_tag_id: "",
     employment_tag_id: 30,
     // primary: "",
@@ -46,6 +47,7 @@ export default {
     await store.dispatch("getTags")
     await store.dispatch("getCountyProfiles")
     await store.dispatch("getJobsList")
+    // await store.dispatch("getHeroImages")
 
     let options = {
       type: "latest",
@@ -53,7 +55,17 @@ export default {
     }
     await store.dispatch("wuapi/getEvents", options)
   },
-
+  // async fetch() {
+  //   await this.setHeroImageUrl()
+  // },
+  methods: {
+    /**
+     * Used this function to get the image from the Wordpress API because
+     * trying to pass the value through a function call was always returning
+     * a promise and we were unable to extract the string from the promise.
+     * Being pressed for time, I resorted to an old fashioned method for loop.
+     */
+  },
   computed: {
     tabs() {
       let array = [
@@ -89,7 +101,6 @@ export default {
           tags.includes(this.office_tag_id) &&
           slug
       )
-
       return array[0]
     },
 
@@ -117,7 +128,9 @@ export default {
 
     primaryContact() {
       let primary = this.profiles.find((obj) => obj.primary == true)
+      console.log("this is profile", primary)
 
+      // let primary = false
       if (primary) {
         return {
           title: primary.titlerole,
@@ -134,6 +147,21 @@ export default {
         }
       }
     },
+    async setHeroImageUrl() {
+      console.log(this.office)
+      if (this.office.media_url) {
+        let heroobj = await fetch(
+          this.$config.apiUrl + "media/" + this.office.media_url
+        )
+          .then((response) => response.json())
+          .catch((error) => error.response.status)
+        console.log("this is teams ", heroobj)
+        this.image_url = heroobj.guid.rendered
+      } else {
+        this.image_url =
+          "http://mcapi.signaturewebcreations.com/wp-content/uploads/2021/07/photo-1602992708529-c9fdb12905c9-scaled.jpeg"
+      }
+    },
 
     ...mapState({
       offices: (state) => state.offices,
@@ -143,10 +171,13 @@ export default {
       countyProfiles: (state) => state.countyProfiles,
       tags: (state) => state.tags,
       listOfJobs: (state) => state.jobs,
+      // heroImage: (state) => state.heroImages,
     }),
   },
 
   async created() {
+    // this.mymethod('setHeroImageUrl');
+
     this.department_category_id = this.categoryMap[
       this.$route.params.department
     ]

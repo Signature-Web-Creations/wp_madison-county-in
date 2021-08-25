@@ -3,13 +3,12 @@
     <BaseLeftPanel :url="community.acf.url" :contactInfo="primaryContact" />
     <CommunityNavigation
       :tabs="tabs"
-      :backgroundImage="
-        community.media_url == '' ? undefined : community.media_url
-      "
+      :backgroundImage="image_url"
       :events="listOfEvents"
       :community="community"
       :resources="community.acf.resources"
     />
+    {{ setHeroImageUrl }}
   </div>
 </template>
 
@@ -25,6 +24,7 @@ export default {
   data: () => ({
     collapseOnScroll: true,
     community_category_id: "",
+    image_url: "",
     city_tag_id: "",
     employment_tag_id: 30,
     items: [
@@ -103,6 +103,21 @@ export default {
           url: this.community.acf.url,
           phone: this.community.acf.phone,
         }
+      }
+    },
+    async setHeroImageUrl() {
+      console.log("communities", this.communities)
+      if (this.community.media_url) {
+        let heroobj = await fetch(
+          this.$config.apiUrl + "media/" + this.community.media_url
+        )
+          .then((response) => response.json())
+          .catch((error) => error.response.status)
+        console.log("this is teams ", heroobj)
+        this.image_url = heroobj.guid.rendered
+      } else {
+        this.image_url =
+          "http://mcapi.signaturewebcreations.com/wp-content/uploads/2021/07/photo-1602992708529-c9fdb12905c9-scaled.jpeg"
       }
     },
 

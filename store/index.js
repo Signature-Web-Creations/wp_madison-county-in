@@ -214,10 +214,7 @@ export const actions = {
             slug,
             yoast_head,
             categories,
-            media_url: getFeaturedMediaURL(
-              state.featuredImages,
-              featured_media
-            ),
+            media_url: featured_media,
             tags,
             name: title.rendered,
             acf_content: acf.content,
