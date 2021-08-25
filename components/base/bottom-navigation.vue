@@ -92,7 +92,7 @@ export default {
     contact: false,
   }),
   props: {
-    docs: Array,
+    docs: [Array, Boolean],
   },
 }
 </script>
