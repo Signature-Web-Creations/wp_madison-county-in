@@ -4,8 +4,9 @@
     <CommunityNavigation
       :tabs="tabs"
       :backgroundImage="image_url"
-      :events="listOfEvents"
-      :destinations="listOfDestinations"
+      :events="cityEvents"
+      :destinations="cityDestinations"
+      :directory="cityDirectory"
       :community="community"
       :resources="community.resources"
     />
@@ -42,11 +43,23 @@ export default {
       if (route.params.city === slug) city_tag_id = id
     })
 
+    const OrganizationOptions = {
+      returnValue: true,
+      limit: "500",
+    }
+    const listOfOrganizations = await store.dispatch(
+      "wuapi/getDirectory",
+      OrganizationOptions
+    )
+
     const destinationsOptions = {
       returnValue: true,
       limit: "40",
     }
-    const listOfDestinations = await store.dispatch("wuapi/getDestinations", destinationsOptions)
+    const listOfDestinations = await store.dispatch(
+      "wuapi/getDestinations",
+      destinationsOptions
+    )
 
     const eventOptions = {
       returnValue: true,
@@ -55,7 +68,13 @@ export default {
     }
     const listOfEvents = await store.dispatch("wuapi/getEvents", eventOptions)
 
-    return { communities, city_tag_id, listOfDestinations, listOfEvents }
+    return {
+      communities,
+      city_tag_id,
+      listOfDestinations,
+      listOfEvents,
+      listOfOrganizations,
+    }
   },
 
   async fetch() {
@@ -87,11 +106,26 @@ export default {
       ]
       return array
     },
-
+    cityDirectory() {
+      return this.listOfOrganizations.filter(
+        (organizations) =>
+          organizations.city.toLowerCase() === this.community.slug
+      )
+    },
+    cityDestinations() {
+      return this.listOfDestinations.filter(
+        (destinations) =>
+          destinations.city.toLowerCase() === this.community.slug
+      )
+    },
+    cityEvents() {
+      return this.listOfEvents.filter(
+        (events) => events.city.toLowerCase() === this.community.slug
+      )
+    },
     community() {
       let array = this.communities.filter(
-        ({ tags, slug }) =>
-          tags.includes(this.city_tag_id) && slug
+        ({ tags, slug }) => tags.includes(this.city_tag_id) && slug
       )
 
       return array[0]

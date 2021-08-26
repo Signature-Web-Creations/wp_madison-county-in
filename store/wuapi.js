@@ -581,12 +581,13 @@ export const actions = {
     if (!state.token) {
       await dispatch("setApiToken")
     }
-    options.categories == undefined ? options.categories = '' : null;
+    options.categories == undefined ? (options.categories = "") : null
     let url =
       this.$config.wuApiUrl +
       "/event?organization_id=" +
       this.$config.orgId +
-      "&copromotion=1&categories="+options.categories;
+      "&copromotion=1&categories=" +
+      options.categories
 
     const events = await this.$axios
       .get(url, {
@@ -665,7 +666,11 @@ export const actions = {
         context.error(error)
       })
 
-    commit("UPDATE_DIRECTORY", directory)
+    if (options.returnValue) {
+      return directory
+    } else {
+      commit("UPDATE_DIRECTORY", directory)
+    }
   },
 
   async getDestinations({ state, dispatch, commit }, options) {
@@ -678,21 +683,22 @@ export const actions = {
       organization_id = options.organization_id
     }
 
-    let url = this.$config.wuApiUrl + "/destination?organization_id=" + organization_id + "&copromotion=1"
+    let url =
+      this.$config.wuApiUrl +
+      "/destination?organization_id=" +
+      organization_id +
+      "&copromotion=1"
     if (options.limit) {
       url += "&limit=" + options.limit
     }
 
     const destinations = await this.$axios
-      .get(
-        url,
-        {
-          headers: {
-            Authorization: "Bearer " + state.token,
-            "Content-Type": "application/json",
-          },
-        }
-      )
+      .get(url, {
+        headers: {
+          Authorization: "Bearer " + state.token,
+          "Content-Type": "application/json",
+        },
+      })
       .then((response) => {
         return response.data
       })

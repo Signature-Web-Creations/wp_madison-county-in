@@ -14,7 +14,7 @@
       <template v-slot:img="{ props }">
         <v-img
           v-bind="props"
-          gradient="to top right, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.6)"
+          gradient="to top right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.2)"
         />
       </template>
 
@@ -103,13 +103,16 @@
           <v-tab-item id="tabs-icons-text-3" :style="adjustWidth">
             <v-container class="tab-pane fade px-md-16">
               <h1 v-html="community.name + ' Destinations'"></h1>
-              <BaseDestinationsList :destinations="destinations" display="city" />
+              <BaseDestinationsList
+                :destinations="destinations"
+                display="city"
+              />
             </v-container>
           </v-tab-item>
           <v-tab-item id="tabs-icons-text-4" :style="adjustWidth">
             <v-container class="tab-pane fade px-md-16">
               <h1 v-html="community.name + ' Directory'"></h1>
-              <BaseEventList :events="events" />
+              <WhatsUpCityDirectory :directory="directory" />
             </v-container>
           </v-tab-item>
         </v-tabs-items>
@@ -134,6 +137,7 @@ export default {
       default:
         "http://mcapi.signaturewebcreations.com/wp-content/uploads/2021/07/photo-1602992708529-c9fdb12905c9-scaled.jpeg",
     },
+    directory: Array,
     events: Array,
     destinations: Array,
     community: Object,
