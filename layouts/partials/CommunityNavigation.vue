@@ -106,6 +106,7 @@
               <BaseDestinationsList
                 :destinations="destinations"
                 display="city"
+                :showFilters="showFilters.destinations"
               />
             </v-container>
           </v-tab-item>
@@ -147,6 +148,11 @@ export default {
     return {
       drawer: false,
       tab: null,
+      showFilters: {
+        events: false,
+        destinations: false,
+        directory: false,
+      },
     }
   },
 

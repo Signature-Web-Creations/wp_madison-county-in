@@ -1,8 +1,21 @@
 <template>
-  <v-container :fluid="sizeContainer" :class="display === 'full' ? 'px-md-10 px-xl-0' : 'px-0'">
+  <v-container
+    :fluid="sizeContainer"
+    :class="display === 'full' ? 'px-md-10 px-xl-0' : 'px-0'"
+  >
+    <v-row v-if="showFilters">
+      <v-col cols="12">
+        <v-text-field label="Search" v-model="searchTerm" @input="searchList">
+          <v-icon slot="append" small>
+            fa-search
+          </v-icon>
+        </v-text-field>
+      </v-col>
+    </v-row>
+
     <v-row>
       <v-col
-        v-for="destination in randomDestinations"
+        v-for="destination in displayedItems"
         :key="destination.id"
         cols="12"
         sm="6"
@@ -43,13 +56,24 @@ export default {
     },
     display: {
       type: String,
-      default: "full"
+      default: "full",
+    },
+    showFilters: {
+      type: Boolean,
+      default: false,
+    },
+  },
+
+  data() {
+    return {
+      searchTerm: "",
+      displayedItems: this.destinations,
     }
   },
 
   computed: {
     randomDestinations() {
-      if(this.display !== "full") {
+      if (this.display !== "full") {
         return this.destinations
       }
 
@@ -91,6 +115,26 @@ export default {
         case "xl":
           return false
       }
+    },
+
+    filterItems() {
+      if (this.searchTerm === "") {
+        return this.destinations
+      } else {
+        return this.destinations.filter(
+          (item) =>
+            item.name.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
+            item.description
+              .toLowerCase()
+              .includes(this.searchTerm.toLowerCase())
+        )
+      }
+    },
+  },
+
+  methods: {
+    searchList() {
+      this.displayedItems = this.filterItems
     },
   },
 }
