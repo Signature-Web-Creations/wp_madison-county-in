@@ -14,7 +14,6 @@
       :jobs="jobPositions"
       :resources="office.acf.resources"
     />
-    {{ setHeroImageUrl }}
   </div>
 </template>
 
@@ -56,14 +55,9 @@ export default {
     await store.dispatch("wuapi/getEvents", options)
   },
 
-  methods: {
-    /**
-     * Used this function to get the image from the Wordpress API because
-     * trying to pass the value through a function call was always returning
-     * a promise and we were unable to extract the string from the promise.
-     * Being pressed for time, I resorted to an old fashioned method for loop.
-     */
-  },
+  // async mounted() {
+
+  // },
   computed: {
     tabs() {
       let array = [
@@ -143,21 +137,6 @@ export default {
         }
       }
     },
-    async setHeroImageUrl() {
-      console.log(this.office)
-      if (this.office.media_url) {
-        let heroobj = await fetch(
-          this.$config.apiUrl + "media/" + this.office.media_url
-        )
-          .then((response) => response.json())
-          .catch((error) => error.response.status)
-        console.log("this is teams ", heroobj)
-        this.image_url = heroobj.guid.rendered
-      } else {
-        this.image_url =
-          "http://mcapi.signaturewebcreations.com/wp-content/uploads/2021/07/photo-1602992708529-c9fdb12905c9-scaled.jpeg"
-      }
-    },
 
     ...mapState({
       offices: (state) => state.offices,
@@ -173,7 +152,17 @@ export default {
 
   async created() {
     // this.mymethod('setHeroImageUrl');
-
+    if (this.office) {
+      let heroobj = await fetch(
+        this.$config.apiUrl + "media/" + this.office.media_url
+      )
+        .then((response) => response.json())
+        .catch((error) => error.response.status)
+      this.image_url = heroobj.guid.rendered
+    } else {
+      this.image_url =
+        "http://mcapi.signaturewebcreations.com/wp-content/uploads/2021/07/photo-1602992708529-c9fdb12905c9-scaled.jpeg"
+    }
     this.department_category_id = this.categoryMap[
       this.$route.params.department
     ]

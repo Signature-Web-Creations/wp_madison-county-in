@@ -8,7 +8,6 @@
       :community="community"
       :resources="community.acf.resources"
     />
-    {{ setHeroImageUrl }}
   </div>
 </template>
 
@@ -24,7 +23,7 @@ export default {
   data: () => ({
     collapseOnScroll: true,
     community_category_id: "",
-    image_url: "",
+    image_url: null,
     city_tag_id: "",
     employment_tag_id: 30,
     items: [
@@ -47,6 +46,19 @@ export default {
       limit: "20",
     }
     await store.dispatch("wuapi/getEvents", options)
+  },
+  async mounted() {
+    if (this.community.media_url) {
+      let heroobj = await fetch(
+        this.$config.apiUrl + "media/" + this.community.media_url
+      )
+        .then((response) => response.json())
+        .catch((error) => error.response.status)
+      this.image_url = heroobj.guid.rendered
+    } else {
+      this.image_url =
+        "http://mcapi.signaturewebcreations.com/wp-content/uploads/2021/07/photo-1602992708529-c9fdb12905c9-scaled.jpeg"
+    }
   },
 
   computed: {
@@ -105,20 +117,6 @@ export default {
         }
       }
     },
-    async setHeroImageUrl() {
-      if (this.community.media_url) {
-        let heroobj = await fetch(
-          this.$config.apiUrl + "media/" + this.community.media_url
-        )
-          .then((response) => response.json())
-          .catch((error) => error.response.status)
-        console.log("this is teams ", heroobj)
-        this.image_url = heroobj.guid.rendered
-      } else {
-        this.image_url =
-          "http://mcapi.signaturewebcreations.com/wp-content/uploads/2021/07/photo-1602992708529-c9fdb12905c9-scaled.jpeg"
-      }
-    },
 
     ...mapState({
       communities: (state) => state.communities,
@@ -130,8 +128,19 @@ export default {
     }),
   },
 
-  created() {
-    console.log(this.categoryMap[this.$route.params.community])
+  async created() {
+    if (this.community) {
+      let heroobj = await fetch(
+        this.$config.apiUrl + "media/" + this.community.media_url
+      )
+        .then((response) => response.json())
+        .catch((error) => error.response.status)
+      this.image_url = heroobj.guid.rendered
+    } else {
+      this.image_url =
+        "http://mcapi.signaturewebcreations.com/wp-content/uploads/2021/07/photo-1602992708529-c9fdb12905c9-scaled.jpeg"
+    }
+    // console.log(this.categoryMap[this.$route.params.community])
     this.community_category_id = this.categoryMap[this.$route.params.community]
     this.city_tag_id = this.tags[this.$route.params.city]
   },
