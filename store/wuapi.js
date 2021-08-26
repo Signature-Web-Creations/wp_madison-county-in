@@ -582,6 +582,12 @@ export const actions = {
       await dispatch("setApiToken")
     }
     options.categories == undefined ? (options.categories = "") : null
+
+    let organization_id = this.$config.orgId
+    if (options.organization_id) {
+      organization_id = options.organization_id
+    }
+
     let url =
       this.$config.wuApiUrl +
       "/event?organization_id=" +
@@ -637,6 +643,29 @@ export const actions = {
       })
 
     commit("SET_EVENT", event)
+  },
+
+  async getOrganization({ state, dispatch }, id) {
+    if (!state.token) {
+      await dispatch("setApiToken")
+    }
+
+    const url = "/wuapi/directory/" + id
+
+    return await this.$axios
+      .get(url, {
+        headers: {
+          Authorization: "Bearer " + state.token,
+          "Content-Type": "application/json",
+        },
+      })
+      .then((response) => {
+        return response.data
+      })
+      .catch((error) => {
+        console.log(error)
+        context.error(error)
+      })
   },
 
   async getDirectory({ state, dispatch, commit }, options) {
