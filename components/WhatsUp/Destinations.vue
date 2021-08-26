@@ -18,7 +18,10 @@ import { mapState, mapActions } from "vuex"
 
 export default {
   async fetch() {
-    await this.getDestinations()
+    const destinationsOptions = {
+      returnValue: false,
+    }
+    await this.getDestinations(destinationsOptions)
   },
 
   computed: mapState({
@@ -34,15 +37,5 @@ h2 {
   small {
     font-size: 2rem;
   }
-}
-.v-card--reveal {
-  bottom: 0;
-  position: absolute;
-  width: 100%;
-  background-color: rgba(68, 100, 100, 0.75);
-  padding: 10px;
-}
-.v-sheet.v-card {
-  border-radius: 0;
 }
 </style>

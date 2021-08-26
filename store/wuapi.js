@@ -606,7 +606,11 @@ export const actions = {
     if (options.type == "featured") {
       commit("UPDATE_FEATURED_EVENTS", events.slice(0, options.limit))
     } else if (options.type == "latest") {
-      commit("UPDATE_LATEST_EVENTS", events.slice(0, options.limit))
+      if (options.returnValue) {
+        return events.slice(0, options.limit)
+      } else {
+        commit("UPDATE_LATEST_EVENTS", events.slice(0, options.limit))
+      }
     }
   },
 
@@ -664,17 +668,24 @@ export const actions = {
     commit("UPDATE_DIRECTORY", directory)
   },
 
-  async getDestinations({ state, dispatch, commit }) {
+  async getDestinations({ state, dispatch, commit }, options) {
     if (!state.token) {
       await dispatch("setApiToken")
     }
 
+    let organization_id = this.$config.orgId
+    if (options.organization_id) {
+      organization_id = options.organization_id
+    }
+
+    let url = this.$config.wuApiUrl + "/destination?organization_id=" + organization_id + "&copromotion=1"
+    if (options.limit) {
+      url += "&limit=" + options.limit
+    }
+
     const destinations = await this.$axios
       .get(
-        this.$config.wuApiUrl +
-          "/destination?organization_id=" +
-          this.$config.orgId +
-          "&copromotion=1",
+        url,
         {
           headers: {
             Authorization: "Bearer " + state.token,
@@ -689,7 +700,12 @@ export const actions = {
         console.log(error)
         context.error(error)
       })
-    commit("UPDATE_DESTINATIONS", destinations)
+
+    if (options.returnValue) {
+      return destinations
+    } else {
+      commit("UPDATE_DESTINATIONS", destinations)
+    }
   },
 
   async getDestination({ state, dispatch, commit }, id) {

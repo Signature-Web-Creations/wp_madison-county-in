@@ -6,7 +6,7 @@
         :key="destination.id"
         cols="12"
         sm="6"
-        lg="4"
+        :lg="display === 'full' ? '4' : '6'"
       >
         <v-hover v-slot="{ hover }">
           <v-card
@@ -41,10 +41,18 @@ export default {
       type: Array,
       required: true,
     },
+    display: {
+      type: String,
+      default: "full"
+    }
   },
 
   computed: {
     randomDestinations() {
+      if(this.display !== "full") {
+        return this.destinations
+      }
+
       let array = []
       let arrayContainer = []
       const genNum = Math.floor(Math.random() * 20)
@@ -88,4 +96,15 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.v-card--reveal {
+  bottom: 0;
+  position: absolute;
+  width: 100%;
+  background-color: rgba(68, 100, 100, 0.75);
+  padding: 10px;
+}
+.v-sheet.v-card {
+  border-radius: 0;
+}
+</style>

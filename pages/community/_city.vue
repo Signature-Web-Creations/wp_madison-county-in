@@ -1,15 +1,14 @@
 <template>
   <div>
-    <!-- <BaseLeftPanel :url="community.url" :contactInfo="primaryContact" /> -->
-    <!-- <CommunityNavigation
+    <BaseLeftPanel :url="community.url" :contactInfo="primaryContact" />
+    <CommunityNavigation
       :tabs="tabs"
       :backgroundImage="image_url"
       :events="listOfEvents"
       :destinations="listOfDestinations"
       :community="community"
       :resources="community.resources"
-    /> -->
-    {{ community }}
+    />
   </div>
 </template>
 
@@ -43,7 +42,20 @@ export default {
       if (route.params.city === slug) city_tag_id = id
     })
 
-    return { communities, city_tag_id }
+    const destinationsOptions = {
+      returnValue: true,
+      limit: "40",
+    }
+    const listOfDestinations = await store.dispatch("wuapi/getDestinations", destinationsOptions)
+
+    const eventOptions = {
+      returnValue: true,
+      type: "latest",
+      limit: "20",
+    }
+    const listOfEvents = await store.dispatch("wuapi/getEvents", eventOptions)
+
+    return { communities, city_tag_id, listOfDestinations, listOfEvents }
   },
 
   async fetch() {
@@ -51,13 +63,6 @@ export default {
     await this.$store.dispatch("getCountyProfiles")
     await this.$store.dispatch("getJobsList")
     await this.$store.dispatch("getFeaturedImages")
-
-    let options = {
-      type: "latest",
-      limit: "20",
-    }
-    await this.$store.dispatch("wuapi/getEvents", options)
-    await this.$store.dispatch("wuapi/getDestinations")
   },
 
   computed: {
@@ -84,10 +89,8 @@ export default {
     },
 
     community() {
-      console.log(this.city_tag_id)
       let array = this.communities.filter(
         ({ tags, slug }) =>
-          // categories.includes(this.community_category_id) &&
           tags.includes(this.city_tag_id) && slug
       )
 
@@ -119,31 +122,24 @@ export default {
     },
 
     ...mapState({
-      // communities: (state) => state.communities,
-      listOfEvents: (state) => state.wuapi.latestEvents,
-      listOfDestinations: (state) => state.wuapi.destinations,
       categories: (state) => state.categories,
       categoryMap: (state) => state.categoryMap,
       countyProfiles: (state) => state.countyProfiles,
-      // tags: (state) => state.tags,
     }),
   },
 
   async created() {
-    // console.log(this.community)
-    // if (this.community) {
-    //   let heroobj = await fetch(
-    //     this.$config.apiUrl + "media/" + this.community.media_url
-    //   )
-    //     .then((response) => response.json())
-    //     .catch((error) => error.response.status)
-    //   this.image_url = heroobj.guid.rendered
-    // } else {
-    //   this.image_url =
-    //     "http://mcapi.signaturewebcreations.com/wp-content/uploads/2021/07/photo-1602992708529-c9fdb12905c9-scaled.jpeg"
-    // }
-    // this.community_category_id = this.categoryMap[this.$route.params.community]
-    // this.city_tag_id = this.tags[this.$route.params.city]
+    if (this.community) {
+      let heroobj = await fetch(
+        this.$config.apiUrl + "media/" + this.community.media_url
+      )
+        .then((response) => response.json())
+        .catch((error) => error.response.status)
+      this.image_url = heroobj.guid.rendered
+    } else {
+      this.image_url =
+        "http://mcapi.signaturewebcreations.com/wp-content/uploads/2021/07/photo-1602992708529-c9fdb12905c9-scaled.jpeg"
+    }
   },
 }
 </script>
