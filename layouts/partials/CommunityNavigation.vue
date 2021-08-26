@@ -113,7 +113,10 @@
           <v-tab-item id="tabs-icons-text-4" :style="adjustWidth">
             <v-container class="tab-pane fade px-md-16">
               <h1 v-html="community.name + ' Directory'"></h1>
-              <WhatsUpCityDirectory :directory="directory" />
+              <WhatsUpCityDirectory
+                :directory="directory"
+                :showFilters="showFilters.directory"
+              />
             </v-container>
           </v-tab-item>
         </v-tabs-items>
