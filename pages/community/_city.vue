@@ -1,12 +1,13 @@
 <template>
   <div>
-    <BaseLeftPanel :url="community.acf.url" :contactInfo="primaryContact" />
+    <BaseLeftPanel :url="community.url" :contactInfo="primaryContact" />
     <CommunityNavigation
       :tabs="tabs"
       :backgroundImage="image_url"
       :events="listOfEvents"
+      :destinations="listOfDestinations"
       :community="community"
-      :resources="community.acf.resources"
+      :resources="community.resources"
     />
   </div>
 </template>
@@ -24,7 +25,6 @@ export default {
     collapseOnScroll: true,
     community_category_id: "",
     image_url: null,
-    city_tag_id: "",
     employment_tag_id: 30,
     items: [
       { title: "Home", icon: "mdi-home-city" },
@@ -33,32 +33,36 @@ export default {
     ],
   }),
 
-  async fetch({ store }) {
-    await store.dispatch("getCommunities")
-    await store.dispatch("getCategories")
-    await store.dispatch("getTags")
-    await store.dispatch("getCountyProfiles")
-    await store.dispatch("getJobsList")
-    await store.dispatch("getFeaturedImages")
+  async asyncData({ store, route }) {
+    const communities = await store.dispatch("getCommunities", true)
+    const tags = await store.dispatch("getTags", true)
 
-    let options = {
+    let city_tag_id = 0
+    tags.forEach(({ id, slug }) => {
+      if (route.params.city === slug) city_tag_id = id
+    })
+
+    const destinationsOptions = {
+      returnValue: true,
+      limit: "40",
+    }
+    const listOfDestinations = await store.dispatch("wuapi/getDestinations", destinationsOptions)
+
+    const eventOptions = {
+      returnValue: true,
       type: "latest",
       limit: "20",
     }
-    await store.dispatch("wuapi/getEvents", options)
+    const listOfEvents = await store.dispatch("wuapi/getEvents", eventOptions)
+
+    return { communities, city_tag_id, listOfDestinations, listOfEvents }
   },
-  async mounted() {
-    if (this.community.media_url) {
-      let heroobj = await fetch(
-        this.$config.apiUrl + "media/" + this.community.media_url
-      )
-        .then((response) => response.json())
-        .catch((error) => error.response.status)
-      this.image_url = heroobj.guid.rendered
-    } else {
-      this.image_url =
-        "http://mcapi.signaturewebcreations.com/wp-content/uploads/2021/07/photo-1602992708529-c9fdb12905c9-scaled.jpeg"
-    }
+
+  async fetch() {
+    await this.$store.dispatch("getCategories")
+    await this.$store.dispatch("getCountyProfiles")
+    await this.$store.dispatch("getJobsList")
+    await this.$store.dispatch("getFeaturedImages")
   },
 
   computed: {
@@ -87,7 +91,6 @@ export default {
     community() {
       let array = this.communities.filter(
         ({ tags, slug }) =>
-          // categories.includes(this.community_category_id) &&
           tags.includes(this.city_tag_id) && slug
       )
 
@@ -105,26 +108,23 @@ export default {
         return {
           title: primary.titlerole,
           email: primary.email,
-          url: this.office.acf.url,
+          // url: this.community.url,
           phone: primary.phone,
         }
       } else {
         return {
-          title: "Office Administrator",
-          email: this.community.acf.email,
-          url: this.community.acf.url,
-          phone: this.community.acf.phone,
+          // title: "Office Administrator",
+          email: this.community.email,
+          url: this.community.url,
+          phone: this.community.phone,
         }
       }
     },
 
     ...mapState({
-      communities: (state) => state.communities,
-      listOfEvents: (state) => state.wuapi.latestEvents,
       categories: (state) => state.categories,
       categoryMap: (state) => state.categoryMap,
       countyProfiles: (state) => state.countyProfiles,
-      tags: (state) => state.tags,
     }),
   },
 
@@ -140,9 +140,6 @@ export default {
       this.image_url =
         "http://mcapi.signaturewebcreations.com/wp-content/uploads/2021/07/photo-1602992708529-c9fdb12905c9-scaled.jpeg"
     }
-    // console.log(this.categoryMap[this.$route.params.community])
-    this.community_category_id = this.categoryMap[this.$route.params.community]
-    this.city_tag_id = this.tags[this.$route.params.city]
   },
 }
 </script>

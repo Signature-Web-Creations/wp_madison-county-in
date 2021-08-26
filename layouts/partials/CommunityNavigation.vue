@@ -86,7 +86,7 @@
               <section>
                 <v-row>
                   <v-col cols="12" class="mt-10">
-                    <div v-html="community.acf.services" />
+                    <div v-html="community.content" />
                   </v-col>
                 </v-row>
               </section>
@@ -103,7 +103,7 @@
           <v-tab-item id="tabs-icons-text-3" :style="adjustWidth">
             <v-container class="tab-pane fade px-md-16">
               <h1 v-html="community.name + ' Destinations'"></h1>
-              <BaseEventList :events="events" />
+              <BaseDestinationsList :destinations="destinations" display="city" />
             </v-container>
           </v-tab-item>
           <v-tab-item id="tabs-icons-text-4" :style="adjustWidth">
@@ -135,7 +135,7 @@ export default {
         "http://mcapi.signaturewebcreations.com/wp-content/uploads/2021/07/photo-1602992708529-c9fdb12905c9-scaled.jpeg",
     },
     events: Array,
-
+    destinations: Array,
     community: Object,
   },
 

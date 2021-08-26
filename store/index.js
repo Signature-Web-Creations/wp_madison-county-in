@@ -180,7 +180,8 @@ export const actions = {
       console.log(err)
     }
   },
-  async getCommunities({ state, commit }) {
+
+  async getCommunities({ commit }, returnValue) {
     const fields = [
       "acf",
       "slug",
@@ -207,22 +208,27 @@ export const actions = {
           featured_media,
           tags,
           title,
-          content,
         }) => {
           return {
-            acf,
             slug,
             yoast_head,
             categories,
             media_url: featured_media,
             tags,
             name: title.rendered,
-            acf_content: acf.content,
-            content,
+            content: acf.services,
+            url: acf.url,
+            email: acf.email,
+            phone: acf.phone,
+            resources: acf.resources,
           }
         }
       )
-      commit("UPDATE_COMMUNITES", communities)
+      if (returnValue) {
+        return communities
+      } else {
+        commit("UPDATE_COMMUNITES", communities)
+      }
     } catch (err) {
       console.log(err)
     }

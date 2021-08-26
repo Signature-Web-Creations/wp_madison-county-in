@@ -92,6 +92,8 @@
 import { mapState, mapActions } from "vuex"
 
 export default {
+  name: "NavigationDrawer",
+
   props: {
     location: {
       type: Object,
