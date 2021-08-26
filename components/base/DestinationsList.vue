@@ -1,5 +1,5 @@
 <template>
-  <v-container :fluid="sizeContainer" class="px-md-10 px-xl-0">
+  <v-container :fluid="sizeContainer" :class="display === 'full' ? 'px-md-10 px-xl-0' : 'px-0'">
     <v-row>
       <v-col
         v-for="destination in randomDestinations"
@@ -20,7 +20,7 @@
                 <div
                   v-if="hover"
                   class="transition-fast-in-fast-out v-card--reveal white--text"
-                  style="height: 30%;"
+                  style="height: 35%;"
                 >
                   <h3>{{ destination.name }}</h3>
                   <p>{{ destination.city }}, {{ destination.state }}</p>
