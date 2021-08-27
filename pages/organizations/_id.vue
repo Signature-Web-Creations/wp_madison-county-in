@@ -46,9 +46,9 @@
         </v-col>
         <v-col cols="12" lg="3" class="pt-md-16">
           <BaseSidebar
-            :email="organization.contact_email"
-            :phone="organization.contact_phone"
-            :c_name="organization.contact_name"
+            :email="organization.email"
+            :phone="organization.phone"
+            :c_name="organization.name"
           />
         </v-col>
       </v-row>
@@ -67,10 +67,10 @@ export default {
           name: "About",
           icon: "fa-info-circle",
         },
-        {
-          name: "Related organizations",
-          icon: "fa-calendar-alt",
-        },
+        // {
+        //   name: "Related organizations",
+        //   icon: "fa-calendar-alt",
+        // },
       ],
     }
   },
@@ -81,14 +81,16 @@ export default {
     listOfevents: (state) => state.wuapi.listOfevents,
   }),
 
-  methods: mapActions("wuapi", ["getorganization", "getorganizations"]),
+  methods: mapActions("wuapi", ["getOrganization", "getDirectory"]),
 
   async asyncData({ store, route }) {
+    // let organization = "test"
+    // const organization = await store.dispatch("getCommunities", true)
     const organization = await store.dispatch(
       "wuapi/getOrganization",
       route.params.id
     )
-    console.log(organization)
+    console.log("this the front", organization)
 
     //   let relatedCategories = ""
     //   this.organization.categories.forEach((element, index) => {

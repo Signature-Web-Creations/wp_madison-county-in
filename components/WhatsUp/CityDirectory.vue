@@ -18,7 +18,7 @@
             :key="organization.id"
             :to="{
               name: 'organizations-id',
-              params: { id: organization.id },
+              params: { id: organization.organization_id },
             }"
           >
             <template>

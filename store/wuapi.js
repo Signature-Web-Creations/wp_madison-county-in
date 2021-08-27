@@ -20,6 +20,7 @@ export const state = () => ({
   latestEvents: [],
   event: {},
   directory: [],
+  organization: {},
   destinations: [],
   destination: {},
   event_categories: [
@@ -559,6 +560,9 @@ export const mutations = {
   SET_EVENT: (state, object) => {
     state.event = object
   },
+  SET_ORGANIZATION: (state, object) => {
+    state.organization = object
+  },
   UPDATE_DIRECTORY: (state, array) => {
     state.directory = array
   },
@@ -652,7 +656,7 @@ export const actions = {
 
     const url = "/wuapi/directory/" + id
 
-    return await this.$axios
+    const organization = await this.$axios
       .get(url, {
         headers: {
           Authorization: "Bearer " + state.token,
@@ -664,8 +668,13 @@ export const actions = {
       })
       .catch((error) => {
         console.log(error)
-        context.error(error)
+        // context.error(error)
       })
+    if (id) {
+      return organization
+    } else {
+      commit("SET_ORGANIZATION", organization)
+    }
   },
 
   async getDirectory({ state, dispatch, commit }, options) {
@@ -692,7 +701,7 @@ export const actions = {
       })
       .catch((error) => {
         console.log(error)
-        context.error(error)
+        // context.error(error)
       })
 
     if (options.returnValue) {
