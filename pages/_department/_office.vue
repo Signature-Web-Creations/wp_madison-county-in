@@ -69,12 +69,14 @@ export default {
           name: "Events",
           icon: "fa-calendar-alt",
         },
-        {
-          name: "Team",
-          icon: "fa-user-alt",
-        },
       ]
-
+      if (this.profiles != 0) {
+        let teamItem = {
+          name: "Team",
+          icon: "fa-user",
+        }
+        array.push(teamItem)
+      }
       if (this.jobPositions != 0) {
         let jobItem = {
           name: "Jobs",
