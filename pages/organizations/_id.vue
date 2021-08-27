@@ -18,8 +18,9 @@
                 class="text-muted"
                 v-html="
                   organization.address +
+                  '<br />' +
                   organization.city +
-                  ' ' +
+                  ', ' +
                   organization.state +
                   ', ' +
                   organization.zip

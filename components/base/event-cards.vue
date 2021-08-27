@@ -18,7 +18,13 @@
           height="100%"
           :to="{ name: 'events-id', params: { id: event.id } }"
         >
-          <v-card-title class="pb-2 accent--text">{{ event.name }}</v-card-title>
+          <v-card-title class="pb-2 accent--text">{{
+            event.name
+          }}</v-card-title>
+          <v-card-subtitle
+            class="font-italic mt-1 lightgrey--text"
+            v-html="event.host_organization"
+          />
           <v-card-text>
             <p>{{ event.start | formatDate($moment, "MMMM D") }}</p>
             <p class="mb-0">{{ event.description | truncateText(60) }}</p>
@@ -30,36 +36,36 @@
 </template>
 
 <script>
-import { mapState, mapActions } from "vuex";
+import { mapState, mapActions } from "vuex"
 
 export default {
   async fetch() {
     let options = {
       type: "featured",
       limit: "3",
-      categories: '18,7,11,9,6,3,4,16'
-    };
-    await this.getEvents(options);
+      categories: "18,7,11,9,6,3,4,16",
+    }
+    await this.getEvents(options)
   },
 
   computed: mapState({
     eventList() {
       switch (this.$vuetify.breakpoint.name) {
-        case 'xs':
+        case "xs":
           return this.featuredEvents.slice(0, 1)
-        case 'sm':
+        case "sm":
           return this.featuredEvents.slice(0, 2)
-        case 'md':
-        case 'lg':
-        case 'xl':
+        case "md":
+        case "lg":
+        case "xl":
           return this.featuredEvents
       }
     },
-    featuredEvents: state => state.wuapi.featuredEvents
+    featuredEvents: (state) => state.wuapi.featuredEvents,
   }),
 
-  methods: mapActions("wuapi", ["getEvents"])
-};
+  methods: mapActions("wuapi", ["getEvents"]),
+}
 </script>
 
 <style lang="scss" scoped>
@@ -69,7 +75,7 @@ export default {
 }
 
 .event-card {
-  background-color: rgba(4,4,4,0.5);
+  background-color: rgba(4, 4, 4, 0.5);
   color: #fff;
   .v-card__title {
     font-size: 17px;

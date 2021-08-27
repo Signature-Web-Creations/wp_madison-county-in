@@ -18,6 +18,7 @@
                 class="text-muted"
                 v-html="
                   event.address +
+                  '<br />' +
                   event.city +
                   ' ' +
                   event.state +

@@ -42,6 +42,7 @@
             <v-card-title class="font-weight-normal event_name">
               {{ event.name }}
             </v-card-title>
+            <v-card-subtitle v-html="event.host_organization" />
             <v-card-text class="card-body text-left py-4">
               <p class="font-weight-medium">
                 {{ event.start | formatDate($moment, "DD MMMM YYYY") }}
