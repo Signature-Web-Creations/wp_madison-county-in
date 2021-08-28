@@ -145,9 +145,8 @@ export default {
         case "md":
           return image["post-thumbnail"].source_url
         case "lg":
-          return image["2048x2048"].source_url
         case "xl":
-          return image.full.source_url
+          return image["2048x2048"].source_url
       }
     },
   },
