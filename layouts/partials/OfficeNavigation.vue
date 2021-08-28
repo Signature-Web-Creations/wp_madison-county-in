@@ -96,7 +96,7 @@
 
           <v-tab-item id="tabs-icons-text-2" :style="adjustWidth">
             <v-container class="tab-pane fade px-md-16">
-              <h1 v-html="office.name + ' Events'"></h1>
+              <h1>Upcoming Community Events</h1>
               <BaseEventList :events="events" />
             </v-container>
           </v-tab-item>
