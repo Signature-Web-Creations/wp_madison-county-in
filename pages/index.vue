@@ -1,10 +1,10 @@
 <template>
   <section id="welcome" class="overflow-hidden">
     <BaseHeroslider :items="slides" />
-    <BaseTwoColumn :categories="posts" />
+    <!-- <BaseTwoColumn :categories="posts" />
     <BaseVisitorSection />
     <WhatsUpDestinations :destinations="destinations" />
-    <BaseUpcomingevents :events="events" />
+    <BaseUpcomingevents :events="events" /> -->
   </section>
 </template>
 
