@@ -2,7 +2,7 @@
   <v-expansion-panels focusable class="mt-5">
     <v-expansion-panel v-for="job in jobs" :key="job.id">
       <v-expansion-panel-header class="py-8">
-        <template v-slot="{ open }">
+        <template>
           <h2>
             {{ job.title }}<br />
             <small class="text-subtitle-1">
@@ -34,21 +34,7 @@ export default {
       type: Array,
       required: true,
     },
-    officeUrl: {
-      type: String,
-      default: null,
-    },
   },
-
-  // filter: {
-  //   tagName(value) {
-  //     return this.tags.filter((tag) => tag.includes(value))
-  //   },
-  // },
-
-  computed: mapState({
-    tags: (state) => state.tags,
-  }),
 }
 </script>
 

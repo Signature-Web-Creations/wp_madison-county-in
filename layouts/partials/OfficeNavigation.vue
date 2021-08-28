@@ -62,7 +62,7 @@
             class="lightgrey--text"
             data-toggle="tab"
             @click="$emit('update:tab', `tabs-icons-text-${index + 1}`)"
-            :href="`#tabs-icons-text-${index + 1}`"
+            :href="tab.id"
             role="tab"
             :aria-controls="`tabs-icons-text-${index + 1}`"
             :aria-selected="index === 0 ? 'true' : 'false'"
@@ -119,7 +119,7 @@
           >
             <v-container class="tab-pane fade px-md-16">
               <h1>Open Positions</h1>
-              <BaseJobs :jobs="jobs" :officeUrl="office.slug" />
+              <BaseJobs :jobs="jobs" />
             </v-container>
           </v-tab-item>
         </v-tabs-items>
