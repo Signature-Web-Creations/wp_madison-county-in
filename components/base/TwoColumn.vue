@@ -16,7 +16,7 @@
       justify="center"
       align="center"
     >
-      <v-col v-if="!category.posts.length < 1" cols="12" lg="6" class="px-0">
+      <v-col v-if="category.posts.length > 0" cols="12" lg="6" class="px-0">
         <v-container class="two-col-content pa-5 px-xl-6 mt-15 mt-lg-0">
           <v-sheet
             rounded
@@ -45,14 +45,14 @@
               </h2>
             </div>
 
-            <p
+            <div
               class="px-sm-5 my-10 mb-lg-5"
               :class="{
                 'text-lg-left': index % 2 === 0,
                 'text-lg-right lightgrey--text': index % 2 !== 0,
               }"
               v-html="category.content"
-            ></p>
+            ></div>
 
             <div
               v-for="post in category.posts"
