@@ -58,12 +58,8 @@
                 'text-lg-left': index % 2 === 0,
                 'text-lg-right lightgrey--text': index % 2 !== 0,
               }"
-            >
-              Lorem ipsum dolor sit amet consectetur adipisicing elit.
-              Doloribus, iste amet! Illum quo laboriosam nobis qui mollitia
-              dolor quaerat perspiciatis, fugiat ratione reiciendis rem
-              recusandae repellendus ipsam deleniti quibusdam molestiae!
-            </p>
+              v-html="category.content"
+            ></p>
 
             <div
               v-for="post in category.posts"

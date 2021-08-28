@@ -10,19 +10,14 @@
       <v-container>
         <v-row>
           <v-col cols="12" lg="8" xl="6">
-            <h2 class="display-2 h2 mb-8">Madison County Visitor's Bureau</h2>
-            <p class="white--text mt-8 mb-6">
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-              Quibusdam officiis corporis deleniti tempora atque adipisci minima
-              omnis non asperiores distinctio optio maiores ipsam, alias saepe
-              mollitia aspernatur ipsa, impedit libero!
-            </p>
+            <h2 class="display-2 h2 mb-8">{{ pageData.title.rendered }}</h2>
+            <p class="white--text mt-8 mb-6" v-html="pageData.acf.overview"></p>
 
             <v-btn
               id="visitorsbtn"
               color="blueish"
               class="ma-2 white--text"
-              href="https://visitandersonmadisoncounty.com/"
+              :href="pageData.acf.url"
               x-large
             >
               Learn More
@@ -34,7 +29,20 @@
   </v-parallax>
 </template>
 
-<script setup></script>
+<script>
+export default {
+  data() {
+    return {
+      pageData: {},
+    }
+  },
+
+  async fetch() {
+    const office = await this.$axios.get(this.$config.apiUrl + "office/245")
+    this.pageData = office.data
+  },
+}
+</script>
 
 <style lang="scss" scoped>
 .overlay_parallax {

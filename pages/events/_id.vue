@@ -14,15 +14,16 @@
           <div class="">
             <div class="detail-tile mb-4">
               <h1 v-html="event.name" />
+              <em><p v-html="event.host_organization" /></em>
               <p
                 class="text-muted"
                 v-html="
                   event.address +
                   '<br />' +
                   event.city +
-                  ' ' +
-                  event.state +
                   ', ' +
+                  event.state +
+                  ' ' +
                   event.zip
                 "
               />

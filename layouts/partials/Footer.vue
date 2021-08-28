@@ -73,7 +73,7 @@ export default {
         },
         {
           name: "Jobs",
-          url: "/human-resources",
+          url: "/government/human-resources",
         },
       ],
       footerMenu: [

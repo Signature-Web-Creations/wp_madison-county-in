@@ -62,7 +62,7 @@
             class="lightgrey--text"
             data-toggle="tab"
             @click="$emit('update:tab', `tabs-icons-text-${index + 1}`)"
-            :href="`#tabs-icons-text-${index + 1}`"
+            :href="tab.id"
             role="tab"
             :aria-controls="`tabs-icons-text-${index + 1}`"
             :aria-selected="index === 0 ? 'true' : 'false'"
@@ -96,12 +96,16 @@
 
           <v-tab-item id="tabs-icons-text-2" :style="adjustWidth">
             <v-container class="tab-pane fade px-md-16">
-              <h1 v-html="office.name + ' Events'"></h1>
+              <h1>Upcoming Community Events</h1>
               <BaseEventList :events="events" />
             </v-container>
           </v-tab-item>
 
-          <v-tab-item id="tabs-icons-text-3" :style="adjustWidth">
+          <v-tab-item
+            v-if="team.length != 0"
+            id="tabs-icons-text-3"
+            :style="adjustWidth"
+          >
             <v-container class="tab-pane fade px-md-16">
               <h1 v-html="office.name + ' Team'"></h1>
               <BaseTeam :team="team" :title="office.name" />

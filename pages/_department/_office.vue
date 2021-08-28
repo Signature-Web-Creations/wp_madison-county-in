@@ -64,23 +64,29 @@ export default {
         {
           name: "Overview",
           icon: "fa-info-circle",
+          id: "#tabs-icons-text-1",
         },
         {
           name: "Events",
           icon: "fa-calendar-alt",
+          id: "#tabs-icons-text-2",
         },
       ]
+
       if (this.profiles != 0) {
         let teamItem = {
           name: "Team",
           icon: "fa-user",
+          id: "#tabs-icons-text-3",
         }
         array.push(teamItem)
       }
+
       if (this.jobPositions != 0) {
         let jobItem = {
           name: "Jobs",
           icon: "fa-briefcase",
+          id: "#tabs-icons-text-4",
         }
         array.push(jobItem)
       }

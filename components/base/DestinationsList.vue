@@ -67,16 +67,12 @@ export default {
   data() {
     return {
       searchTerm: "",
-      displayedItems: this.destinations,
+      displayedItems: null,
     }
   },
 
   computed: {
     randomDestinations() {
-      if (this.display !== "full") {
-        return this.destinations
-      }
-
       let array = []
       let arrayContainer = []
       const genNum = Math.floor(Math.random() * 20)
@@ -136,6 +132,11 @@ export default {
     searchList() {
       this.displayedItems = this.filterItems
     },
+  },
+
+  created() {
+    this.displayedItems =
+      this.display === "full" ? this.randomDestinations : this.destinations
   },
 }
 </script>

@@ -18,7 +18,7 @@
           height="100%"
           :to="{ name: 'events-id', params: { id: event.id } }"
         >
-          <v-card-title class="pb-2 accent--text">{{
+          <v-card-title class="pb-0 accent--text">{{
             event.name
           }}</v-card-title>
           <v-card-subtitle
