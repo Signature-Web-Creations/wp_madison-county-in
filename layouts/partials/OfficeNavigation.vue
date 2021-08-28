@@ -50,6 +50,7 @@
           color="lightgrey"
           slider-color="blue-grey darken-2"
           slider-size="5"
+          show-arrows
         >
           <v-tab
             v-for="(tab, index) in tabs"
