@@ -4,7 +4,7 @@
     <BaseTwoColumn :categories="posts" />
     <BaseVisitorSection />
     <WhatsUpDestinations :destinations="destinations" />
-    <BaseUpcomingEvents :events="events" />
+    <BaseUpcomingevents :events="events" />
   </section>
 </template>
 
