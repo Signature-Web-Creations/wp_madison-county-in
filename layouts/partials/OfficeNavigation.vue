@@ -217,7 +217,7 @@ export default {
   },
 
   created() {
-    this.drawer = this.stateDrawer
+    this.updateDrawer(this.drawer)
   },
 }
 </script>
