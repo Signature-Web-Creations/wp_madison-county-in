@@ -238,13 +238,16 @@ export const actions = {
     }
   },
 
-  async getCategories({ commit }) {
+  async getCategories({ commit }, returnValue) {
     const fields = ["id", "name", "slug"]
     const parameters = fields.join(",")
     const url = this.$config.apiUrl + `categories?_fields=${parameters}`
 
     try {
-      let categories = await fetch(url).then((res) => res.json())
+      const categories = await fetch(url).then((res) => res.json())
+      if (returnValue) {
+        return categories
+      }
       // categories = categories.filter(
       //   (categories) =>
       //     categories.slug === "government" || categories.slug === "residents"
@@ -348,7 +351,7 @@ export const actions = {
     }
   },
 
-  getCategoriesWithPosts({ commit, state }) {
+  async getCategoriesWithPosts({ commit, state }, returnValue) {
     function categoryOffices(category_id) {
       let hasCategory = function (office) {
         // console.log(office.categories.includes(category_id))
@@ -371,12 +374,35 @@ export const actions = {
       }
       throw new `Couldn't find page for slug ${slug}`()
     }
-    // console.log(state.categories)
+
+    async function setFeaturedImageUrl(config, posts) {
+      let array = []
+      let categories_With_Posts = posts.filter(
+        (categoryobject) => categoryobject.posts.length > 0
+      )
+
+      for (let i = 0; i < categories_With_Posts.length; i++) {
+        let image = await fetch(
+          config.apiUrl + "media/" + categories_With_Posts[i].featured_media_id
+        )
+          .then((response) => response.json())
+          .catch((error) => error.response.status)
+
+        if (!image.data) {
+          categories_With_Posts[i].featured_media_sizes =
+            image.media_details.sizes
+        } else {
+          categories_With_Posts[i].featured_media_sizes = ""
+        }
+        array.push(categories_With_Posts[i])
+      }
+      return array
+    }
+
     const result = state.categories.map((c) => {
       let category = Object.assign({}, c)
       try {
         const page = getPageWithSlug(category.slug)
-        // console.log(page)
         category.content = page.content.rendered
         category.featured_media_id = page.featured_media
       } catch {
@@ -387,7 +413,13 @@ export const actions = {
       return category
     })
 
-    commit("UPDATE_CATEGORIES_WITH_POSTS", result)
+    const listOfPosts = await setFeaturedImageUrl(this.$config, result)
+
+    if (returnValue) {
+      return listOfPosts
+    } else {
+      commit("UPDATE_CATEGORIES_WITH_POSTS", listOfPosts)
+    }
   },
 
   async getJobsList({ commit }) {

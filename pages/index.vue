@@ -1,17 +1,14 @@
 <template>
   <section id="welcome" class="overflow-hidden">
     <BaseHeroslider :items="slides" />
-    <!-- <BaseIntrobar /> -->
-    <BaseTwoCol />
-    <BaseVisitorsect />
-    <WhatsUpDestinations />
-    <BaseUpcomingevents />
+    <BaseTwoCol :posts="posts" />
+    <BaseVisitorSection />
+    <WhatsUpDestinations :destinations="destinations" />
+    <BaseUpcomingEvents :events="events" />
   </section>
 </template>
 
 <script>
-import { mapActions } from "vuex"
-
 export default {
   data() {
     return {
@@ -22,7 +19,7 @@ export default {
     }
   },
 
-  async asyncData({ $config }) {
+  async asyncData({ $config, store }) {
     let homeSliderItems = await fetch(
       $config.apiUrl + "home_features"
     ).then((res) => res.json())
@@ -33,22 +30,25 @@ export default {
       yoast_head,
     }))
 
-    return { slides }
-  },
+    await store.dispatch("getLandingPages")
+    await store.dispatch("getOffices")
+    await store.dispatch("getCategories")
+    const posts = await store.dispatch("getCategoriesWithPosts", true)
+    await store.dispatch("getFeaturedImages")
 
-  async fetch() {
-    await this.getLandingPages()
-    await this.getOffices()
-    await this.getCategories()
-    await this.getFeaturedImages()
-  },
+    const destinations = await store.dispatch("wuapi/getDestinations", {
+      returnValue: true,
+    })
 
-  methods: mapActions([
-    "getLandingPages",
-    "getOffices",
-    "getCategories",
-    "getFeaturedImages",
-  ]),
+    const events = await store.dispatch("getEvents", {
+      type: "latest",
+      limit: "6",
+      categories: "18,7,11,9,6,3,4,16",
+      returnValue: true,
+    })
+
+    return { slides, posts, destinations, events }
+  },
 }
 </script>
 

@@ -17,18 +17,24 @@
 import { mapState, mapActions } from "vuex"
 
 export default {
-  async fetch() {
-    const destinationsOptions = {
-      returnValue: false,
-    }
-    await this.getDestinations(destinationsOptions)
+  props: {
+    destinations: {
+      type: Array,
+      required: true,
+    },
   },
+  // async fetch() {
+  //   const destinationsOptions = {
+  //     returnValue: false,
+  //   }
+  //   await this.getDestinations(destinationsOptions)
+  // },
 
-  computed: mapState({
-    destinations: (state) => state.wuapi.destinations,
-  }),
+  // computed: mapState({
+  //   destinations: (state) => state.wuapi.destinations,
+  // }),
 
-  methods: mapActions("wuapi", ["getDestinations"]),
+  // methods: mapActions("wuapi", ["getDestinations"]),
 }
 </script>
 

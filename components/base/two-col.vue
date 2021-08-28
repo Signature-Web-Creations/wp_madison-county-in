@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-row
-      v-for="(category, index) in categories"
+      v-for="(category, index) in posts"
       :key="category.slug"
       :id="category.slug"
       class="flex-column-reverse ma-0"
@@ -109,7 +109,7 @@
           <v-img
             height="100%"
             elevation="4"
-            :src="category.featured_media_url"
+            :src="itemImage(category.featured_media_sizes)"
             :aspect-ratio="setImageAspectRatio"
             cover
           ></v-img>
@@ -120,18 +120,12 @@
 </template>
 
 <script>
-import { mapState, mapActions } from "vuex"
-
 export default {
-  async fetch() {
-    await this.getCategoriesWithPosts()
-    await this.setFeaturedImageUrl()
-  },
-
-  data() {
-    return {
-      categories: [],
-    }
+  props: {
+    posts: {
+      type: Array,
+      required: true,
+    },
   },
 
   computed: {
@@ -146,39 +140,23 @@ export default {
           return 961 / 762
       }
     },
-    ...mapState(["categoriesWithPosts"]),
   },
 
   methods: {
-    /**
-     * Used this function to get the image from the Wordpress API because
-     * trying to pass the value through a function call was always returning
-     * a promise and we were unable to extract the string from the promise.
-     * Being pressed for time, I resorted to an old fashioned method for loop.
-     */
-    async setFeaturedImageUrl() {
-      let array = []
-      let categories_With_Posts = this.categoriesWithPosts.filter(
-        (categoryobject) => categoryobject.posts.length > 0
-      )
-      for (let i = 0; i < categories_With_Posts.length; i++) {
-        let image = await fetch(
-          this.$config.apiUrl +
-            "media/" +
-            categories_With_Posts[i].featured_media_id
-        )
-          .then((response) => response.json())
-          .catch((error) => error.response.status)
-        if (!image.data) {
-          categories_With_Posts[i].featured_media_url = image.guid.rendered
-        } else {
-          categories_With_Posts[i].featured_media_url = ""
-        }
-        array.push(categories_With_Posts[i])
+    itemImage(image) {
+      switch (this.$vuetify.breakpoint.name) {
+        case "xs":
+          return image.medium_large.source_url
+        case "sm":
+          return image.large.source_url
+        case "md":
+          return image["post-thumbnail"].source_url
+        case "lg":
+          return image["2048x2048"].source_url
+        case "xl":
+          return image.full.source_url
       }
-      this.categories = array
     },
-    ...mapActions(["getCategoriesWithPosts"]),
   },
 }
 </script>
