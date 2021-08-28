@@ -15,14 +15,14 @@
         transition="slide-x-reverse-transition"
         reverse-transition="slide-x-transition"
         class="accent"
-        v-for="homepost in homeFeatures"
-        :key="homepost.id"
+        v-for="item in items"
+        :key="item.id"
         width="100%"
         min-height="320"
         :style="{
           background:
             'linear-gradient(90deg, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0.5) 28%, rgba(0, 0, 0, 0) 100%), url(' +
-            homepost.acf.hero_image.url +
+            itemImage(item.acf.hero_image) +
             ')',
           'background-size': 'cover',
           'background-position': 'center',
@@ -32,7 +32,7 @@
 
     <v-sheet
       class="header-wrap pl-5 pr-5 pl-md-16 pr-md-16 absolute"
-      v-for="(post, index) in homeFeatures"
+      v-for="(post, index) in items"
       :key="post.id"
     >
       <v-slide-x-transition hide-on-leave>
@@ -72,25 +72,17 @@
 
 <script>
 export default {
+  props: {
+    items: {
+      type: Array,
+      required: true,
+    },
+  },
+
   data() {
     return {
       carouselIndex: 0,
-      homeFeatures: [],
     }
-  },
-
-  async fetch() {
-    this.homeFeatures = await fetch(
-      this.$config.apiUrl + "home_features"
-    ).then((res) => res.json())
-    this.homeFeatures = this.homeFeatures.map(
-      ({ acf, title, slug, yoast_head }) => ({
-        acf,
-        title,
-        slug,
-        yoast_head,
-      })
-    )
   },
 
   computed: {
@@ -120,6 +112,23 @@ export default {
             "font-size": "62px",
             "line-height": "1.1",
           }
+      }
+    },
+  },
+
+  methods: {
+    itemImage(image) {
+      switch (this.$vuetify.breakpoint.name) {
+        case "xs":
+          return image.sizes.medium_large
+        case "sm":
+          return image.sizes.large
+        case "md":
+          return image.sizes["post-thumbnail"]
+        case "lg":
+          return image.sizes["2048x2048"]
+        case "xl":
+          return image.url
       }
     },
   },
