@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-row
-      v-for="(category, index) in posts"
+      v-for="(category, index) in categories"
       :key="category.slug"
       :id="category.slug"
       class="flex-column-reverse ma-0"
@@ -45,13 +45,6 @@
               </h2>
             </div>
 
-            <!-- <div
-            :class="{
-              'text-md-left ml-md-4 ': index % 2 === 0,
-              'text-md-right mr-md-4 lightgrey--text': index % 2 !== 0
-            }"
-            v-html="category.content"
-          ></div> -->
             <p
               class="px-sm-5 my-10 mb-lg-5"
               :class="{
@@ -122,7 +115,7 @@
 <script>
 export default {
   props: {
-    posts: {
+    categories: {
       type: Array,
       required: true,
     },

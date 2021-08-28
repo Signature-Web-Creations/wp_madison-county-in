@@ -1,7 +1,7 @@
 <template>
   <section id="welcome" class="overflow-hidden">
     <BaseHeroslider :items="slides" />
-    <BaseTwoCol :posts="posts" />
+    <BaseTwoColumn :categories="posts" />
     <BaseVisitorSection />
     <WhatsUpDestinations :destinations="destinations" />
     <BaseUpcomingEvents :events="events" />
@@ -40,7 +40,7 @@ export default {
       returnValue: true,
     })
 
-    const events = await store.dispatch("getEvents", {
+    const events = await store.dispatch("wuapi/getEvents", {
       type: "latest",
       limit: "6",
       categories: "18,7,11,9,6,3,4,16",

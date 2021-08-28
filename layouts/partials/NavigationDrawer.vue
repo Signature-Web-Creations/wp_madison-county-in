@@ -92,10 +92,6 @@
           link
           :to="('/community/' + city.name) | lowerCase"
         >
-          <!-- <v-list-item-icon>
-          <v-icon dense>{{ item.icon }}</v-icon>
-        </v-list-item-icon> -->
-
           <v-list-item-content>
             <v-list-item-title>{{ city.name }}</v-list-item-title>
           </v-list-item-content>
@@ -134,11 +130,6 @@ export default {
           icon: "fas fa-house-user",
           offices: [],
         },
-        // {
-        //   name: "Visitors",
-        //   url: "/#visitors",
-        //   icon: "fas fa-map-marked-alt",
-        // },
       ],
       wuSections: [
         {
@@ -181,7 +172,6 @@ export default {
     ...mapActions("navigation", ["updateDrawer"]),
     // ...mapActions("getOffices"),
     governmentOffices() {
-      console.log("office ", this.offices)
       this.categorySections[0].offices = this.offices.filter(
         (offices) => offices.categories[0] === 5
       )
