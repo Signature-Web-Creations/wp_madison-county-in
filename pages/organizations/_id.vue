@@ -13,19 +13,30 @@
         <v-col cols="12" lg="7" class="mb-3">
           <div class="">
             <div class="detail-tile mb-4">
-              <h1 v-html="organization.name" />
-              <p
-                class="text-muted"
-                v-html="
-                  organization.address +
-                  '<br />' +
-                  organization.city +
-                  ', ' +
-                  organization.state +
-                  ', ' +
-                  organization.zip
-                "
-              />
+              <div class="d-flex flex-row mb-lg-6 align-center">
+                <v-img
+                  class="mr-lg-4"
+                  v-if="organization.organization_image"
+                  :src="organization.organization_image"
+                  contain
+                  max-width="150"
+                />
+                <div>
+                  <h1 v-html="organization.name" />
+                  <p
+                    class="text-muted"
+                    v-html="
+                      organization.address +
+                      '<br />' +
+                      organization.city +
+                      ', ' +
+                      organization.state +
+                      ', ' +
+                      organization.zip
+                    "
+                  />
+                </div>
+              </div>
               <v-btn
                 disabled
                 rounded
