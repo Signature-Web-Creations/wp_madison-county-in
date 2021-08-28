@@ -163,7 +163,7 @@ export default {
   },
 
   async created() {
-    if (this.community) {
+    if (this.community && this.community.media_url != 0) {
       let heroobj = await fetch(
         this.$config.apiUrl + "media/" + this.community.media_url
       )

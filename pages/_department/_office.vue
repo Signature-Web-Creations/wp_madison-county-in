@@ -159,8 +159,12 @@ export default {
   },
 
   async created() {
-    // this.mymethod('setHeroImageUrl');
-    if (this.office) {
+    this.department_category_id = this.categoryMap[
+      this.$route.params.department
+    ]
+    this.office_tag_id = this.tags[this.$route.params.office]
+
+    if (this.office && this.office.media_url !== 0) {
       let heroobj = await fetch(
         this.$config.apiUrl + "media/" + this.office.media_url
       )
@@ -171,10 +175,6 @@ export default {
       this.image_url =
         "http://mcapi.signaturewebcreations.com/wp-content/uploads/2021/07/photo-1602992708529-c9fdb12905c9-scaled.jpeg"
     }
-    this.department_category_id = this.categoryMap[
-      this.$route.params.department
-    ]
-    this.office_tag_id = this.tags[this.$route.params.office]
   },
 }
 </script>
