@@ -128,7 +128,7 @@ export const actions = {
     }
   },
 
-  async getOffices({ state, commit }) {
+  async getOffices({ state, commit }, returnValue) {
     const fields = [
       "acf",
       "slug",
@@ -175,7 +175,11 @@ export const actions = {
           }
         }
       )
-      commit("UPDATE_OFFICES", offices)
+      if (returnValue) {
+        return offices
+      } else {
+        commit("UPDATE_OFFICES", offices)
+      }
     } catch (err) {
       console.log(err)
     }

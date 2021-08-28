@@ -6,6 +6,7 @@
     temporary
     right
     app
+    width="290"
   >
     <v-list-item>
       <v-list-item-avatar>
@@ -33,20 +34,33 @@
         </v-list-item-content>
       </v-list-item>
 
-      <v-list-item
-        v-for="item in categorySections"
-        :key="item.name"
-        link
-        :href="item.url"
+      <v-list-group
+        dense
+        v-for="category in categorySections"
+        :key="category.name"
+        no-action
       >
-        <v-list-item-icon>
-          <v-icon dense>{{ item.icon }}</v-icon>
-        </v-list-item-icon>
+        <template v-slot:activator>
+          <v-list-item-icon>
+            <v-icon dense v-text="category.icon" />
+          </v-list-item-icon>
+          <v-list-item-content>
+            <v-list-item-title v-html="category.name" />
+          </v-list-item-content>
+        </template>
 
-        <v-list-item-content>
-          <v-list-item-title>{{ item.name }}</v-list-item-title>
-        </v-list-item-content>
-      </v-list-item>
+        <v-list-item
+          class="pl-6"
+          v-for="office in category.offices"
+          :key="office.name"
+          link
+          :to="('/' + category.name + '/' + office.slug) | lowerCase"
+        >
+          <v-list-item-content>
+            <v-list-item-title class="" v-html="office.name" />
+          </v-list-item-content>
+        </v-list-item>
+      </v-list-group>
 
       <v-list-item
         v-for="item in wuSections"
@@ -62,8 +76,11 @@
           <v-list-item-title>{{ item.name }}</v-list-item-title>
         </v-list-item-content>
       </v-list-item>
-      <v-list-group no-action sub-group>
+      <v-list-group no-action>
         <template v-slot:activator>
+          <v-list-item-icon>
+            <v-icon dense>fas fa-city</v-icon>
+          </v-list-item-icon>
           <v-list-item-content>
             <v-list-item-title>City/Township</v-list-item-title>
           </v-list-item-content>
@@ -73,7 +90,7 @@
           v-for="city in communityList"
           :key="city.name"
           link
-          :to="('/community/' + city.name) | lowercase"
+          :to="('/community/' + city.name) | lowerCase"
         >
           <!-- <v-list-item-icon>
           <v-icon dense>{{ item.icon }}</v-icon>
@@ -103,27 +120,25 @@ export default {
 
   data() {
     return {
+      alloffices: [],
       categorySections: [
         {
           name: "Government",
           url: "/#government",
           icon: "fas fa-university",
+          offices: [],
         },
-        // {
-        //   name: "Business",
-        //   url: "/#business",
-        //   icon: "fas fa-handshake",
-        // },
         {
           name: "Residents",
           url: "/#residents",
           icon: "fas fa-house-user",
+          offices: [],
         },
-        {
-          name: "Visitors",
-          url: "/#visitors",
-          icon: "fas fa-map-marked-alt",
-        },
+        // {
+        //   name: "Visitors",
+        //   url: "/#visitors",
+        //   icon: "fas fa-map-marked-alt",
+        // },
       ],
       wuSections: [
         {
@@ -158,95 +173,34 @@ export default {
       ],
     }
   },
+
   async fetch({ store }) {
-    let options = {
-      limit: "500",
-    }
-    await store.dispatch("wuapi/getDirectory", options)
+    await store.dispatch("getOffices")
+  },
+  methods: {
+    ...mapActions("navigation", ["updateDrawer"]),
+    // ...mapActions("getOffices"),
+    governmentOffices() {
+      console.log("office ", this.offices)
+      this.categorySections[0].offices = this.offices.filter(
+        (offices) => offices.categories[0] === 5
+      )
+    },
+    residentsOffices() {
+      this.categorySections[1].offices = this.offices.filter(
+        (offices) => offices.categories[0] === 15
+      )
+    },
+  },
+  created() {
+    this.governmentOffices()
+    this.residentsOffices()
   },
   computed: {
     ...mapState({
+      offices: (state) => state.offices,
       drawer: (state) => state.navigation.drawer,
-      categories: (state) => state.categories,
-      organizationList: (state) => state.wuapi.directory,
     }),
-
-    cityItems() {
-      let array = []
-      this.cityList.forEach((element, index) => {
-        let item = {
-          name: element,
-          id: index,
-          children: [],
-        }
-        array.push(item)
-      })
-      return array
-    },
-  },
-
-  methods: {
-    async fetchOrganizations(item) {
-      // Remove in 6 months and say
-      // you've made optimizations! :)
-      await pause(1500)
-
-      if (this.selectedFilter == 1) {
-        this.organizationList.filter((organization) => {
-          organization.categories.forEach((category) => {
-            if (category.name === item.name) {
-              item.children.push(organization)
-            }
-          })
-        })
-      } else if (this.selectedFilter == 2) {
-        this.organizationList.filter((organization) => {
-          if (organization.city === item.name) {
-            item.children.push(organization)
-          }
-        })
-      }
-
-      return item.children
-    },
-    getCityList() {
-      let array = []
-
-      this.organizationList.forEach((element) => {
-        if (element.city != "") {
-          let city = element.city.toLowerCase()
-          city = this.capitalizeWords(city)
-          array.push(city)
-        }
-      })
-
-      array.sort((a, b) => {
-        return a.localeCompare(b)
-      })
-
-      this.cityList = new Set(array)
-    },
-    capitalizeWords(string) {
-      return string.replace(/(?:^|\s)\S/g, function (a) {
-        return a.toUpperCase()
-      })
-    },
-
-    categoryIcon(item) {
-      return this.cat_icon[item]
-    },
-
-    ...mapActions("navigation", ["updateDrawer"]),
-  },
-  created() {
-    this.getCityList()
-  },
-  filters: {
-    lowercase: function (value) {
-      if (!value) return ""
-      value = value.toString()
-      return value.toLowerCase()
-    },
   },
 }
 </script>
