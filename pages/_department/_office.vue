@@ -70,6 +70,7 @@ export default {
           icon: "fa-calendar-alt",
         },
       ]
+
       if (this.profiles != 0) {
         let teamItem = {
           name: "Team",
@@ -77,6 +78,7 @@ export default {
         }
         array.push(teamItem)
       }
+
       if (this.jobPositions != 0) {
         let jobItem = {
           name: "Jobs",

@@ -101,7 +101,11 @@
             </v-container>
           </v-tab-item>
 
-          <v-tab-item id="tabs-icons-text-3" :style="adjustWidth">
+          <v-tab-item
+            v-if="team.length != 0"
+            id="tabs-icons-text-3"
+            :style="adjustWidth"
+          >
             <v-container class="tab-pane fade px-md-16">
               <h1 v-html="office.name + ' Team'"></h1>
               <BaseTeam :team="team" :title="office.name" />
@@ -115,7 +119,7 @@
           >
             <v-container class="tab-pane fade px-md-16">
               <h1>Open Positions</h1>
-              <BaseJobs :jobs="jobs" />
+              <BaseJobs :jobs="jobs" :officeUrl="office.slug" />
             </v-container>
           </v-tab-item>
         </v-tabs-items>

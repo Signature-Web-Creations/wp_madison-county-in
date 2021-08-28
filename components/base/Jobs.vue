@@ -10,14 +10,10 @@
               <em>{{ job.date | formatDate($moment, "MMMM D, YYYY") }}</em>
             </small>
           </h2>
-          <!-- <v-spacer />
-          <div class="text-right mr-5">
-            <v-btn
-              depressed
-              :to="{ path: '/government/human-resources' }"
-              @click="open = false"
-            >
-              Apply
+          <!-- <v-spacer v-if="officeUrl === 'human-resources'" />
+          <div v-if="officeUrl === 'human-resources'" class="text-right mr-5">
+            <v-btn depressed v-for="(tag, index) in job.tags" :key="index">
+              Test
             </v-btn>
           </div> -->
         </template>
@@ -30,13 +26,29 @@
 </template>
 
 <script>
+import { mapState } from "vuex"
+
 export default {
   props: {
     jobs: {
       type: Array,
       required: true,
     },
+    officeUrl: {
+      type: String,
+      default: null,
+    },
   },
+
+  // filter: {
+  //   tagName(value) {
+  //     return this.tags.filter((tag) => tag.includes(value))
+  //   },
+  // },
+
+  computed: mapState({
+    tags: (state) => state.tags,
+  }),
 }
 </script>
 
