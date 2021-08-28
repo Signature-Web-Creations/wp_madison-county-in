@@ -34,7 +34,7 @@ export default {
     await store.dispatch("getOffices")
     await store.dispatch("getCategories")
     const posts = await store.dispatch("getCategoriesWithPosts", true)
-    await store.dispatch("getFeaturedImages")
+    // await store.dispatch("getFeaturedImages")
 
     const destinations = await store.dispatch("wuapi/getDestinations", {
       returnValue: true,

@@ -81,7 +81,7 @@ export default {
     await this.$store.dispatch("getCategories")
     await this.$store.dispatch("getCountyProfiles")
     await this.$store.dispatch("getJobsList")
-    await this.$store.dispatch("getFeaturedImages")
+    // await this.$store.dispatch("getFeaturedImages")
   },
 
   computed: {

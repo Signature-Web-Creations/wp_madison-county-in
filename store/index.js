@@ -60,19 +60,19 @@ export const mutations = {
   },
 }
 
-function getFeaturedMediaURL(featuredImages, featured_media_id) {
-  if (featured_media_id === 0) {
-    return ""
-  } else {
-    for (let i = 0; i < featuredImages.length; i++) {
-      let image = featuredImages[i]
-      if (image.id === featured_media_id) {
-        return image.guid.rendered
-      }
-    }
-    return ""
-  }
-}
+// function getFeaturedMediaURL(featuredImages, featured_media_id) {
+//   if (featured_media_id === 0) {
+//     return ""
+//   } else {
+//     for (let i = 0; i < featuredImages.length; i++) {
+//       let image = featuredImages[i]
+//       if (image.id === featured_media_id) {
+//         return image.guid.rendered
+//       }
+//     }
+//     return ""
+//   }
+// }
 
 /*
 
@@ -290,17 +290,17 @@ export const actions = {
     }
   },
 
-  async getFeaturedImages({ commit }) {
-    const fields = ["id", "guid"]
-    const parameters = fields.join(",")
-    const url = this.$config.apiUrl + `media?_fields=${parameters}`
-    try {
-      let featuredImages = await fetch(url).then((res) => res.json())
-      commit("UPDATE_FEATURED_IMAGES", featuredImages)
-    } catch (error) {
-      console.log(error)
-    }
-  },
+  // async getFeaturedImages({ commit }) {
+  //   const fields = ["id", "guid"]
+  //   const parameters = fields.join(",")
+  //   const url = this.$config.apiUrl + `media?_fields=${parameters}`
+  //   try {
+  //     let featuredImages = await fetch(url).then((res) => res.json())
+  //     commit("UPDATE_FEATURED_IMAGES", featuredImages)
+  //   } catch (error) {
+  //     console.log(error)
+  //   }
+  // },
 
   async getCountyProfiles({ commit }, getPrimary) {
     const fields = [
