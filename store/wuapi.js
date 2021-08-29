@@ -776,3 +776,9 @@ export const actions = {
     commit("SET_DESTINATION", destination)
   },
 }
+
+export const getters = {
+  getDirectoryCategories: (state) => {
+    return state.directory_categories
+  },
+}
