@@ -1,5 +1,48 @@
 <template>
-  <v-card>
+  <div class="main-wrapper">
+    <v-container fluid>
+      <v-row class="d-flex flex-md-row justify-center pb-10 pt-15 px-3">
+        <v-col cols="12" class="mb-3">
+          <v-tabs
+            v-model="tab"
+            background-color="transparent"
+            color="basil"
+            fixed-tabs
+          >
+            <v-tab v-for="item in filters" :key="item.id">
+              {{ item.name }}
+            </v-tab>
+          </v-tabs>
+
+          <v-tabs-items v-model="tab">
+            <v-tab-item v-for="item in filters" :key="item.id">
+              <v-card flat>
+                <v-treeview
+                  :active.sync="active"
+                  :items="setFilter(item.id)"
+                  :load-children="fetchOrganizations"
+                  :open.sync="open"
+                  activatable
+                  color="primary"
+                  open-on-click
+                  transition
+                  hoverable
+                  dense
+                  @update:open="updateOrganizationList"
+                ></v-treeview>
+                <!-- <v-card-text
+                  v-for="option in setFilter(item.id)"
+                  :key="option.id"
+                  >{{ option.name }}</v-card-text
+                > -->
+              </v-card>
+            </v-tab-item>
+          </v-tabs-items>
+        </v-col>
+      </v-row>
+    </v-container>
+  </div>
+  <!-- <v-card>
     <v-card-title class="primary white--text text-h5 mt-15">
       Madison County Directory
     </v-card-title>
@@ -72,7 +115,6 @@
                 {{ selected.email }}
               </div>
               <div class="blue--text subheading font-weight-bold">
-                <!-- {{ selected.username }} -->
               </div>
             </v-card-text>
 
@@ -109,7 +151,7 @@
         </v-scroll-y-transition>
       </v-col>
     </v-row>
-  </v-card>
+  </v-card> -->
 </template>
 
 <script>
@@ -120,14 +162,15 @@ export default {
   data: () => ({
     active: [],
     open: [],
+    tab: null,
     filters: [
+      {
+        name: "By City",
+        id: 0,
+      },
       {
         name: "By Category",
         id: 1,
-      },
-      {
-        name: "By City",
-        id: 2,
       },
     ],
     selectedFilter: 0,
@@ -197,35 +240,42 @@ export default {
       await pause(1500)
 
       if (this.selectedFilter == 1) {
-        this.organizationList.filter((organization) => {
+        return this.organizationList.filter((organization) => {
           organization.categories.forEach((category) => {
             if (category.name === item.name) {
               item.children.push(organization)
             }
           })
         })
-      } else if (this.selectedFilter == 2) {
-        this.organizationList.filter((organization) => {
-          if (organization.city === item.name) {
-            item.children.push(organization)
-          }
-        })
+      } else if (this.selectedFilter == 0) {
+        console.log(
+          this.organizationList.filter(
+            (organization) => organization.city === item.name
+          )
+        )
+        return (item.children = this.organizationList.filter(
+          (organization) => organization.city === item.name
+        ))
       }
+      // console.log(item.children)
 
-      return item.children
+      // return item.children
     },
 
     setFilter(id) {
-      if (id === 1) {
-        this.items = this.categoryItems
-      } else if (id === 2) {
-        this.items = this.cityItems
+      if (id === 0) {
+        console.log(id)
+        // this.selectedFilter = id
+        return this.cityItems
+      } else if (id === 1) {
+        console.log(id)
+        // this.selectedFilter = id
+        return this.categoryItems
       }
-
-      this.selectedFilter = id
     },
 
     updateOrganizationList(array) {
+      // console.log(array)
       this.open = array
     },
 
