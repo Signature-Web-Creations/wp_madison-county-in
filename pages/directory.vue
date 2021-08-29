@@ -19,9 +19,10 @@
               <v-card flat>
                 <v-treeview
                   :active.sync="active"
-                  :items="setFilter(item.id)"
+                  :items="items"
                   :load-children="fetchOrganizations"
                   :open.sync="open"
+                  :value="open"
                   activatable
                   color="primary"
                   open-on-click
@@ -29,7 +30,14 @@
                   hoverable
                   dense
                   @update:open="updateOrganizationList"
-                ></v-treeview>
+                >
+                  <!-- <template v-slot:prepend="{ item }">
+                    <v-icon v-if="!item.children">
+                      mdi-account
+                    </v-icon>
+                  </template> -->
+                </v-treeview>
+
                 <!-- <v-card-text
                   v-for="option in setFilter(item.id)"
                   :key="option.id"
@@ -173,10 +181,10 @@ export default {
         id: 1,
       },
     ],
-    selectedFilter: 0,
+    // selectedFilter: 0,
     cityList: [],
     categoryList: [],
-    items: undefined,
+    // items: undefined,
   }),
 
   async fetch({ store }) {
@@ -191,6 +199,14 @@ export default {
       organizationList: (state) => state.wuapi.directory,
       categories: (state) => state.wuapi.directory_categories,
     }),
+
+    items() {
+      if (this.tab === 0) {
+        return this.cityItems
+      } else if (this.tab === 1) {
+        return this.categoryItems
+      }
+    },
 
     categoryItems() {
       let array = []
@@ -239,7 +255,7 @@ export default {
       // you've made optimizations! :)
       await pause(1500)
 
-      if (this.selectedFilter == 1) {
+      if (this.tab == 1) {
         return this.organizationList.filter((organization) => {
           organization.categories.forEach((category) => {
             if (category.name === item.name) {
@@ -247,32 +263,29 @@ export default {
             }
           })
         })
-      } else if (this.selectedFilter == 0) {
-        console.log(
-          this.organizationList.filter(
+      } else if (this.tab == 0) {
+        // this.organizationList.filter((organization) => {
+        //   if (organization.city === item.name) {
+        //     item.children.push(organization)
+        //   }
+        // })
+        item.children.push(
+          ...this.organizationList.filter(
             (organization) => organization.city === item.name
           )
         )
-        return (item.children = this.organizationList.filter(
-          (organization) => organization.city === item.name
-        ))
       }
-      // console.log(item.children)
 
-      // return item.children
+      return item.children
     },
 
-    setFilter(id) {
-      if (id === 0) {
-        console.log(id)
-        // this.selectedFilter = id
-        return this.cityItems
-      } else if (id === 1) {
-        console.log(id)
-        // this.selectedFilter = id
-        return this.categoryItems
-      }
-    },
+    // setFilter(id) {
+    //   if (id === 0) {
+    //     return this.cityItems
+    //   } else if (id === 1) {
+    //     return this.categoryItems
+    //   }
+    // },
 
     updateOrganizationList(array) {
       // console.log(array)
@@ -321,8 +334,8 @@ export default {
   },
 
   created() {
-    this.getCategoryList()
     this.getCityList()
+    this.getCategoryList()
   },
 }
 </script>
