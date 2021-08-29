@@ -7,15 +7,13 @@
     />
     <!-- Content -->
     <v-container fluid>
-      <v-row
-        class="d-flex flex-md-row justify-center flex-sm-column-reverse pa-10 pt-15"
-      >
+      <v-row class="d-flex flex-md-row justify-center pb-10 pt-15 px-3">
         <v-col cols="12" lg="7" class="mb-3">
           <div class="">
             <div class="detail-tile mb-4">
-              <div class="d-flex flex-row mb-lg-6 align-center">
+              <div class="d-flex flex-row mb-6 align-center">
                 <v-img
-                  class="mr-lg-4"
+                  class="mr-4"
                   v-if="organization.organization_image"
                   :src="organization.organization_image"
                   contain

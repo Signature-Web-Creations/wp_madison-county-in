@@ -6,6 +6,7 @@
         class="nav nav-pills nav-fill flex-column flex-md-row"
         id="tabs-icons-text"
         role="tablist"
+        show-arrows
       >
         <v-tab
           v-for="(nav, index) in navigation"
