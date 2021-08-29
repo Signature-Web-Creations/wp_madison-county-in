@@ -46,7 +46,7 @@
             </div>
 
             <div
-              class="px-sm-5 my-10 mb-lg-5"
+              class="p-content px-sm-5 my-10 mb-lg-5"
               :class="{
                 'text-lg-left': index % 2 === 0,
                 'text-lg-right lightgrey--text': index % 2 !== 0,
@@ -218,7 +218,7 @@ export default {
       width: 95%;
     }
   }
-  p {
+  .p-content {
     font-size: 18px;
     @media screen and (min-width: 1904px) {
       font-size: 25px;
