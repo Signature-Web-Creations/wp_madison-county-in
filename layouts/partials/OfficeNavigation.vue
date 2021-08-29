@@ -125,11 +125,7 @@
           </v-tab-item>
         </v-tabs-items>
       </v-container>
-      <BaseBottomNavigation
-        v-if="resources"
-        :docs="resources"
-        class="d-md-none"
-      />
+      <BaseBottomNavigation :docs="resources" class="d-md-none" />
     </v-sheet>
   </div>
 </template>
