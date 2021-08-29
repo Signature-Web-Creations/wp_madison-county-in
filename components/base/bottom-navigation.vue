@@ -55,7 +55,7 @@
         </v-list-item>
       </v-list>
     </v-bottom-sheet>
-    <v-bottom-sheet scrollable v-model="sheet">
+    <v-bottom-sheet v-if="docs" v-model="sheet">
       <template v-slot:activator="{ on, attrs }">
         <v-btn class="lightgrey--text" v-bind="attrs" v-on="on">
           <span class="lightgrey--text">
@@ -73,7 +73,11 @@
             :href="item.document.url"
             target="_blank"
           >
-            <v-list-item-avatar> </v-list-item-avatar>
+            <v-list-item-icon>
+              <v-icon dense class="fa-fw primary--text">
+                fa-file
+              </v-icon>
+            </v-list-item-icon>
             <v-list-item-title
               class="blackish--text"
               v-html="item.document.title"
