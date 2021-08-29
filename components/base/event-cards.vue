@@ -1,5 +1,5 @@
 <template>
-  <v-item-group
+  <div
     class="absolute event-bar pl-5 pr-5 pl-md-16 pr-md-16"
     active-class="primary"
   >
@@ -30,7 +30,7 @@
         </v-card>
       </v-col>
     </v-row>
-  </v-item-group>
+  </div>
 </template>
 
 <script>

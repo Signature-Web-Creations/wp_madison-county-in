@@ -11,7 +11,10 @@
         <v-row>
           <v-col cols="12" lg="8" xl="6">
             <h2 class="display-2 h2 mb-8">{{ pageData.title.rendered }}</h2>
-            <p class="white--text mt-8 mb-6" v-html="pageData.acf.overview"></p>
+            <div
+              class="white--text mt-8 mb-6"
+              v-html="pageData.acf.overview"
+            ></div>
 
             <v-btn
               id="visitorsbtn"
@@ -55,7 +58,7 @@ export default {
 // }
 
 #visitors {
-  p {
+  .white--text {
     font-size: 18px;
     @media screen and (min-width: 1904px) {
       font-size: 25px;

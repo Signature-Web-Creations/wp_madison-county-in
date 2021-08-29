@@ -2,9 +2,9 @@
   <section id="welcome" class="overflow-hidden">
     <BaseHeroslider :items="slides" />
     <BaseTwoColumn :categories="posts" />
-    <!-- <BaseVisitorSection /> -->
-    <!-- <WhatsUpDestinations :destinations="destinations" /> -->
-    <!-- <BaseUpcomingevents :events="events" /> -->
+    <BaseVisitorSection />
+    <WhatsUpDestinations :destinations="destinations" />
+    <BaseUpcomingevents :events="events" />
   </section>
 </template>
 

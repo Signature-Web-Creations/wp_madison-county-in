@@ -7,9 +7,7 @@
     />
     <!-- Content -->
     <v-container fluid>
-      <v-row
-        class="d-flex flex-md-row justify-center flex-sm-column-reverse pa-10 pt-15"
-      >
+      <v-row class="d-flex flex-md-row justify-center pb-10 pt-15 px-3">
         <v-col cols="12" lg="7" class="mb-3">
           <div class="">
             <div class="detail-tile mb-4">
