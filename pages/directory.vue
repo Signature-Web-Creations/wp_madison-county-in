@@ -1,5 +1,6 @@
 <template>
   <div class="main-wrapper">
+    <WhatsUpListingHeader />
     <v-container fluid>
       <v-row class="d-flex flex-md-row justify-center pb-10 pt-15 px-3">
         <v-col cols="12" lg="7" class="mb-3">
@@ -9,7 +10,7 @@
           <v-tabs
             v-model="tab"
             background-color="transparent"
-            color="basil"
+            color="primary"
             grow
           >
             <v-tab
@@ -35,10 +36,19 @@
                   open-on-click
                   transition
                   hoverable
-                  dense
                   @update:open="updateOrganizationList"
                   @update:active="goTo"
                 >
+                  <template v-slot:prepend="{ item }">
+                    <v-img
+                      v-if="!item.children"
+                      :src="item.organization_image"
+                      contain
+                      width="50"
+                      min-height="60"
+                      class="py-3 mr-4"
+                    />
+                  </template>
                 </v-treeview>
               </v-card>
             </v-tab-item>

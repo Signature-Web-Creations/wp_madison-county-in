@@ -9,7 +9,8 @@ export default {
   props: {
     image: {
       type: String,
-      default: "",
+      default:
+        "http://mcapi.signaturewebcreations.com/wp-content/uploads/2021/07/photo-1602992708529-c9fdb12905c9-scaled.jpeg",
     },
     name: {
       type: String,
