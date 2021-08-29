@@ -78,6 +78,7 @@ export default {
   },
 
   async fetch() {
+    await this.$store.dispatch("getOffices")
     await this.$store.dispatch("getCategories")
     await this.$store.dispatch("getCountyProfiles")
     await this.$store.dispatch("getJobsList")
