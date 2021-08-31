@@ -15,44 +15,62 @@
       </template>
       <v-list flat>
         <v-card-title>Office Contact</v-card-title>
-        <v-list-item class="lightgrey--text">
-          <v-list-item-icon>
-            <v-icon dense class="fa-fw blackish--text">
-              fa-user-circle
-            </v-icon>
-          </v-list-item-icon>
-          <v-list-item-content>
-            <v-list-item-title
-              class="blackish--text"
-              v-text="'Office Administrator'"
-            />
-          </v-list-item-content>
-        </v-list-item>
+        <v-list flat>
+          <v-list-item class="blackish--text" v-if="primaryContact.title">
+            <v-list-item-icon>
+              <v-icon dense class="fa-fw primary--text">
+                fa-user-circle
+              </v-icon>
+            </v-list-item-icon>
+            <v-list-item-content>
+              <v-list-item-title
+                class="blackish--text"
+                v-text="primaryContact.title"
+              />
+            </v-list-item-content>
+          </v-list-item>
 
-        <v-list-item>
-          <v-list-item-icon>
-            <v-icon dense class="fa-fw blackish--text">
-              fa-phone
-            </v-icon>
-          </v-list-item-icon>
-          <v-list-item-content>
-            <v-list-item-title class="blackish--text" v-text="'1231234567'" />
-          </v-list-item-content>
-        </v-list-item>
+          <v-list-item v-if="primaryContact.phone">
+            <v-list-item-icon>
+              <v-icon dense class="fa-fw primary--text">
+                fa-phone
+              </v-icon>
+            </v-list-item-icon>
+            <v-list-item-content>
+              <v-list-item-title
+                class="blackish--text"
+                v-html="primaryContact.phone"
+              />
+            </v-list-item-content>
+          </v-list-item>
 
-        <v-list-item>
-          <v-list-item-icon>
-            <v-icon dense class="fa-fw blackish--text">
-              fa-envelope
-            </v-icon>
-          </v-list-item-icon>
-          <v-list-item-content>
-            <v-list-item-title
-              class="blackish--text"
-              v-text="'noreply@madisoncounty.in.gov'"
-            />
-          </v-list-item-content>
-        </v-list-item>
+          <v-list-item v-if="primaryContact.email">
+            <v-list-item-icon>
+              <v-icon dense class="fa-fw primary--text">
+                fa-envelope
+              </v-icon>
+            </v-list-item-icon>
+            <v-list-item-content>
+              <v-list-item-title
+                class="blackish--text"
+                v-text="primaryContact.email"
+              />
+            </v-list-item-content>
+          </v-list-item>
+          <v-list-item :href="primaryContact.url" v-if="primaryContact.url">
+            <v-list-item-icon>
+              <v-icon dense class="fa-fw primary--text">
+                fa-globe
+              </v-icon>
+            </v-list-item-icon>
+            <v-list-item-content>
+              <v-list-item-title
+                class="blackish--text"
+                v-text="primaryContact.url"
+              />
+            </v-list-item-content>
+          </v-list-item>
+        </v-list>
       </v-list>
     </v-bottom-sheet>
     <v-bottom-sheet v-if="docs" v-model="sheet">
@@ -97,6 +115,9 @@ export default {
   }),
   props: {
     docs: [Array, Boolean],
+    primaryContact: {
+      type: Object,
+    },
   },
 }
 </script>

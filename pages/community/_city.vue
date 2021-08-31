@@ -9,6 +9,7 @@
       :directory="cityDirectory"
       :community="community"
       :resources="community.resources"
+      :primaryContact="primaryContact"
     />
   </div>
 </template>

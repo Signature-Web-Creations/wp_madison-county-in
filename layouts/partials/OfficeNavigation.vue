@@ -125,7 +125,12 @@
           </v-tab-item>
         </v-tabs-items>
       </v-container>
-      <BaseBottomNavigation :docs="resources" class="d-md-none" />
+      <BaseBottomNavigation
+        :primaryContact="contactInfo"
+        :docs="resources"
+        class="d-md-none"
+      />
+      {{}}
     </v-sheet>
   </div>
 </template>
@@ -145,6 +150,7 @@ export default {
     team: Array,
     office: Object,
     jobs: Array,
+    contactInfo: Object,
   },
 
   data() {

@@ -13,6 +13,7 @@
       :office="office"
       :jobs="jobPositions"
       :resources="office.acf.resources"
+      :contactInfo="primaryContact"
     />
   </div>
 </template>
