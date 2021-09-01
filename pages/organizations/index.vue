@@ -1,8 +1,6 @@
 <template>
   <div class="main-wrapper">
-    <WhatsUpListingHeader
-      image="http://mcapi.signaturewebcreations.com/wp-content/uploads/2021/09/default.jpeg"
-    />
+    <WhatsUpListingHeader image="default" />
     <v-container fluid>
       <v-row class="d-flex flex-md-row justify-center py-10 px-3">
         <v-col cols="12" lg="7" class="mb-3">
