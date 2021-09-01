@@ -597,7 +597,9 @@ export const actions = {
       "/event?organization_id=" +
       this.$config.orgId +
       "&copromotion=1&categories=" +
-      options.categories
+      options.categories +
+      "&limit=" +
+      options.limit
 
     const events = await this.$axios
       .get(url, {
