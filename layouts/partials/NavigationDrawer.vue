@@ -139,7 +139,7 @@ export default {
         },
         {
           name: "Directory",
-          url: "/directory",
+          url: "/organizations",
           icon: "fas fa-folder-open",
         },
         {
