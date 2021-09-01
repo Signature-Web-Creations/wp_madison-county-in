@@ -16,6 +16,7 @@ export const state = () => ({
   categoriesWithPosts: [],
   profilePage: null,
   jobs: [],
+  defaultImage: null,
 })
 /*
 this will update the state
@@ -57,6 +58,9 @@ export const mutations = {
   },
   UPDATE_JOBS: (state, array) => {
     state.jobs = array
+  },
+  SET_DEFAULT_IMAGE: (state, object) => {
+    state.defaultImage = object
   },
 }
 
@@ -463,5 +467,12 @@ export const actions = {
     return this.$axios.get(url).then(({ data }) => {
       return data[0]
     })
+  },
+
+  async setDefaultImage({ commit }) {
+    const url = this.$config.apiUrl + "media/1589"
+
+    const image = await this.$axios.get(url)
+    commit("SET_DEFAULT_IMAGE", image)
   },
 }

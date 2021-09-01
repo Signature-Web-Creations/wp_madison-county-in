@@ -28,7 +28,6 @@ export default {
       type: "latest",
       returnValue: true,
     })
-    console.log(eventList)
 
     return { eventList }
   },

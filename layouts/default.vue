@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import { mapState } from "vuex"
+// import { mapState } from "vuex"
 import NavigationDrawer from "~/layouts/partials/NavigationDrawer"
 import NavigationBar from "~/layouts/partials/NavigationBar"
 import Footer from "~/layouts/partials/Footer"
@@ -32,7 +32,11 @@ export default {
     }
   },
 
-  computed: mapState(["categories"]),
+  async fetch() {
+    this.$store.dispatch("setDefaultImage")
+  },
+
+  // computed: mapState(["categories"]),
 }
 </script>
 

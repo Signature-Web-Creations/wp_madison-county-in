@@ -56,9 +56,6 @@ export default {
     await store.dispatch("wuapi/getEvents", options)
   },
 
-  // async mounted() {
-
-  // },
   computed: {
     tabs() {
       let array = [
