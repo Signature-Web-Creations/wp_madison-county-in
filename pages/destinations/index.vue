@@ -30,7 +30,7 @@
                 <v-treeview
                   :active.sync="active"
                   :items="items"
-                  :load-children="fetchOrganizations"
+                  :load-children="fetchDestinations"
                   :open.sync="open"
                   :value="open"
                   activatable
@@ -38,7 +38,7 @@
                   open-on-click
                   transition
                   hoverable
-                  @update:open="updateOrganizationList"
+                  @update:open="updateDestinationsList"
                   @update:active="goTo"
                 >
                   <template v-slot:prepend="{ item }">
@@ -85,12 +85,12 @@ export default {
   }),
 
   async asyncData({ store }) {
-    const organizationList = await store.dispatch("wuapi/getDestinations", {
+    const destinationsList = await store.dispatch("wuapi/getDestinations", {
       limit: "500",
       returnValue: true,
     })
 
-    return { organizationList }
+    return { destinationsList }
   },
 
   computed: {
@@ -129,8 +129,8 @@ export default {
     selected() {
       if (!this.active.length) return undefined
       const id = this.active[0]
-      return this.organizationList.find(
-        (organization) => organization.id === id
+      return this.destinationsList.find(
+        (destinations) => destinations.id === id
       )
     },
   },
@@ -138,33 +138,30 @@ export default {
   methods: {
     goTo() {
       const id = this.active[0]
-      const organization = this.organizationList.find(
-        (organization) => organization.id === id
-      )
 
       this.$router.push({
-        name: "organizations-id",
-        params: { id: organization.organization_id },
+        name: "destinations-id",
+        params: { id: id },
       })
     },
 
-    async fetchOrganizations(item) {
+    async fetchDestinations(item) {
       // Remove in 6 months and say
       // you've made optimizations! :)
       await pause(1500)
 
       if (this.tab == 1) {
-        return this.organizationList.filter((organization) => {
-          organization.categories.forEach((category) => {
+        return this.destinationsList.filter((destionation) => {
+          destionation.categories.forEach((category) => {
             if (category.name === item.name) {
-              item.children.push(organization)
+              item.children.push(destionation)
             }
           })
         })
       } else if (this.tab == 0) {
         item.children.push(
-          ...this.organizationList.filter(
-            (organization) => organization.city === item.name
+          ...this.destinationsList.filter(
+            (destionation) => destionation.city === item.name
           )
         )
       }
@@ -180,15 +177,15 @@ export default {
       }
     },
 
-    updateOrganizationList(array) {
+    updateDestinationsList(array) {
       this.open = array
     },
 
     getCategoryList() {
       let array = []
 
-      this.organizationList.forEach((organization) => {
-        organization.categories.forEach((category) => {
+      this.destinationsList.forEach((destionation) => {
+        destionation.categories.forEach((category) => {
           array.push(category.name)
         })
       })
@@ -203,7 +200,7 @@ export default {
     getCityList() {
       let array = []
 
-      this.organizationList.forEach((element) => {
+      this.destinationsList.forEach((element) => {
         if (element.city != "") {
           let city = element.city.toLowerCase()
           city = this.capitalizeWords(city)
