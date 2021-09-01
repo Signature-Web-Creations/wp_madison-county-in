@@ -60,6 +60,19 @@
               />
             </v-list-item-content>
           </v-list-item>
+          <v-list-item v-if="contactInfo.fax">
+            <v-list-item-icon>
+              <v-icon dense class="fa-fw lightgrey--text">
+                fa-phone
+              </v-icon>
+            </v-list-item-icon>
+            <v-list-item-content>
+              <v-list-item-title
+                class="lightgrey--text"
+                v-html="contactInfo.fax"
+              />
+            </v-list-item-content>
+          </v-list-item>
 
           <v-list-item v-if="contactInfo.email">
             <v-list-item-icon>
