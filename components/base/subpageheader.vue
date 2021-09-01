@@ -5,7 +5,7 @@
     :style="
       image != ''
         ? 'background-image: url(' + image + ');'
-        : 'background-image: url(http://mcapi.signaturewebcreations.com/wp-content/uploads/2021/09/default.jpeg);'
+        : 'background-image: url(' + setDefault + ');'
     "
   >
     <v-overlay absolute style="margin: 0; z-index: 0;">
@@ -24,12 +24,34 @@
 </template>
 
 <script>
+import { mapState } from "vuex"
+
 export default {
   props: {
     image: {
       type: String,
       default: "",
     },
+  },
+
+  computed: {
+    setDefault() {
+      const image = this.defaultImage.media_details.sizes
+      switch (this.$vuetify.breakpoint.name) {
+        case "xs":
+          return image.medium_large.source_url
+        case "sm":
+          return image.large.source_url
+        case "md":
+          return image["post-thumbnail"].source_url
+        case "lg":
+        case "xl":
+          return image["2048x2048"].source_url
+      }
+    },
+    ...mapState({
+      defaultImage: (state) => state.defaultImage,
+    }),
   },
 }
 </script>

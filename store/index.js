@@ -473,6 +473,6 @@ export const actions = {
     const url = this.$config.apiUrl + "media/1589"
 
     const image = await this.$axios.get(url)
-    commit("SET_DEFAULT_IMAGE", image)
+    commit("SET_DEFAULT_IMAGE", image.data)
   },
 }

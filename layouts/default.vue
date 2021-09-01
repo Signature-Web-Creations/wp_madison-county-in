@@ -33,7 +33,7 @@ export default {
   },
 
   async fetch() {
-    this.$store.dispatch("setDefaultImage")
+    await this.$store.dispatch("setDefaultImage")
   },
 
   // computed: mapState(["categories"]),
