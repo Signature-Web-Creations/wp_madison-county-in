@@ -26,3 +26,13 @@ Vue.filter("lowerCase", function (value) {
   value = value.toString()
   return value.toLowerCase()
 })
+
+Vue.filter("formatPhone", function (value) {
+  if (!value) return ""
+
+  value = value.replace(/\D/g, "").match(/(\d{0,3})(\d{0,3})(\d{0,4})/)
+  value = !value[2]
+    ? value[1]
+    : "(" + value[1] + ") " + value[2] + (value[3] ? "-" + value[3] : "")
+  return value
+})

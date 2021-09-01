@@ -29,7 +29,7 @@
                     <br />
                     <em v-html="item.tags.name" />
                   </td>
-                  <td>{{ item.phone }}</td>
+                  <td>{{ item.phone | formatPhone }}</td>
                   <td>
                     <a :href="`mailto:${item.email}`">{{ item.email }}</a>
                   </td>

@@ -173,6 +173,8 @@ export const actions = {
             acf_content: acf.content,
             content,
             icon: acf.icon,
+            fax: acf.fax,
+            whatsup_id: acf.organization_id,
           }
         }
       )

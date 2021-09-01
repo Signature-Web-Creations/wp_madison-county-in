@@ -37,10 +37,21 @@
               </v-icon>
             </v-list-item-icon>
             <v-list-item-content>
-              <v-list-item-title
-                class="blackish--text"
-                v-html="primaryContact.phone"
-              />
+              <v-list-item-title class="blackish--text">
+                {{ primaryContact.phone | formatPhone }}
+              </v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+          <v-list-item v-if="primaryContact.fax">
+            <v-list-item-icon>
+              <v-icon dense class="fa-fw primary--text">
+                fa-fax
+              </v-icon>
+            </v-list-item-icon>
+            <v-list-item-content>
+              <v-list-item-title class="blackish--text">
+                {{ primaryContact.fax | formatPhone }}
+              </v-list-item-title>
             </v-list-item-content>
           </v-list-item>
 

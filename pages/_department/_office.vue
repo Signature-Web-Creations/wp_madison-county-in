@@ -130,6 +130,7 @@ export default {
           email: primary.email,
           url: this.office.acf.url,
           phone: primary.phone,
+          fax: this.office.fax,
         }
       } else {
         return {
@@ -137,6 +138,7 @@ export default {
           email: this.office.acf.email,
           url: this.office.acf.url,
           phone: this.office.acf.phone,
+          fax: this.office.fax,
         }
       }
     },

@@ -130,7 +130,6 @@
         :docs="resources"
         class="d-md-none"
       />
-      {{}}
     </v-sheet>
   </div>
 </template>

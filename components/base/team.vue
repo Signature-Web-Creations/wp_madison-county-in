@@ -56,7 +56,7 @@
           </v-card-title>
           <v-card-text class="mt-5">
             <p v-if="profile.phone != ''">
-              <strong>PHONE: </strong>{{ profile.phone }}
+              <strong>PHONE: </strong>{{ profile.phone | formatPhone }}
             </p>
             <p v-if="profile.email != ''">
               <strong>EMAIL: </strong>
