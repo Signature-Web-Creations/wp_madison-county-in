@@ -1,6 +1,7 @@
 <template>
   <div>
     <BaseLeftPanel :url="community.url" :contactInfo="primaryContact" />
+
     <CommunityNavigation
       :tabs="tabs"
       :backgroundImage="image_url"
@@ -83,7 +84,6 @@ export default {
     await this.$store.dispatch("getCategories")
     await this.$store.dispatch("getCountyProfiles")
     await this.$store.dispatch("getJobsList")
-    // await this.$store.dispatch("getFeaturedImages")
   },
 
   computed: {
@@ -144,12 +144,10 @@ export default {
         return {
           title: primary.titlerole,
           email: primary.email,
-          // url: this.community.url,
           phone: primary.phone,
         }
       } else {
         return {
-          // title: "Office Administrator",
           email: this.community.email,
           url: this.community.url,
           phone: this.community.phone,
@@ -157,10 +155,26 @@ export default {
       }
     },
 
+    setDefault() {
+      const image = this.defaultImage.media_details.sizes
+      switch (this.$vuetify.breakpoint.name) {
+        case "xs":
+          return image.medium_large.source_url
+        case "sm":
+          return image.large.source_url
+        case "md":
+          return image["post-thumbnail"].source_url
+        case "lg":
+        case "xl":
+          return image["2048x2048"].source_url
+      }
+    },
+
     ...mapState({
       categories: (state) => state.categories,
       categoryMap: (state) => state.categoryMap,
       countyProfiles: (state) => state.countyProfiles,
+      defaultImage: (state) => state.defaultImage,
     }),
   },
 
@@ -173,8 +187,7 @@ export default {
         .catch((error) => error.response.status)
       this.image_url = heroobj.guid.rendered
     } else {
-      this.image_url =
-        "http://mcapi.signaturewebcreations.com/wp-content/uploads/2021/09/default.jpeg"
+      this.image_url = this.setDefault
     }
   },
 }

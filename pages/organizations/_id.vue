@@ -87,7 +87,6 @@ export default {
 
   computed: mapState({
     categories: (state) => state.wuapi.organization_categories,
-    // organization: (state) => state.wuapi.organization,
     listOfevents: (state) => state.wuapi.listOfevents,
   }),
 

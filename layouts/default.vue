@@ -12,7 +12,6 @@
 </template>
 
 <script>
-// import { mapState } from "vuex"
 import NavigationDrawer from "~/layouts/partials/NavigationDrawer"
 import NavigationBar from "~/layouts/partials/NavigationBar"
 import Footer from "~/layouts/partials/Footer"
@@ -33,22 +32,15 @@ export default {
   },
 
   async fetch() {
+    await this.$store.dispatch("getOffices")
     await this.$store.dispatch("setDefaultImage")
   },
-
-  // computed: mapState(["categories"]),
 }
 </script>
 
 <style lang="scss" scoped>
 .v-app-bar.v-app-bar--is-scrolled {
-  /* background-image: url('http://madisoncounty.signaturewebcreations.com/wp-content/uploads/2021/06/navbg.png');
-   */
   background-color: rgba(255, 255, 255, 0.3) !important;
-
-  /* background-repeat: no-repeat;
-	background-size: 100%;
-	background-attachment: fixed; */
   .blur-container {
     height: 100%;
     left: 0;

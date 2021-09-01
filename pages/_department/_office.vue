@@ -33,7 +33,6 @@ export default {
     image_url: "",
     office_tag_id: "",
     employment_tag_id: 30,
-    // primary: "",
     items: [
       { title: "Home", icon: "mdi-home-city" },
       { title: "My Account", icon: "mdi-account" },
@@ -42,12 +41,10 @@ export default {
   }),
 
   async fetch({ store }) {
-    await store.dispatch("getOffices")
     await store.dispatch("getCategories")
     await store.dispatch("getTags")
     await store.dispatch("getCountyProfiles")
     await store.dispatch("getJobsList")
-    // await store.dispatch("getHeroImages")
 
     let options = {
       type: "latest",
@@ -144,6 +141,21 @@ export default {
       }
     },
 
+    setDefault() {
+      const image = this.defaultImage.media_details.sizes
+      switch (this.$vuetify.breakpoint.name) {
+        case "xs":
+          return image.medium_large.source_url
+        case "sm":
+          return image.large.source_url
+        case "md":
+          return image["post-thumbnail"].source_url
+        case "lg":
+        case "xl":
+          return image["2048x2048"].source_url
+      }
+    },
+
     ...mapState({
       offices: (state) => state.offices,
       listOfEvents: (state) => state.wuapi.latestEvents,
@@ -152,7 +164,7 @@ export default {
       countyProfiles: (state) => state.countyProfiles,
       tags: (state) => state.tags,
       listOfJobs: (state) => state.jobs,
-      // heroImage: (state) => state.heroImages,
+      defaultImage: (state) => state.defaultImage,
     }),
   },
 
@@ -170,8 +182,7 @@ export default {
         .catch((error) => error.response.status)
       this.image_url = heroobj.guid.rendered
     } else {
-      this.image_url =
-        "http://mcapi.signaturewebcreations.com/wp-content/uploads/2021/09/default.jpeg"
+      this.image_url = this.setDefault
     }
   },
 }
