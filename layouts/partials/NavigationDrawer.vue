@@ -134,7 +134,7 @@ export default {
       wuSections: [
         {
           name: "Events",
-          url: "/#events",
+          url: "/events",
           icon: "fas fa-calendar-alt",
         },
         {
@@ -144,8 +144,8 @@ export default {
         },
         {
           name: "Destinations",
-          url: "/#destinations",
-          icon: "fas fa-map-signs",
+          url: "/destinations",
+          icon: "fas fa-star",
         },
       ],
       communityList: [
