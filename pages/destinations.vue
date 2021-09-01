@@ -1,7 +1,7 @@
 <template>
   <div class="main-wrapper">
     <WhatsUpListingHeader
-      image="http://mcapi.signaturewebcreations.com/wp-content/uploads/2021/07/photo-1602992708529-c9fdb12905c9-scaled.jpeg"
+      image="http://mcapi.signaturewebcreations.com/wp-content/uploads/2021/09/default-scaled.jpeg"
     />
     <v-container fluid>
       <v-row class="d-flex flex-md-row justify-center py-10 px-3">

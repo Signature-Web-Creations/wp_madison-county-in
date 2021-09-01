@@ -147,7 +147,7 @@ export default {
     backgroundImage: {
       type: String,
       default:
-        "http://mcapi.signaturewebcreations.com/wp-content/uploads/2021/07/photo-1602992708529-c9fdb12905c9-scaled.jpeg",
+        "http://mcapi.signaturewebcreations.com/wp-content/uploads/2021/09/default-scaled.jpeg",
     },
     directory: Array,
     events: Array,
