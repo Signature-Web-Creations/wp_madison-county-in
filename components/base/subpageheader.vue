@@ -5,7 +5,7 @@
     :style="
       image != ''
         ? 'background-image: url(' + image + ');'
-        : 'background-image: url(http://mcapi.signaturewebcreations.com/wp-content/uploads/2021/09/default-scaled.jpeg);'
+        : 'background-image: url(http://mcapi.signaturewebcreations.com/wp-content/uploads/2021/09/default.jpeg);'
     "
   >
     <v-overlay absolute style="margin: 0; z-index: 0;">
