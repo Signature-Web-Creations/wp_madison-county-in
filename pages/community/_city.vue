@@ -7,7 +7,7 @@
       :backgroundImage="image_url"
       :events="listOfEvents"
       :destinations="listOfDestinations"
-      :directory="cityDirectory"
+      :directory="listOfOrganizations"
       :community="community"
       :resources="community.resources"
       :primaryContact="primaryContact"
@@ -47,14 +47,29 @@ export default {
       ({ tags, slug }) => tags.includes(city_tag_id) && slug
     )[0]
 
-    const OrganizationOptions = {
+    // const OrganizationOptions = {
+    //   returnValue: true,
+    //   limit: "500",
+    // }
+    let listOfOrganizations = await store.dispatch("wuapi/getDirectory", {
       returnValue: true,
       limit: "500",
-    }
-    const listOfOrganizations = await store.dispatch(
-      "wuapi/getDirectory",
-      OrganizationOptions
+    })
+    const filteredOrganizations = listOfOrganizations.filter(
+      (organization) => organization.city.toLowerCase() === community.slug
     )
+    if (filteredOrganizations.length === 0) {
+      listOfOrganizations = await store.dispatch("wuapi/getDestinations", {
+        returnValue: true,
+        limit: "250",
+        zip: communities.filter(
+          ({ tags, slug }) => tags.includes(city_tag_id) && slug
+        )[0].zip,
+        distance: 5,
+      })
+    } else {
+      listOfOrganizations = filteredOrganizations
+    }
 
     let listOfDestinations = await store.dispatch("wuapi/getDestinations", {
       returnValue: true,
@@ -79,7 +94,7 @@ export default {
     let listOfEvents = await store.dispatch("wuapi/getEvents", {
       returnValue: true,
       type: "latest",
-      limit: "20",
+      limit: "100",
     })
     const filteredEvents = listOfEvents.filter(
       (events) => events.city.toLowerCase() === community.slug
@@ -88,7 +103,7 @@ export default {
       listOfEvents = await store.dispatch("wuapi/getEvents", {
         returnValue: true,
         type: "latest",
-        limit: "20",
+        limit: "100",
         zip: communities.filter(
           ({ tags, slug }) => tags.includes(city_tag_id) && slug
         )[0].zip,
