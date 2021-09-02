@@ -40,20 +40,65 @@ export default {
     ],
   }),
 
-  async fetch({ store }) {
-    await store.dispatch("getCategories")
-    await store.dispatch("getTags")
-    await store.dispatch("getCountyProfiles")
-    await store.dispatch("getJobsList")
+  async asyncData({ store, route }) {
+    // console.log("test 44")
+    const offices = await store.dispatch("getOffices", true)
+    const tags = await store.dispatch("getTags", true)
 
-    let options = {
-      type: "latest",
-      limit: "20",
+    let office_tag_id = tags[route.params.office]
+    // console.log("tags:", tags)
+    tags.forEach(({ id, slug }) => {
+      if (route.params.office === slug) office_tag_id = id
+    })
+
+    const office = offices.filter(
+      ({ tags, slug }) => tags.includes(office_tag_id) && slug
+    )[0]
+    console.log("_office.vue:57 ", office.organization_id)
+
+    let listOfEvents = []
+    if (office.organization_id) {
+      console.log("_office.vue:61 ", office.organization_id)
+      // listOfEvents = await store.dispatch("wuapi/getEvents", {
+      //   returnValue: true,
+      //   type: "latest",
+      //   limit: "100",
+      //   // search: "elections%20office",
+      //   // search: office.name.toLowerCase(),
+      //   // copromotion: "2",
+      // })
+      console.log(await store.dispatch("wuapi/getEvents"))
+      const filteredEvents = listOfEvents.filter((events) => {
+        console.log("_office.vue:69 Events Id =>", events.organization_id)
+        // events.organization_id.trim() === office.organization_id.trim()
+      })
+
+      console.log("_office:69", filteredEvents)
+
+      if (filteredEvents.length !== 0) {
+        listOfEvents = filteredEvents
+      }
+    } else {
+      listOfEvents = await store.dispatch("wuapi/getEvents", {
+        returnValue: true,
+        type: "latest",
+        limit: "100",
+      })
     }
-    console.log("this is :53", this.office)
-    await store.dispatch("wuapi/getEvents", options)
+    return {
+      offices,
+      office_tag_id,
+      listOfEvents,
+      office,
+      tags,
+    }
   },
-
+  async fetch() {
+    await this.$store.dispatch("getCategories")
+    await this.$store.dispatch("getTags")
+    await this.$store.dispatch("getCountyProfiles")
+    await this.$store.dispatch("getJobsList")
+  },
   computed: {
     tabs() {
       let array = [
@@ -90,16 +135,16 @@ export default {
       return array
     },
 
-    office() {
-      let array = this.offices.filter(
-        ({ categories, tags, slug }) =>
-          categories.includes(this.department_category_id) &&
-          tags.includes(this.office_tag_id) &&
-          slug
-      )
-      console.log("office array :99 -->", array)
-      return array[0]
-    },
+    // office() {
+    //   let array = this.offices.filter(
+    //     ({ categories, tags, slug }) =>
+    //       categories.includes(this.department_category_id) &&
+    //       tags.includes(this.office_tag_id) &&
+    //       slug
+    //   )
+    //   // console.log("office array :99 -->", array)
+    //   return array[0]
+    // },
 
     profiles() {
       return this.countyProfiles.filter(
@@ -161,22 +206,23 @@ export default {
     },
 
     ...mapState({
-      offices: (state) => state.offices,
-      listOfEvents: (state) => state.wuapi.latestEvents,
+      // offices: (state) => state.offices,
+      // listOfEvents: (state) => state.wuapi.latestEvents,
       categories: (state) => state.categories,
       categoryMap: (state) => state.categoryMap,
       countyProfiles: (state) => state.countyProfiles,
-      tags: (state) => state.tags,
+      // tags: (state) => state.tags,
       listOfJobs: (state) => state.jobs,
       defaultImage: (state) => state.defaultImage,
     }),
   },
 
   async created() {
+    // console.log("th",this.categoryMap[this.$route.params.department])
     this.department_category_id = this.categoryMap[
       this.$route.params.department
     ]
-    this.office_tag_id = this.tags[this.$route.params.office]
+    // this.office_tag_id = this.tags[this.$route.params.office]
 
     if (this.office && this.office.media_url !== 0) {
       let heroobj = await fetch(

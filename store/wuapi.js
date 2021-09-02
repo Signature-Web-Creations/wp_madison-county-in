@@ -592,6 +592,11 @@ export const actions = {
       organization_id = options.organization_id
     }
 
+    let copromotion = 1
+    if (options.copromotion) {
+      copromotion = options.copromotion
+    }
+
     let url = ""
     if (options.zip) {
       url =
@@ -604,11 +609,16 @@ export const actions = {
       url =
         this.$config.wuApiUrl +
         "/event?organization_id=" +
-        this.$config.orgId +
-        "&copromotion=1&categories=" +
-        options.categories +
-        "&limit=" +
-        options.limit
+        organization_id +
+        "&copromotion=" +
+        copromotion
+    }
+
+    if (options.limit) {
+      url += "&limit=" + options.limit
+    }
+    if (options.categories) {
+      url += "&categories=" + options.categories
     }
 
     if (options.search) {
@@ -618,7 +628,7 @@ export const actions = {
     if (options.dateFrom) {
       url += "&dateFrom=" + options.dateFrom
     }
-
+    console.log("wuapi:621 ==>", url)
     const events = await this.$axios
       .get(url, {
         headers: {
@@ -631,7 +641,7 @@ export const actions = {
       })
       .catch((error) => {
         console.log(error)
-        context.error(error)
+        // context.error(error)
       })
 
     if (options.type == "featured") {
