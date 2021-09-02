@@ -7,7 +7,11 @@
           <h1>Madison County Events</h1>
         </v-col>
         <v-col cols="12" lg="7" class="mb-3">
-          <BaseEventList :events="eventList" :showFilters="filters" />
+          <BaseEventList
+            :events="eventList"
+            :showFilters="filters"
+            type="general"
+          />
         </v-col>
       </v-row>
     </v-container>

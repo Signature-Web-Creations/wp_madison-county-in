@@ -592,7 +592,6 @@ export const actions = {
       organization_id = options.organization_id
     }
 
-    console.log("options --> ", options)
     let url = ""
     if (options.zip) {
       url =
@@ -611,7 +610,15 @@ export const actions = {
         "&limit=" +
         options.limit
     }
-    console.log("URL --> ", url)
+
+    if (options.search) {
+      url += "&search=" + options.search
+    }
+
+    if (options.dateFrom) {
+      url += "&dateFrom=" + options.dateFrom
+    }
+
     const events = await this.$axios
       .get(url, {
         headers: {

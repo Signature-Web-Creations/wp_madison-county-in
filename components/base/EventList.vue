@@ -1,15 +1,45 @@
 <template>
   <div>
     <v-row v-if="showFilters">
-      <v-col cols="12" sm="6" md="4">
-        <v-text-field label="Search" v-model="searchTerm" @input="searchList">
+      <v-col cols="12" sm="6">
+        <v-text-field label="Search" v-model="searchTerm">
           <v-icon slot="append" small>
             fa-search
           </v-icon>
         </v-text-field>
       </v-col>
 
-      <v-col cols="12" sm="6" md="4"> </v-col>
+      <v-col cols="12" sm="6">
+        <v-menu
+          ref="menu"
+          v-model="menu"
+          :close-on-content-click="false"
+          :return-value.sync="date"
+          transition="scale-transition"
+          offset-y
+          min-width="auto"
+        >
+          <template v-slot:activator="{ on, attrs }">
+            <v-text-field
+              v-model="date"
+              label="Picker in menu"
+              prepend-icon="mdi-calendar"
+              readonly
+              v-bind="attrs"
+              v-on="on"
+            ></v-text-field>
+          </template>
+          <v-date-picker v-model="date" no-title scrollable>
+            <v-spacer></v-spacer>
+            <v-btn text color="primary" @click="menu = false">
+              Cancel
+            </v-btn>
+            <v-btn text color="primary" @click="$refs.menu.save(date)">
+              OK
+            </v-btn>
+          </v-date-picker>
+        </v-menu>
+      </v-col>
     </v-row>
 
     <v-list two-line>
@@ -59,6 +89,8 @@
 </template>
 
 <script>
+import { mapActions } from "vuex"
+
 export default {
   props: {
     events: {
@@ -69,13 +101,30 @@ export default {
       type: Boolean,
       default: false,
     },
+    type: {
+      type: String,
+      default: "city",
+    },
   },
 
   data() {
     return {
       searchTerm: "",
       displayedItems: this.events,
+      menu: false,
+      date: new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
+        .toISOString()
+        .substr(0, 10),
     }
+  },
+
+  watch: {
+    date: "searchList",
+    searchTerm() {
+      if (this.searchTerm.length > 2) {
+        this.searchList()
+      }
+    },
   },
 
   computed: {
@@ -95,9 +144,21 @@ export default {
   },
 
   methods: {
-    searchList() {
-      this.displayedItems = this.filterItems
+    async searchList() {
+      if (this.type !== "city") {
+        const eventsList = await this.getEvents({
+          returnValue: true,
+          search: this.searchTerm,
+          dateFrom: this.date,
+          type: "latest",
+          limit: 500,
+        })
+        this.displayedItems = eventsList
+      } else {
+        this.displayedItems = this.filterItems
+      }
     },
+    ...mapActions("wuapi", ["getEvents"]),
   },
 }
 </script>
