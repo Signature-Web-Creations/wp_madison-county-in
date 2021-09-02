@@ -50,6 +50,7 @@ export default {
       type: "latest",
       limit: "20",
     }
+    console.log("this is :53", this.office)
     await store.dispatch("wuapi/getEvents", options)
   },
 
@@ -96,6 +97,7 @@ export default {
           tags.includes(this.office_tag_id) &&
           slug
       )
+      console.log("office array :99 -->", array)
       return array[0]
     },
 

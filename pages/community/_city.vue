@@ -67,8 +67,20 @@ export default {
       returnValue: true,
       type: "latest",
       limit: "20",
+      zip: communities.filter(
+        ({ tags, slug }) => tags.includes(city_tag_id) && slug
+      )[0].zip,
+      distance: 5,
     }
+    console.log(
+      "communities -> ",
+      communities.filter(
+        ({ tags, slug }) => tags.includes(city_tag_id) && slug
+      )[0].zip
+    )
     const listOfEvents = await store.dispatch("wuapi/getEvents", eventOptions)
+
+    console.log("Options --> ", eventOptions)
 
     return {
       communities,

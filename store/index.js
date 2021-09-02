@@ -228,6 +228,7 @@ export const actions = {
             email: acf.email,
             phone: acf.phone,
             resources: acf.resources,
+            zip: acf.zip_code,
           }
         }
       )

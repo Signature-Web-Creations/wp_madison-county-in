@@ -592,15 +592,26 @@ export const actions = {
       organization_id = options.organization_id
     }
 
-    let url =
-      this.$config.wuApiUrl +
-      "/event?organization_id=" +
-      this.$config.orgId +
-      "&copromotion=1&categories=" +
-      options.categories +
-      "&limit=" +
-      options.limit
-
+    console.log("options --> ", options)
+    let url = ""
+    if (options.zip) {
+      url =
+        this.$config.wuApiUrl +
+        "/event?zip=" +
+        options.zip +
+        "&distance=" +
+        options.distance
+    } else {
+      url =
+        this.$config.wuApiUrl +
+        "/event?organization_id=" +
+        this.$config.orgId +
+        "&copromotion=1&categories=" +
+        options.categories +
+        "&limit=" +
+        options.limit
+    }
+    console.log("URL --> ", url)
     const events = await this.$axios
       .get(url, {
         headers: {
