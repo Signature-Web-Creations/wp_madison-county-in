@@ -89,10 +89,7 @@
                 <v-row>
                   <v-col cols="12" class="mt-1">
                     <div class="mt-2" v-html="office.overview" />
-                    <div
-                      class="mt-6"
-                      v-if="office.accordion_content.length > 0"
-                    >
+                    <div class="mt-6" v-if="office.accordion_content">
                       <h2>Additional Information</h2>
                       <v-expansion-panels class="mt-3">
                         <v-expansion-panel
