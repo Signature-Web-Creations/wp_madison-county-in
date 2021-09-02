@@ -1,5 +1,5 @@
 <template>
-  <v-container fluid class="pa-0 fill-height ma-0 relative">
+  <v-container fluid class="pa-0 fill-height ma-0 relative black">
     <v-carousel
       cycle
       hide-delimiters
@@ -9,12 +9,13 @@
       height="100vh"
       interval="6000"
       v-model="carouselIndex"
+      class="black"
     >
       <v-carousel-item
         hide-on-leave
         transition="slide-x-reverse-transition"
         reverse-transition="slide-x-transition"
-        class="accent"
+        class="black"
         v-for="item in items"
         :key="item.id"
         width="100%"
