@@ -27,7 +27,11 @@
               readonly
               v-bind="attrs"
               v-on="on"
-            ></v-text-field>
+            >
+              <v-icon slot="append" small>
+                fa-calendar-day
+              </v-icon>
+            </v-text-field>
           </template>
           <v-date-picker v-model="date" no-title scrollable>
             <v-spacer></v-spacer>
