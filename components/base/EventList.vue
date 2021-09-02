@@ -70,6 +70,10 @@
                   class="font-weight-bold"
                   v-text="event.name"
                 />
+                <v-list-item-subtitle
+                  class="font-italic"
+                  v-html="event.host_organization"
+                />
 
                 <v-list-item-subtitle class="mt-2 font-italic">
                   {{ event.start | formatDate($moment, "MMMM D") }}

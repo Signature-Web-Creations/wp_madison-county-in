@@ -175,6 +175,8 @@ export const actions = {
             icon: acf.icon,
             fax: acf.fax,
             whatsup_id: acf.organization_id,
+            accordion_content: acf.additional_content_repeater,
+            overview: acf.overview,
           }
         }
       )
