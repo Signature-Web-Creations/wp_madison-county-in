@@ -1,6 +1,6 @@
 <template>
   <v-bottom-navigation background-color="primary" grow absolute>
-    <v-bottom-sheet v-model="contact">
+    <v-bottom-sheet v-model="contact" scrollable>
       <template v-slot:activator="{ on: contact, attrs }">
         <v-btn
           class="lightgrey--text"
@@ -84,7 +84,7 @@
         </v-list>
       </v-list>
     </v-bottom-sheet>
-    <v-bottom-sheet v-if="docs" v-model="sheet">
+    <v-bottom-sheet v-if="docs" v-model="sheet" scrollable>
       <template v-slot:activator="{ on, attrs }">
         <v-btn class="lightgrey--text" v-bind="attrs" v-on="on">
           <span class="lightgrey--text">
