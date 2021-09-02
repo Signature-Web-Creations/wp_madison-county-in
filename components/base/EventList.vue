@@ -123,6 +123,8 @@ export default {
     searchTerm() {
       if (this.searchTerm.length > 2) {
         this.searchList()
+      } else if (this.searchTerm.length === 0) {
+        this.displayedItems = this.events
       }
     },
   },
@@ -151,7 +153,7 @@ export default {
           search: this.searchTerm,
           dateFrom: this.date,
           type: "latest",
-          limit: 500,
+          limit: 200,
         })
         this.displayedItems = eventsList
       } else {
