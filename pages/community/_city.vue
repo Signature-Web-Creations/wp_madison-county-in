@@ -5,8 +5,8 @@
     <CommunityNavigation
       :tabs="tabs"
       :backgroundImage="image_url"
-      :events="cityEvents"
-      :destinations="cityDestinations"
+      :events="listOfEvents"
+      :destinations="listOfDestinations"
       :directory="cityDirectory"
       :community="community"
       :resources="community.resources"
@@ -39,11 +39,13 @@ export default {
   async asyncData({ store, route }) {
     const communities = await store.dispatch("getCommunities", true)
     const tags = await store.dispatch("getTags", true)
-
     let city_tag_id = 0
     tags.forEach(({ id, slug }) => {
       if (route.params.city === slug) city_tag_id = id
     })
+    const community = communities.filter(
+      ({ tags, slug }) => tags.includes(city_tag_id) && slug
+    )[0]
 
     const OrganizationOptions = {
       returnValue: true,
@@ -54,33 +56,47 @@ export default {
       OrganizationOptions
     )
 
-    const destinationsOptions = {
+    let listOfDestinations = await store.dispatch("wuapi/getDestinations", {
       returnValue: true,
       limit: "40",
-    }
-    const listOfDestinations = await store.dispatch(
-      "wuapi/getDestinations",
-      destinationsOptions
+    })
+    const filteredDestinations = listOfDestinations.filter(
+      (destinations) => destinations.city.toLowerCase() === community.slug
     )
+    if (filteredDestinations.length === 0) {
+      listOfDestinations = await store.dispatch("wuapi/getDestinations", {
+        returnValue: true,
+        limit: "40",
+        zip: communities.filter(
+          ({ tags, slug }) => tags.includes(city_tag_id) && slug
+        )[0].zip,
+        distance: 5,
+      })
+    } else {
+      listOfDestinations = filteredDestinations
+    }
 
-    const eventOptions = {
+    let listOfEvents = await store.dispatch("wuapi/getEvents", {
       returnValue: true,
       type: "latest",
       limit: "20",
-      zip: communities.filter(
-        ({ tags, slug }) => tags.includes(city_tag_id) && slug
-      )[0].zip,
-      distance: 5,
-    }
-    console.log(
-      "communities -> ",
-      communities.filter(
-        ({ tags, slug }) => tags.includes(city_tag_id) && slug
-      )[0].zip
+    })
+    const filteredEvents = listOfEvents.filter(
+      (events) => events.city.toLowerCase() === community.slug
     )
-    const listOfEvents = await store.dispatch("wuapi/getEvents", eventOptions)
-
-    console.log("Options --> ", eventOptions)
+    if (filteredEvents.length === 0) {
+      listOfEvents = await store.dispatch("wuapi/getEvents", {
+        returnValue: true,
+        type: "latest",
+        limit: "20",
+        zip: communities.filter(
+          ({ tags, slug }) => tags.includes(city_tag_id) && slug
+        )[0].zip,
+        distance: 5,
+      })
+    } else {
+      listOfEvents = filteredEvents
+    }
 
     return {
       communities,
@@ -126,17 +142,17 @@ export default {
           organizations.city.toLowerCase() === this.community.slug
       )
     },
-    cityDestinations() {
-      return this.listOfDestinations.filter(
-        (destinations) =>
-          destinations.city.toLowerCase() === this.community.slug
-      )
-    },
-    cityEvents() {
-      return this.listOfEvents.filter(
-        (events) => events.city.toLowerCase() === this.community.slug
-      )
-    },
+    // cityDestinations() {
+    //   return this.listOfDestinations.filter(
+    //     (destinations) =>
+    //       destinations.city.toLowerCase() === this.community.slug
+    //   )
+    // },
+    // cityEvents() {
+    //   return this.listOfEvents.filter(
+    //     (events) => events.city.toLowerCase() === this.community.slug
+    //   )
+    // },
     community() {
       let array = this.communities.filter(
         ({ tags, slug }) => tags.includes(this.city_tag_id) && slug
