@@ -89,12 +89,9 @@
                 <v-row>
                   <v-col cols="12" class="mt-1">
                     <div class="mt-2" v-html="office.overview" />
-                    <div
-                      class="mt-6"
-                      v-if="office.accordion_content.length > 0"
-                    >
+                    <div class="mt-6" v-if="office.accordion_content">
                       <h2>Additional Information</h2>
-                      <v-expansion-panels class="mt-3">
+                      <v-expansion-panels class="mt-3" focusable>
                         <v-expansion-panel
                           v-for="(item, i) in office.accordion_content"
                           :key="i"
@@ -102,7 +99,7 @@
                           <v-expansion-panel-header>
                             {{ item.additional_content_title }}
                           </v-expansion-panel-header>
-                          <v-expansion-panel-content>
+                          <v-expansion-panel-content class="mt-4">
                             <div v-html="item.additional_content"></div>
                           </v-expansion-panel-content>
                         </v-expansion-panel>
