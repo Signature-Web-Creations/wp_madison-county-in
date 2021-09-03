@@ -29,7 +29,7 @@
         <v-card-title
           class="lightgrey--text font-condensed text-h4 text-uppercase"
         >
-          Office Contact
+          Community Information
         </v-card-title>
 
         <v-list flat>
@@ -46,7 +46,6 @@
               />
             </v-list-item-content>
           </v-list-item>
-
           <v-list-item v-if="contactInfo.phone">
             <v-list-item-icon>
               <v-icon dense class="fa-fw lightgrey--text">

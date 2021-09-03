@@ -157,17 +157,7 @@ export default {
           organizations.city.toLowerCase() === this.community.slug
       )
     },
-    // cityDestinations() {
-    //   return this.listOfDestinations.filter(
-    //     (destinations) =>
-    //       destinations.city.toLowerCase() === this.community.slug
-    //   )
-    // },
-    // cityEvents() {
-    //   return this.listOfEvents.filter(
-    //     (events) => events.city.toLowerCase() === this.community.slug
-    //   )
-    // },
+
     community() {
       let array = this.communities.filter(
         ({ tags, slug }) => tags.includes(this.city_tag_id) && slug
@@ -179,15 +169,14 @@ export default {
     primaryContact() {
       const primary = this.countyProfiles.find(
         (person) =>
-          person.office_primary === true &&
-          person.tags[0] === this.office_tag_id
+          person.primary === true && person.tags[0] === this.city_tag_id
       )
-
+      console.log(primary)
       if (primary) {
         return {
-          title: primary.titlerole,
-          email: primary.email,
-          phone: primary.phone,
+          title: primary.title + ",  " + primary.titlerole,
+          email: this.community.email,
+          phone: this.community.phone,
         }
       } else {
         return {
