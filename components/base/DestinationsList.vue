@@ -5,7 +5,11 @@
   >
     <v-row v-if="showFilters">
       <v-col cols="12">
-        <v-text-field label="Search" v-model="searchTerm" @input="searchList">
+        <v-text-field
+          label="Search By Name, City or Zip"
+          v-model="searchTerm"
+          @input="searchList"
+        >
           <v-icon slot="append" small>
             fa-search
           </v-icon>
@@ -122,7 +126,9 @@ export default {
             item.name.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
             item.description
               .toLowerCase()
-              .includes(this.searchTerm.toLowerCase())
+              .includes(this.searchTerm.toLowerCase()) ||
+            item.city.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
+            item.zip.includes(this.searchTerm)
         )
       }
     },
