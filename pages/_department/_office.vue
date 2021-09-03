@@ -9,7 +9,7 @@
       :tabs="tabs"
       :backgroundImage="image_url"
       :events="listOfEvents"
-      :team="profiles"
+      :team="countyProfiles"
       :office="office"
       :jobs="jobPositions"
       :resources="office.acf.resources"
@@ -55,6 +55,12 @@ export default {
       ({ tags, slug }) => tags.includes(office_tag_id) && slug
     )[0]
 
+    const countyProfiles = await store.dispatch("getCountyProfiles", {
+      categories: office.categories[0],
+      tags: office.tags[0],
+      returnValue: true,
+    })
+
     let listOfEvents = []
     if (office.organization_id) {
       listOfEvents = await store.dispatch("wuapi/getEvents", {
@@ -77,18 +83,19 @@ export default {
         limit: "100",
       })
     }
+
     return {
       offices,
       office_tag_id,
       listOfEvents,
       office,
       tags,
+      countyProfiles,
     }
   },
   async fetch() {
     await this.$store.dispatch("getCategories")
     // await this.$store.dispatch("getTags")
-    await this.$store.dispatch("getCountyProfiles")
     await this.$store.dispatch("getJobsList")
   },
   computed: {
@@ -106,7 +113,7 @@ export default {
         },
       ]
 
-      if (this.profiles != 0) {
+      if (this.countyProfiles != 0) {
         let teamItem = {
           name: "Team",
           icon: "fa-user",
@@ -130,13 +137,6 @@ export default {
     department_category_id() {
       return this.categoryMap[this.$route.params.department]
     },
-    profiles() {
-      return this.countyProfiles.filter(
-        ({ categories, tags }) =>
-          categories.includes(this.department_category_id) &&
-          tags.includes(this.office_tag_id)
-      )
-    },
 
     jobPositions() {
       if (this.$route.params.office === "human-resources") {
@@ -153,7 +153,8 @@ export default {
     },
 
     primaryContact() {
-      let primary = this.profiles.find((obj) => obj.primary == true)
+      console.log(this.countyProfiles)
+      let primary = this.countyProfiles.find((obj) => obj.primary == true)
 
       if (primary) {
         return {
@@ -192,7 +193,7 @@ export default {
     ...mapState({
       categories: (state) => state.categories,
       categoryMap: (state) => state.categoryMap,
-      countyProfiles: (state) => state.countyProfiles,
+      // countyProfiles: (state) => state.profiles,
       listOfJobs: (state) => state.jobs,
       defaultImage: (state) => state.defaultImage,
     }),

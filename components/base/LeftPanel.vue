@@ -27,9 +27,16 @@
 
       <v-sheet class="blackish">
         <v-card-title
+          v-if="$route.path.toLowerCase().includes('community')"
           class="lightgrey--text font-condensed text-h4 text-uppercase"
         >
           Community Information
+        </v-card-title>
+        <v-card-title
+          v-else
+          class="lightgrey--text font-condensed text-h4 text-uppercase"
+        >
+          Office Contact
         </v-card-title>
 
         <v-list flat>

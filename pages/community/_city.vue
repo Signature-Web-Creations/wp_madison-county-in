@@ -108,6 +108,11 @@ export default {
     } else {
       listOfEvents = filteredEvents
     }
+    const countyProfiles = await store.dispatch("getCountyProfiles", {
+      categories: community.categories[0],
+      tags: community.tags[0],
+      returnValue: true,
+    })
 
     return {
       communities,
@@ -115,13 +120,13 @@ export default {
       listOfDestinations,
       listOfEvents,
       listOfOrganizations,
+      countyProfiles,
     }
   },
 
   async fetch() {
     await this.$store.dispatch("getOffices")
     await this.$store.dispatch("getCategories")
-    await this.$store.dispatch("getCountyProfiles")
     await this.$store.dispatch("getJobsList")
   },
 
@@ -167,7 +172,6 @@ export default {
         (person) =>
           person.primary === true && person.tags[0] === this.city_tag_id
       )
-      console.log(primary)
       if (primary) {
         return {
           title: primary.title + ",  " + primary.titlerole,
@@ -201,7 +205,7 @@ export default {
     ...mapState({
       categories: (state) => state.categories,
       categoryMap: (state) => state.categoryMap,
-      countyProfiles: (state) => state.countyProfiles,
+      // countyProfiles: (state) => state.countyProfiles,
       defaultImage: (state) => state.defaultImage,
     }),
   },

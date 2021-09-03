@@ -46,7 +46,9 @@
 <script>
 export default {
   async asyncData({ route, store }) {
-    const profiles = await store.dispatch("getCountyProfiles", true)
+    const profiles = await store.dispatch("getCountyProfiles", {
+      returnValue: true,
+    })
     const tags = await store.dispatch("getTags", true)
     const data = await store.dispatch("getPageContent", route.name)
     const content = data.content.rendered

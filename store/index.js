@@ -311,7 +311,7 @@ export const actions = {
   //   }
   // },
 
-  async getCountyProfiles({ commit }, getPrimary) {
+  async getCountyProfiles({ commit }, options) {
     const fields = [
       "id",
       "title.rendered",
@@ -327,7 +327,12 @@ export const actions = {
 
     const fieldParameter = fields.join(",")
     const url =
-      this.$config.apiUrl + `profile?per_page=100&_fields=${fieldParameter}`
+      this.$config.apiUrl +
+      `profile?per_page=100&categories=` +
+      options.categories +
+      `&tags=` +
+      options.tags +
+      `&_fields=${fieldParameter}`
 
     try {
       let profiles = await fetch(url).then((res) => res.json())
@@ -347,7 +352,7 @@ export const actions = {
           }
         }
       )
-      if (getPrimary) {
+      if (options.returnValue) {
         return profiles
       } else {
         commit("UPDATE_COUNTY_PROFILES", profiles)
