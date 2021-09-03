@@ -89,6 +89,10 @@ export default {
           name: "Report a Problem",
           url: "/report",
         },
+        {
+          name: "Holiday Schedule",
+          url: "/holiday-schedule",
+        },
       ],
     }
   },

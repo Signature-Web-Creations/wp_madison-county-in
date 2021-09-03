@@ -34,6 +34,16 @@
         </v-list-item-content>
       </v-list-item>
 
+      <v-list-item link to="/about">
+        <v-list-item-icon>
+          <v-icon dense>fas fa-info-circle</v-icon>
+        </v-list-item-icon>
+
+        <v-list-item-content>
+          <v-list-item-title>About Us</v-list-item-title>
+        </v-list-item-content>
+      </v-list-item>
+
       <v-list-group
         dense
         v-for="category in categorySections"

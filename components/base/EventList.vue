@@ -98,7 +98,6 @@
 
 <script>
 import { mapActions } from "vuex"
-
 export default {
   props: {
     events: {
@@ -161,7 +160,7 @@ export default {
           search: this.searchTerm,
           dateFrom: this.date,
           type: "latest",
-          limit: 200,
+          limit: 100,
         })
         this.displayedItems = eventsList
       } else {
