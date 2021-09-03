@@ -628,7 +628,6 @@ export const actions = {
     if (options.dateFrom) {
       url += "&dateFrom=" + options.dateFrom
     }
-    console.log("wuapi:621 ==>", url)
     const events = await this.$axios
       .get(url, {
         headers: {
