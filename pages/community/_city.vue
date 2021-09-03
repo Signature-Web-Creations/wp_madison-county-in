@@ -47,10 +47,6 @@ export default {
       ({ tags, slug }) => tags.includes(city_tag_id) && slug
     )[0]
 
-    // const OrganizationOptions = {
-    //   returnValue: true,
-    //   limit: "500",
-    // }
     let listOfOrganizations = await store.dispatch("wuapi/getDirectory", {
       returnValue: true,
       limit: "500",
@@ -85,7 +81,7 @@ export default {
         zip: communities.filter(
           ({ tags, slug }) => tags.includes(city_tag_id) && slug
         )[0].zip,
-        distance: 5,
+        distance: 10,
       })
     } else {
       listOfDestinations = filteredDestinations
