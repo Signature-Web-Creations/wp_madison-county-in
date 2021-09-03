@@ -711,20 +711,33 @@ export const actions = {
       await dispatch("setApiToken")
     }
 
-    const directory = await this.$axios
-      .get(
+    let url = ""
+    if (options.zip) {
+      url =
         this.$config.wuApiUrl +
-          "/directory?organization_id=" +
-          this.$config.orgId +
-          "&copromotion=1&limit=" +
-          options.limit,
-        {
-          headers: {
-            Authorization: "Bearer " + state.token,
-            "Content-Type": "application/json",
-          },
-        }
-      )
+        "/directory?zip=" +
+        options.zip +
+        "&distance=" +
+        options.distance
+    } else {
+      url =
+        this.$config.wuApiUrl +
+        "/directory?organization_id=" +
+        this.$config.orgId +
+        "&copromotion=1"
+    }
+
+    if (options.limit) {
+      url += "&limit=" + options.limit
+    }
+
+    const directory = await this.$axios
+      .get(url, {
+        headers: {
+          Authorization: "Bearer " + state.token,
+          "Content-Type": "application/json",
+        },
+      })
       .then((response) => {
         return response.data
       })
@@ -750,11 +763,22 @@ export const actions = {
       organization_id = options.organization_id
     }
 
-    let url =
-      this.$config.wuApiUrl +
-      "/destination?organization_id=" +
-      organization_id +
-      "&copromotion=1"
+    let url = ""
+    if (options.zip) {
+      url =
+        this.$config.wuApiUrl +
+        "/destination?zip=" +
+        options.zip +
+        "&distance=" +
+        options.distance
+    } else {
+      url =
+        this.$config.wuApiUrl +
+        "/destination?organization_id=" +
+        organization_id +
+        "&copromotion=1"
+    }
+
     if (options.limit) {
       url += "&limit=" + options.limit
     }
@@ -771,7 +795,6 @@ export const actions = {
       })
       .catch((error) => {
         console.log(error)
-        context.error(error)
       })
 
     if (options.returnValue) {
