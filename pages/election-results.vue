@@ -6,8 +6,7 @@
         <v-col cols="12">
           <h1 v-html="title" />
           <div v-html="content" class="pt-5" />
-          <article class="pt-15">
-            <h2 v-html="report.title.rendered" class="pb-5"></h2>
+          <article class="pt-2">
             <marquee
               behavior="scroll"
               direction="up"
