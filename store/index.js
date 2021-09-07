@@ -352,6 +352,7 @@ export const actions = {
           }
         }
       )
+
       if (options.returnValue) {
         return profiles
       } else {
@@ -484,5 +485,13 @@ export const actions = {
 
     const image = await this.$axios.get(url)
     commit("SET_DEFAULT_IMAGE", image.data)
+  },
+
+  getActiveElectionReport({}, reportID) {
+    const url = this.$config.apiUrl + `election_result?tag=${reportID}`
+
+    return this.$axios.get(url).then(({ data }) => {
+      return data[0]
+    })
   },
 }

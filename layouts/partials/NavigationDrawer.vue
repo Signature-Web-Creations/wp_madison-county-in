@@ -144,6 +144,11 @@ export default {
           url: "/public-meetings",
           icon: "fas fa-video",
         },
+        {
+          name: "Election Results",
+          url: "/election-results",
+          icon: "fas fa-vote-yea",
+        },
       ],
       categorySections: [
         {
