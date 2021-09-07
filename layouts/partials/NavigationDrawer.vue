@@ -34,13 +34,18 @@
         </v-list-item-content>
       </v-list-item>
 
-      <v-list-item link to="/about">
+      <v-list-item
+        v-for="link in menuItems"
+        :key="link.name"
+        link
+        :to="link.url"
+      >
         <v-list-item-icon>
-          <v-icon dense>fas fa-info-circle</v-icon>
+          <v-icon dense>{{ link.icon }}</v-icon>
         </v-list-item-icon>
 
         <v-list-item-content>
-          <v-list-item-title>About Us</v-list-item-title>
+          <v-list-item-title>{{ link.name }}</v-list-item-title>
         </v-list-item-content>
       </v-list-item>
 
@@ -86,6 +91,7 @@
           <v-list-item-title>{{ item.name }}</v-list-item-title>
         </v-list-item-content>
       </v-list-item>
+
       <v-list-group no-action>
         <template v-slot:activator>
           <v-list-item-icon>
@@ -127,6 +133,18 @@ export default {
   data() {
     return {
       alloffices: [],
+      menuItems: [
+        {
+          name: "About Us",
+          url: "/about",
+          icon: "fas fa-info-circle",
+        },
+        {
+          name: "Live Public Meetings",
+          url: "/public-meetings",
+          icon: "fas fa-video",
+        },
+      ],
       categorySections: [
         {
           name: "Government",
