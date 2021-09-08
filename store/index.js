@@ -13,6 +13,7 @@ export const state = () => ({
   categoryMap: null,
   featuredImages: [],
   countyProfiles: [],
+  countyPrimaryProfiles: [],
   categoriesWithPosts: [],
   profilePage: null,
   jobs: [],
@@ -54,6 +55,9 @@ export const mutations = {
     state.featuredImages = array
   },
   UPDATE_COUNTY_PROFILES: (state, array) => {
+    state.countyPrimaryProfiles = array
+  },
+  UPDATE_COUNTY_PRIMARY_PROFILES: (state, array) => {
     state.countyProfiles = array
   },
   UPDATE_JOBS: (state, array) => {
@@ -311,6 +315,37 @@ export const actions = {
   //   }
   // },
 
+  async getCountyPrimaryProfiles({ commit }, options) {
+    const url = this.$config.apiUrl + "profile?tags=65&per_page=100"
+
+    try {
+      let prime_profiles = await fetch(url).then((res) => res.json())
+      prime_profiles = prime_profiles.map(
+        ({ id, categories, content, title, acf, featured_media, tags }) => {
+          return {
+            id,
+            categories,
+            content: content.rendered,
+            email: acf ? acf.email : "",
+            image_id: featured_media,
+            phone: acf ? acf.phone : "",
+            tags,
+            title: title.rendered,
+            titlerole: acf ? acf.titlerole : "",
+            primary: acf ? acf.office_primary : false,
+          }
+        }
+      )
+      if (options.returnValue) {
+        return prime_profiles
+      } else {
+        commit("UPDATE_COUNTY_PRIMARY_PROFILES", prime_profiles)
+      }
+    } catch (err) {
+      console.log(err)
+    }
+  },
+
   async getCountyProfiles({ commit }, options) {
     const fields = [
       "id",
@@ -337,7 +372,7 @@ export const actions = {
     try {
       let profiles = await fetch(url).then((res) => res.json())
       profiles = profiles.map(
-        ({ id, title, content, acf, featured_media, tags, categories }) => {
+        ({ id, categories, content, title, acf, featured_media, tags }) => {
           return {
             id,
             categories,
