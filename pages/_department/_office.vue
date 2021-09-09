@@ -44,7 +44,8 @@ export default {
 
   async asyncData({ store, route }) {
     const offices = await store.dispatch("getOffices", true)
-    const tags = await store.dispatch("getTags", true)
+    let tagsoptions = { getPrimary: true }
+    const tags = await store.dispatch("getTags", tagsoptions)
 
     let office_tag_id = tags[route.params.office]
     tags.forEach(({ id, slug }) => {
