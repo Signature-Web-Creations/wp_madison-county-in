@@ -28,10 +28,10 @@
 
     <v-spacer />
 
-    <!-- <v-btn class="ml-16" icon>
+    <v-btn to="/search" class="ml-16" icon>
       <v-icon small>fas fa-search</v-icon>
-    </v-btn> -->
-
+    </v-btn>
+    <v-card> </v-card>
     <v-app-bar-nav-icon @click.stop="drawer = !drawer">
       <v-icon>fas fa-bars</v-icon>
     </v-app-bar-nav-icon>
@@ -53,6 +53,7 @@ export default {
     return {
       drawer: false,
       barClasses: "home",
+      searchpanel: false,
     }
   },
 
@@ -81,6 +82,14 @@ export default {
       }
     },
     ...mapActions("navigation", ["updateDrawer"]),
+    fetchData: function (query) {
+      let tags = this.$store.dispatch("getTags", { search: query })
+      tags.forEach((tag) => {
+        fetch(
+          this.$config.apiUrl + "&search=" + tagsoptions.search
+        ).then((res) => res.json())
+      })
+    },
   },
 
   created() {
