@@ -28,11 +28,11 @@
 
     <v-spacer />
 
-    <!-- <v-btn class="ml-16" icon>
-      <v-icon small>fas fa-search</v-icon>
-    </v-btn> -->
+    <v-btn v-if="!isMobile" class="ml-16" large text tile to="/covid-19">
+      <v-icon small>fas fa-plus</v-icon>&nbsp;&nbsp;Covid-19
+    </v-btn>
 
-    <v-app-bar-nav-icon @click.stop="drawer = !drawer">
+    <v-app-bar-nav-icon @click.stop="drawer = !drawer" tile>
       <v-icon>fas fa-bars</v-icon>
     </v-app-bar-nav-icon>
   </v-app-bar>
@@ -68,9 +68,22 @@ export default {
     },
   },
 
-  computed: mapState({
-    stateDrawer: (state) => state.navigation.drawer,
-  }),
+  computed: {
+    isMobile() {
+      switch (this.$vuetify.breakpoint.name) {
+        case "xs":
+        case "sm":
+          return true
+        case "md":
+        case "lg":
+        case "xl":
+          return false
+      }
+    },
+    ...mapState({
+      stateDrawer: (state) => state.navigation.drawer,
+    }),
+  },
 
   methods: {
     updateBarClasses() {
@@ -106,7 +119,8 @@ export default {
       // backdrop-filter: blur(10px);
     }
     a,
-    .v-icon {
+    .v-icon,
+    .v-btn {
       color: rgba(68, 100, 100) !important;
     }
   }
@@ -117,5 +131,8 @@ export default {
 }
 .v-icon {
   color: #fff;
+}
+.v-btn {
+  font-size: 16px;
 }
 </style>
