@@ -16,8 +16,9 @@ export default {
     const content = data.content.rendered
     const title = data.title.rendered
     const googleMaps = `
-    <!-- Need to get Google Maps data from client -->
-    <pre>Google Map API here</pre>
+    <div class="responsive-embed">
+      <iframe scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps/ms?hl=en&amp;ie=UTF8&amp;msa=0&amp;msid=105717021195828156110.000485dce9de04dbe530e&amp;ll=40.106929,-85.678983&amp;spn=0.013129,0.024676&amp;z=15&amp;output=embed" width="100%" height="400" frameborder="0"></iframe>
+    </div>
     `
 
     return { content, title, googleMaps }
