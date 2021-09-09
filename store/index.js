@@ -17,6 +17,7 @@ export const state = () => ({
   profilePage: null,
   jobs: [],
   defaultImage: null,
+  defaultImageId: 1589,
 })
 /*
 this will update the state
@@ -485,6 +486,14 @@ export const actions = {
 
     const image = await this.$axios.get(url)
     commit("SET_DEFAULT_IMAGE", image.data)
+  },
+
+  getFeaturedImage({ state }, id) {
+    const url =
+      this.$config.apiUrl + "media/" + (id !== 0 ? id : state.defaultImageId)
+    return this.$axios.get(url).then(({ data }) => {
+      return data
+    })
   },
 
   getActiveElectionReport({}, reportID) {

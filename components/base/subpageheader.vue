@@ -1,42 +1,52 @@
 <template>
   <v-sheet
-    class="theme--light grey lighten-3"
-    style="height: 20vh; min-height: 300px;"
+    :class="!showImage ? 'primary' : 'grey lighten-3'"
     :style="
-      image != ''
-        ? 'background-image: url(' + image + ');'
-        : 'background-image: url(' + setDefault + ');'
+      !showImage
+        ? 'height: 15vh;'
+        : 'height: 20vh; min-height: 300px; background-image: url(' +
+          this.setImage(this.image) +
+          ');'
     "
   >
-    <v-overlay absolute style="margin: 0; z-index: 0;">
-      <v-container>
-        <v-row class="fill-height justify-left align-content-center pa-10">
-          <v-col cols="12">
-            <!-- <h1
-              class="display-2 lightgrey--text text-left"
-              v-html="office.name"
-            ></h1> -->
-          </v-col>
-        </v-row>
-      </v-container>
-    </v-overlay>
+    <v-container>
+      <v-row class="fill-height justify-left align-content-center pa-10">
+        <v-col cols="12">
+          <h1
+            v-if="showTitle"
+            class="display-2 lightgrey--text text-center pt-15"
+            v-html="title"
+          ></h1>
+        </v-col>
+      </v-row>
+    </v-container>
   </v-sheet>
 </template>
 
 <script>
-import { mapState } from "vuex"
-
 export default {
   props: {
     image: {
+      type: Object,
+      default: {},
+    },
+    showImage: {
+      type: Boolean,
+      default: true,
+    },
+    showTitle: {
+      type: Boolean,
+      default: false,
+    },
+    title: {
       type: String,
-      default: "",
+      required: false,
     },
   },
 
-  computed: {
-    setDefault() {
-      const image = this.defaultImage.media_details.sizes
+  methods: {
+    setImage(imageObject) {
+      const image = imageObject.media_details.sizes
       switch (this.$vuetify.breakpoint.name) {
         case "xs":
           return image.medium_large.source_url
@@ -49,9 +59,6 @@ export default {
           return image["2048x2048"].source_url
       }
     },
-    ...mapState({
-      defaultImage: (state) => state.defaultImage,
-    }),
   },
 }
 </script>

@@ -2,7 +2,7 @@
   <v-container class="pt-15 pb-15">
     <v-row>
       <v-col cols="12">
-        <h1 v-html="title" />
+        <h1 v-if="showTitle" v-html="title" />
         <div v-html="special" v-if="special != ''" class="pt-5" />
         <div v-html="content" class="pt-5" />
       </v-col>
@@ -16,6 +16,10 @@ export default {
     title: {
       type: String,
       required: true,
+    },
+    showTitle: {
+      type: Boolean,
+      default: true,
     },
     content: {
       type: String,
