@@ -49,7 +49,8 @@ export default {
     const profiles = await store.dispatch("getCountyPrimaryProfiles", {
       returnValue: true,
     })
-    const tags = await store.dispatch("getTags", true)
+    let options = { getPrimary: true }
+    const tags = await store.dispatch("getTags", options)
     const data = await store.dispatch("getPageContent", route.name)
     const content = data.content.rendered
     const title = data.title.rendered

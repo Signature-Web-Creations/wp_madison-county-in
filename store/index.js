@@ -275,31 +275,48 @@ export const actions = {
     }
   },
 
-  async getTags({ commit }, getPrimary) {
+  async getTags({ commit }, tagsoptions) {
     const fields = ["id", "slug", "name"]
     const parameters = fields.join(",")
     const url = this.$config.apiUrl + `tags?_fields=${parameters}&per_page=100`
-
-    try {
-      const tags = await fetch(url).then((res) => res.json())
-      let tagMap = {}
-      tags.forEach(({ id, slug }) => {
-        tagMap[slug] = id
-      })
-      if (getPrimary) {
-        let tagsList = tags.map(({ id, name, slug }) => {
+    if (tagsoptions.search) {
+      try {
+        let allsearchedtags = await fetch(
+          url + "&search=" + tagsoptions.search
+        ).then((res) => res.json())
+        let searchtagsList = allsearchedtags.map(({ id, name, slug }) => {
           return {
             id,
             name,
             slug,
           }
         })
-        return tagsList
-      } else {
-        commit("UPDATE_TAGS", tagMap)
+        return searchtagsList
+      } catch (error) {
+        console.log(error)
       }
-    } catch (error) {
-      console.log(error)
+    } else {
+      try {
+        const tags = await fetch(url).then((res) => res.json())
+        let tagMap = {}
+        tags.forEach(({ id, slug }) => {
+          tagMap[slug] = id
+        })
+        if (tagsoptions.getPrimary) {
+          let tagsList = tags.map(({ id, name, slug }) => {
+            return {
+              id,
+              name,
+              slug,
+            }
+          })
+          return tagsList
+        } else {
+          commit("UPDATE_TAGS", tagMap)
+        }
+      } catch (error) {
+        console.log(error)
+      }
     }
   },
 
