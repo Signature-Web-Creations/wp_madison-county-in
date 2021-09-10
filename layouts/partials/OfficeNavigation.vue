@@ -14,7 +14,7 @@
       <template v-slot:img="{ props }">
         <v-img
           v-bind="props"
-          gradient="to top right, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.8)"
+          gradient="to top right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0), rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.7)"
         />
       </template>
 
@@ -35,6 +35,10 @@
       </a>
 
       <v-spacer></v-spacer>
+
+      <v-btn v-if="!isMobile" class="ml-16" large text tile to="/covid-19">
+        <v-icon small>fas fa-plus</v-icon>&nbsp;&nbsp;Covid-19
+      </v-btn>
 
       <v-app-bar-nav-icon @click.stop="drawer = !drawer">
         <v-icon>fas fa-bars</v-icon>
@@ -152,8 +156,11 @@
 
 <script>
 import { mapState, mapActions } from "vuex"
+import { generalMixin } from "~/mixins/general.js"
 
 export default {
+  mixins: [generalMixin],
+
   props: {
     tabs: {
       type: Array,

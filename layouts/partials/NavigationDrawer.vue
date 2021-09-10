@@ -129,9 +129,12 @@
 
 <script>
 import { mapState, mapActions } from "vuex"
+import { generalMixin } from "~/mixins/general.js"
 
 export default {
   name: "NavigationDrawer",
+
+  mixins: [generalMixin],
 
   props: {
     location: {
@@ -212,23 +215,10 @@ export default {
     await store.dispatch("getOffices")
   },
 
-  computed: {
-    isMobile() {
-      switch (this.$vuetify.breakpoint.name) {
-        case "xs":
-        case "sm":
-          return true
-        case "md":
-        case "lg":
-        case "xl":
-          return false
-      }
-    },
-    ...mapState({
-      offices: (state) => state.offices,
-      drawer: (state) => state.navigation.drawer,
-    }),
-  },
+  computed: mapState({
+    offices: (state) => state.offices,
+    drawer: (state) => state.navigation.drawer,
+  }),
 
   methods: {
     ...mapActions("navigation", ["updateDrawer"]),

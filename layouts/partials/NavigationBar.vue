@@ -40,8 +40,11 @@
 
 <script>
 import { mapState, mapActions } from "vuex"
+import { generalMixin } from "~/mixins/general.js"
 
 export default {
+  mixins: [generalMixin],
+
   props: {
     location: {
       type: Object,
@@ -68,22 +71,9 @@ export default {
     },
   },
 
-  computed: {
-    isMobile() {
-      switch (this.$vuetify.breakpoint.name) {
-        case "xs":
-        case "sm":
-          return true
-        case "md":
-        case "lg":
-        case "xl":
-          return false
-      }
-    },
-    ...mapState({
-      stateDrawer: (state) => state.navigation.drawer,
-    }),
-  },
+  computed: mapState({
+    stateDrawer: (state) => state.navigation.drawer,
+  }),
 
   methods: {
     updateBarClasses() {
@@ -97,7 +87,7 @@ export default {
   },
 
   created() {
-    this.drawer = this.stateDrawer
+    this.updateDrawer(this.drawer)
     this.updateBarClasses()
   },
 }
@@ -113,10 +103,7 @@ export default {
   );
   &.v-app-bar--is-scrolled {
     &.blur-primary-color {
-      // background-color:rgba(68,100,100,.75) !important;
-      // background-color: rgba(255, 255, 255, 0.75) !important;
       background: #fff !important;
-      // backdrop-filter: blur(10px);
     }
     a,
     .v-icon,
