@@ -161,7 +161,6 @@ export const actions = {
           tags,
           title,
           content,
-          icon,
         }) => {
           return {
             acf,
@@ -171,13 +170,11 @@ export const actions = {
             media_url: featured_media,
             tags,
             name: title.rendered,
-            acf_content: acf.content,
-            content,
             icon: acf.icon,
             fax: acf.fax,
             organization_id: acf.organization_id,
             accordion_content: acf.additional_content_repeater,
-            overview: acf.overview,
+            overview: content.rendered,
           }
         }
       )
@@ -481,8 +478,8 @@ export const actions = {
     })
   },
 
-  async setDefaultImage({ commit }) {
-    const url = this.$config.apiUrl + "media/1589"
+  async setDefaultImage({ state, commit }) {
+    const url = this.$config.apiUrl + "media/" + state.defaultImageId
 
     const image = await this.$axios.get(url)
     commit("SET_DEFAULT_IMAGE", image.data)
