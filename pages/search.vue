@@ -12,53 +12,151 @@
           :key="index"
           :label="n.label"
           :value="n"
-          @change="changed(n, null)"
           required
+          @change="updateFilter(n)"
         ></v-radio>
+        <!-- @change="changed(n, '')" -->
       </v-radio-group>
       name:{{ name || null }}
+      <br />
+      text input: {{ textField || null }}
       <form>
         <v-text-field
+          v-model="textField"
           v-if="radioGroup"
-          :counter="10"
           :rules="rules"
           label="Name"
           required
+          v-on:keyup="changed(textField)"
         ></v-text-field>
         <!-- @change="" -->
-
-        <v-btn class="mr-4" @click="submit">
-          submit
-        </v-btn>
-        <v-btn @click="clear">
-          clear
-        </v-btn>
       </form>
+      <v-card class="mx-auto" max-width="500">
+        <v-list>
+          <v-list-item-group
+            v-model="listgroup"
+            v-for="(item, i) in content"
+            :key="i"
+          >
+            <v-list-item
+              v-if="item.type === 'office' && item.categories[0] === 5"
+              :to="'goverment/' + item.slug"
+            >
+              <v-list-item-icon>
+                <v-icon v-text="item.icon"></v-icon>
+              </v-list-item-icon>
+              <v-list-item-content>
+                <v-list-item-title
+                  v-html="item.title.rendered"
+                ></v-list-item-title>
+                <v-list-item-subtitle v-html="item.type" />
+              </v-list-item-content>
+            </v-list-item>
+            <v-list-item
+              v-else-if="item.type === 'community'"
+              :to="'community/' + item.slug"
+            >
+              <v-list-item-icon>
+                <v-icon v-text="item.icon"></v-icon>
+              </v-list-item-icon>
+              <v-list-item-content>
+                <v-list-item-title
+                  v-html="item.title.rendered"
+                ></v-list-item-title>
+                <v-list-item-subtitle v-html="item.type" />
+              </v-list-item-content>
+            </v-list-item>
+            <v-list-item
+              v-else-if="item.type === 'office' && item.categories[0] === 15"
+              :to="'residents/' + item.slug"
+            >
+              <v-list-item-icon>
+                <v-icon v-text="item.icon"></v-icon>
+              </v-list-item-icon>
+              <v-list-item-content>
+                <v-list-item-title
+                  v-html="item.title.rendered"
+                ></v-list-item-title>
+                <v-list-item-subtitle v-html="item.type" />
+              </v-list-item-content>
+            </v-list-item>
+            <v-list-item
+              v-else-if="item.media_type === 'file'"
+              :href="item.guid.rendered"
+            >
+              <v-list-item-icon>
+                <v-icon v-text="item.icon"></v-icon>
+              </v-list-item-icon>
+              <v-list-item-content>
+                <v-list-item-title v-html="item.title.rendered">
+                </v-list-item-title>
+                <v-list-item-subtitle v-html="item.media_type" />
+              </v-list-item-content>
+            </v-list-item>
+
+            <!-- <v-list-item-content>
+                <v-list-item-title v-html="item.title.rendered">
+                </v-list-item-title>
+                <v-list-item-subtitle v-html="item.acf.titlerole" />
+              </v-list-item-content> -->
+            <v-list-group v-else :prepend-icon="item.action" no-action>
+              <template v-slot:activator>
+                <v-list-item-content>
+                  <v-list-item-title
+                    v-html="item.title.rendered"
+                  ></v-list-item-title>
+                </v-list-item-content>
+              </template>
+
+              <v-list-item>
+                <v-list-item-content>
+                  <v-list-item-title
+                    class="mb-5"
+                    v-text="item.acf.titlerole"
+                  ></v-list-item-title>
+                  <v-list-item-title
+                    class="mb-5"
+                    v-text="item.acf.phone | formatPhone"
+                  ></v-list-item-title>
+                  <v-list-item-title
+                    class="mb-5"
+                    v-if="item.acf.email"
+                    :href="item.acf.email"
+                    v-text="item.acf.email"
+                  ></v-list-item-title>
+                </v-list-item-content>
+              </v-list-item>
+            </v-list-group>
+            <!-- </v-list-item> -->
+          </v-list-item-group>
+        </v-list>
+      </v-card>
+
       content: {{ content }}
     </v-container>
   </div>
 </template>
 
 <script>
-import officeVue from "../layouts/office.vue"
 export default {
   data: () => ({
+    listgroup: null,
     valid: true,
     radioGroup: null,
+    textField: null,
     name: "",
-    nameRules: [
-      (v) => !!v || "Name is required",
-      (v) => (v && v.length <= 10) || "Name must be less than 10 characters",
-    ],
+    nameRules: [(v) => !!v || "Search term is required"],
     email: "",
+    filter: "",
+    itemfilter: {
+      categories: [],
+      tags: [],
+    },
     content: {},
     rules: [
       (value) => !!value || "Required.",
       (value) => (value && value.length >= 3) || "Min 3 characters",
     ],
-    select: null,
-
-    checkbox: false,
     categories: {
       documents: {
         label: "Documents",
@@ -67,6 +165,10 @@ export default {
       office: {
         label: "Offices",
         url: "office",
+        category: {
+          5: "goverment",
+          15: "residents",
+        },
       },
       form: {
         label: "Forms",
@@ -82,24 +184,27 @@ export default {
       },
     },
   }),
+
   methods: {
-    validate() {
-      this.$refs.form.validate()
+    setCategory(e) {
+      this.key = categories.office.category.e
     },
-    reset() {
-      this.$refs.form.reset()
+    updateFilter(filter) {
+      this.filter = filter
     },
-    resetValidation() {
-      this.$refs.form.resetValidation()
-    },
-    async changed(e, searchinput) {
-      this.name = this.$config.apiUrl + e.url
-      if (searchinput.length < 3) {
+    async changed(searchinput) {
+      this.name =
+        this.$config.apiUrl +
+        this.filter.url +
+        "?per_page=100" +
+        "&search=" +
+        searchinput
+      if (searchinput.length > 3) {
         this.content = await fetch(
           this.$config.apiUrl +
-            e.url +
+            this.filter.url +
             "?per_page=100" +
-            "&search" +
+            "&search=" +
             searchinput
         ).then((res) => res.json())
       }
