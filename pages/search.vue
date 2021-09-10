@@ -18,7 +18,7 @@
           v-model="textField"
           v-if="radioGroup"
           :rules="rules"
-          label="Search"
+          :label="`Search ${filter.label}`"
           required
           v-on:keyup="changed(textField)"
         ></v-text-field>
