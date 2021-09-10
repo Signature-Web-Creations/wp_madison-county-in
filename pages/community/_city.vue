@@ -205,7 +205,7 @@ export default {
         .catch((error) => error.response.status)
       this.image_url = heroobj.guid.rendered
     } else {
-      this.image_url = this.setDefault
+      this.image_url = await this.setDefault
     }
   },
 }

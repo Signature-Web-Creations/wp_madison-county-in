@@ -1,5 +1,3 @@
-import { mapState } from "vuex"
-
 export const generalMixin = {
   computed: {
     isMobile() {
@@ -14,8 +12,9 @@ export const generalMixin = {
       }
     },
 
-    setDefault() {
-      const image = this.defaultImage.media_details.sizes
+    async setDefault() {
+      const imageObject = await this.$store.dispatch("getFeaturedImage", 0)
+      const image = imageObject.media_details.sizes
       switch (this.$vuetify.breakpoint.name) {
         case "xs":
           return image.medium_large.source_url
@@ -28,9 +27,5 @@ export const generalMixin = {
           return image["2048x2048"].source_url
       }
     },
-
-    ...mapState({
-      defaultImage: (state) => state.defaultImage,
-    }),
   },
 }
