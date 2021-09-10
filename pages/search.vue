@@ -164,7 +164,6 @@ export default {
     radioGroup: null,
     textField: null,
     name: "",
-    count: 0,
     nameRules: [(v) => !!v || "Search term is required"],
     email: "",
     filter: "",
@@ -210,11 +209,10 @@ export default {
       this.key = categories.office.category.e
     },
     updateFilter(filter) {
-      this.count++
       this.content = null
       this.textField = null
       this.filter = filter
-      if (this.count > 1) {
+      if (this.$refs.searchField) {
         this.$refs.searchField.$el.focus()
       }
     },
