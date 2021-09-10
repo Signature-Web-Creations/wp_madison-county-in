@@ -40,6 +40,10 @@
         <v-icon small>fas fa-plus</v-icon>&nbsp;&nbsp;Covid-19
       </v-btn>
 
+      <v-btn to="/search" tile icon>
+        <v-icon>fas fa-search</v-icon>
+      </v-btn>
+
       <v-app-bar-nav-icon @click.stop="drawer = !drawer">
         <v-icon>fas fa-bars</v-icon>
       </v-app-bar-nav-icon>
