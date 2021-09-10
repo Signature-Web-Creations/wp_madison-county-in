@@ -129,7 +129,7 @@
 
 <script>
 import { mapState, mapActions } from "vuex"
-import { generalMixin } from "~/mixins/general.js"
+import { generalMixin } from "~/mixins/general"
 
 export default {
   name: "NavigationDrawer",

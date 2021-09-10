@@ -18,9 +18,12 @@
 <script>
 import { mapState } from "vuex"
 import CommunityNavigation from "~/layouts/partials/CommunityNavigation"
+import { generalMixin } from "~/mixins/general"
 
 export default {
   layout: "office",
+
+  mixins: [generalMixin],
 
   components: { CommunityNavigation },
 
@@ -187,26 +190,9 @@ export default {
       }
     },
 
-    setDefault() {
-      const image = this.defaultImage.media_details.sizes
-      switch (this.$vuetify.breakpoint.name) {
-        case "xs":
-          return image.medium_large.source_url
-        case "sm":
-          return image.large.source_url
-        case "md":
-          return image["post-thumbnail"].source_url
-        case "lg":
-        case "xl":
-          return image["2048x2048"].source_url
-      }
-    },
-
     ...mapState({
       categories: (state) => state.categories,
       categoryMap: (state) => state.categoryMap,
-      // countyProfiles: (state) => state.countyProfiles,
-      defaultImage: (state) => state.defaultImage,
     }),
   },
 
