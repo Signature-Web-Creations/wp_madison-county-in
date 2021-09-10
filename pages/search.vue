@@ -93,13 +93,11 @@
                 <v-list-item-subtitle v-html="item.media_type" />
               </v-list-item-content>
             </v-list-item>
-
-            <!-- <v-list-item-content>
-                <v-list-item-title v-html="item.title.rendered">
-                </v-list-item-title>
-                <v-list-item-subtitle v-html="item.acf.titlerole" />
-              </v-list-item-content> -->
-            <v-list-group v-else :prepend-icon="item.action" no-action>
+            <v-list-group
+              v-else-if="item.type === 'profile'"
+              :prepend-icon="item.action"
+              no-action
+            >
               <template v-slot:activator>
                 <v-list-item-content>
                   <v-list-item-title
