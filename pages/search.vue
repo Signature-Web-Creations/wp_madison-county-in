@@ -2,7 +2,8 @@
   <div>
     <BaseSubpageheader />
     <v-container class="pt-15 pb-15">
-      <div>What are you searching for?</div>
+      <h2>What are you searching for?</h2>
+      <h4 class="mt-10">To start select an option:</h4>
       <v-radio-group v-model="radioGroup" row>
         <v-radio
           v-for="(n, index) in categories"
@@ -140,6 +141,12 @@
           </v-list-item-group>
         </v-list>
       </div>
+      <!-- <div v-else-if="filter.label" lazy class="mx-auto col-12">
+        <p>
+          No results not found in {{ filter.label }}. Please, try another search
+          term.
+        </p>
+      </div> -->
     </v-container>
   </div>
 </template>
