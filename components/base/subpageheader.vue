@@ -3,7 +3,7 @@
     :class="!showImage ? 'primary' : 'grey lighten-3'"
     :style="
       !showImage
-        ? 'height: 15vh;'
+        ? 'height: 15vh; min-height: 250px;'
         : 'height: 20vh; min-height: 300px; background-image: url(' +
           this.setImage(this.image) +
           ');'
