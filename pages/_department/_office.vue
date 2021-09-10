@@ -156,7 +156,6 @@ export default {
     },
 
     primaryContact() {
-      console.log(this.countyProfiles)
       let primary = this.countyProfiles.find((obj) => obj.primary == true)
 
       if (primary) {
