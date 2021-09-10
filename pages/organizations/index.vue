@@ -1,6 +1,6 @@
 <template>
   <div class="main-wrapper">
-    <WhatsUpListingHeader image="default" />
+    <BaseSubpageheader :showTitle="false" :image="image" :showImage="true" />
     <v-container fluid>
       <v-row class="d-flex flex-md-row justify-center py-10 px-3">
         <v-col cols="12" lg="7" class="mb-3">
@@ -82,13 +82,18 @@ export default {
     items: undefined,
   }),
 
-  async asyncData({ store }) {
+  async asyncData({ route, store }) {
     const organizationList = await store.dispatch("wuapi/getDirectory", {
       limit: "500",
       returnValue: true,
     })
+    const data = await store.dispatch("getPageContent", route.name)
+    const image = await store.dispatch(
+      "getFeaturedImage",
+      data === undefined || data.featured_media === 0 ? 0 : data.featured_media
+    )
 
-    return { organizationList }
+    return { organizationList, image }
   },
 
   computed: {
