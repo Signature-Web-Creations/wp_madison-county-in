@@ -40,8 +40,9 @@ export default {
   }),
 
   async asyncData({ store, route }) {
+    let tagsoptions = { getPrimary: true }
     const communities = await store.dispatch("getCommunities", true)
-    const tags = await store.dispatch("getTags", true)
+    const tags = await store.dispatch("getTags", tagsoptions)
     let city_tag_id = 0
     tags.forEach(({ id, slug }) => {
       if (route.params.city === slug) city_tag_id = id
