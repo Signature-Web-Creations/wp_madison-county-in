@@ -1,6 +1,11 @@
 <template>
   <div>
-    <BaseSubpageheader />
+    <BaseSubpageheader
+      :showTitle="titleHeader"
+      :title="title"
+      :image="image"
+      :showImage="useImage"
+    />
     <v-container class="pt-15 pb-15">
       <v-row>
         <v-col cols="12">
@@ -54,7 +59,24 @@ export default {
     const data = await store.dispatch("getPageContent", route.name)
     const content = data.content.rendered
     const title = data.title.rendered
-    return { content, title, profiles, tags }
+    const titleHeader = data.format === "aside"
+    const titleContent = data.format === "standard"
+    const useImage = data.format === "standard"
+    const image = await store.dispatch(
+      "getFeaturedImage",
+      data.featured_media !== 0 ? data.featured_media : 0
+    )
+
+    return {
+      content,
+      titleHeader,
+      titleContent,
+      title,
+      useImage,
+      image,
+      profiles,
+      tags,
+    }
   },
 
   computed: {},
