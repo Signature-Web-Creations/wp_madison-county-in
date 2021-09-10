@@ -201,4 +201,7 @@ export default {
     background: none;
   }
 }
+.v-expansion-panels {
+  z-index: 0;
+}
 </style>
