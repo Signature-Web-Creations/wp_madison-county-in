@@ -1,12 +1,9 @@
 <template>
   <div>
     <BaseSubpageheader />
-    <v-container class="px-0" fluid>
-      {{ radioGroup || null }}
-      <v-radio-group v-model="radioGroup">
-        <template v-slot:label>
-          <div>What are you searching for?</div>
-        </template>
+    <v-container class="pt-15 pb-15">
+      <div>What are you searching for?</div>
+      <v-radio-group v-model="radioGroup" row>
         <v-radio
           v-for="(n, index) in categories"
           :key="index"
@@ -15,23 +12,18 @@
           required
           @change="updateFilter(n)"
         ></v-radio>
-        <!-- @change="changed(n, '')" -->
       </v-radio-group>
-      name:{{ name || null }}
-      <br />
-      text input: {{ textField || null }}
       <form>
         <v-text-field
           v-model="textField"
           v-if="radioGroup"
           :rules="rules"
-          label="Name"
+          label="Search"
           required
           v-on:keyup="changed(textField)"
         ></v-text-field>
-        <!-- @change="" -->
       </form>
-      <v-card class="mx-auto" max-width="500">
+      <div v-if="content" class="mx-auto col-12">
         <v-list>
           <v-list-item-group
             v-model="listgroup"
@@ -42,55 +34,70 @@
               v-if="item.type === 'office' && item.categories[0] === 5"
               :to="'goverment/' + item.slug"
             >
-              <v-list-item-icon>
-                <v-icon v-text="item.icon"></v-icon>
-              </v-list-item-icon>
               <v-list-item-content>
                 <v-list-item-title
                   v-html="item.title.rendered"
                 ></v-list-item-title>
-                <v-list-item-subtitle v-html="item.type" />
+                <v-list-item-subtitle
+                  class="mt-1 font-italic mb-4"
+                  v-text="'Government'"
+                />
+
+                <v-list-item-subtitle
+                  v-html="
+                    $options.filters.truncateText(item.excerpt.rendered, 150)
+                  "
+                />
               </v-list-item-content>
             </v-list-item>
             <v-list-item
               v-else-if="item.type === 'community'"
               :to="'community/' + item.slug"
             >
-              <v-list-item-icon>
-                <v-icon v-text="item.icon"></v-icon>
-              </v-list-item-icon>
               <v-list-item-content>
                 <v-list-item-title
                   v-html="item.title.rendered"
                 ></v-list-item-title>
-                <v-list-item-subtitle v-html="item.type" />
+                <v-list-item-subtitle
+                  class="mt-1 font-italic mb-4"
+                  v-html="item.type"
+                />
+                <v-list-item-subtitle
+                  v-html="
+                    $options.filters.truncateText(item.excerpt.rendered, 150)
+                  "
+                />
               </v-list-item-content>
             </v-list-item>
             <v-list-item
               v-else-if="item.type === 'office' && item.categories[0] === 15"
               :to="'residents/' + item.slug"
             >
-              <v-list-item-icon>
-                <v-icon v-text="item.icon"></v-icon>
-              </v-list-item-icon>
               <v-list-item-content>
                 <v-list-item-title
                   v-html="item.title.rendered"
                 ></v-list-item-title>
-                <v-list-item-subtitle v-html="item.type" />
+
+                <v-list-item-subtitle
+                  class="mt-1 font-italic mb-4"
+                  v-text="'Residents'"
+                />
+                <v-list-item-subtitle
+                  class=""
+                  v-html="
+                    $options.filters.truncateText(item.excerpt.rendered, 150)
+                  "
+                />
               </v-list-item-content>
             </v-list-item>
             <v-list-item
               v-else-if="item.media_type === 'file'"
               :href="item.guid.rendered"
             >
-              <v-list-item-icon>
-                <v-icon v-text="item.icon"></v-icon>
-              </v-list-item-icon>
               <v-list-item-content>
                 <v-list-item-title v-html="item.title.rendered">
                 </v-list-item-title>
-                <v-list-item-subtitle v-html="item.media_type" />
+                <v-list-item-subtitle v-html="item.mime_type" />
               </v-list-item-content>
             </v-list-item>
             <v-list-group
@@ -112,25 +119,27 @@
                     class="mb-5"
                     v-text="item.acf.titlerole"
                   ></v-list-item-title>
+                </v-list-item-content>
+              </v-list-item>
+              <v-list-item v-if="item.acf.phone">
+                <v-list-item-content>
+                  <v-list-item-title class="mb-5">
+                    {{ item.acf.phone | formatPhone }}
+                  </v-list-item-title>
+                </v-list-item-content>
+              </v-list-item>
+              <v-list-item v-if="item.acf.email">
+                <v-list-item-content link :href="`mailto:${item.acf.email}`">
                   <v-list-item-title
                     class="mb-5"
-                    v-text="item.acf.phone | formatPhone"
-                  ></v-list-item-title>
-                  <v-list-item-title
-                    class="mb-5"
-                    v-if="item.acf.email"
-                    :href="item.acf.email"
                     v-text="item.acf.email"
                   ></v-list-item-title>
                 </v-list-item-content>
               </v-list-item>
             </v-list-group>
-            <!-- </v-list-item> -->
           </v-list-item-group>
         </v-list>
-      </v-card>
-
-      content: {{ content }}
+      </div>
     </v-container>
   </div>
 </template>
@@ -150,7 +159,7 @@ export default {
       categories: [],
       tags: [],
     },
-    content: {},
+    content: null,
     rules: [
       (value) => !!value || "Required.",
       (value) => (value && value.length >= 3) || "Min 3 characters",
@@ -164,8 +173,8 @@ export default {
         label: "Offices",
         url: "office",
         category: {
-          5: "goverment",
-          15: "residents",
+          "5": "goverment",
+          "15": "residents",
         },
       },
       form: {
@@ -206,11 +215,13 @@ export default {
             searchinput
         ).then((res) => res.json())
       }
-
-      // fetch($this.api.)
     },
   },
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.container {
+  max-width: 1185px;
+}
+</style>
