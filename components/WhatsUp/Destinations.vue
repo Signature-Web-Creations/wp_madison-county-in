@@ -14,8 +14,6 @@
 </template>
 
 <script>
-import { mapState, mapActions } from "vuex"
-
 export default {
   props: {
     destinations: {
@@ -23,18 +21,6 @@ export default {
       required: true,
     },
   },
-  // async fetch() {
-  //   const destinationsOptions = {
-  //     returnValue: false,
-  //   }
-  //   await this.getDestinations(destinationsOptions)
-  // },
-
-  // computed: mapState({
-  //   destinations: (state) => state.wuapi.destinations,
-  // }),
-
-  // methods: mapActions("wuapi", ["getDestinations"]),
 }
 </script>
 

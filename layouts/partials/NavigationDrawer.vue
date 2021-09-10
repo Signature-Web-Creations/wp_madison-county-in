@@ -34,6 +34,16 @@
         </v-list-item-content>
       </v-list-item>
 
+      <v-list-item v-if="isMobile" link to="/covid-19">
+        <v-list-item-icon>
+          <v-icon dense>fas fa-plus</v-icon>
+        </v-list-item-icon>
+
+        <v-list-item-content>
+          <v-list-item-title>Covid-19</v-list-item-title>
+        </v-list-item-content>
+      </v-list-item>
+
       <v-list-item
         v-for="link in menuItems"
         :key="link.name"
@@ -119,9 +129,12 @@
 
 <script>
 import { mapState, mapActions } from "vuex"
+import { generalMixin } from "~/mixins/general"
 
 export default {
   name: "NavigationDrawer",
+
+  mixins: [generalMixin],
 
   props: {
     location: {
@@ -143,6 +156,11 @@ export default {
           name: "Live Public Meetings",
           url: "/public-meetings",
           icon: "fas fa-video",
+        },
+        {
+          name: "Election Results",
+          url: "/election-results",
+          icon: "fas fa-vote-yea",
         },
       ],
       categorySections: [
@@ -196,6 +214,12 @@ export default {
   async fetch({ store }) {
     await store.dispatch("getOffices")
   },
+
+  computed: mapState({
+    offices: (state) => state.offices,
+    drawer: (state) => state.navigation.drawer,
+  }),
+
   methods: {
     ...mapActions("navigation", ["updateDrawer"]),
     // ...mapActions("getOffices"),
@@ -210,15 +234,10 @@ export default {
       )
     },
   },
+
   created() {
     this.governmentOffices()
     this.residentsOffices()
-  },
-  computed: {
-    ...mapState({
-      offices: (state) => state.offices,
-      drawer: (state) => state.navigation.drawer,
-    }),
   },
 }
 </script>

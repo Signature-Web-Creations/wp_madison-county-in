@@ -21,9 +21,12 @@
 <script>
 import { mapState } from "vuex"
 import OfficeNavigation from "~/layouts/partials/OfficeNavigation"
+import { generalMixin } from "~/mixins/general"
 
 export default {
   layout: "office",
+
+  mixins: [generalMixin],
 
   components: { OfficeNavigation },
 
@@ -153,7 +156,6 @@ export default {
     },
 
     primaryContact() {
-      console.log(this.countyProfiles)
       let primary = this.countyProfiles.find((obj) => obj.primary == true)
 
       if (primary) {
@@ -175,27 +177,11 @@ export default {
       }
     },
 
-    setDefault() {
-      const image = this.defaultImage.media_details.sizes
-      switch (this.$vuetify.breakpoint.name) {
-        case "xs":
-          return image.medium_large.source_url
-        case "sm":
-          return image.large.source_url
-        case "md":
-          return image["post-thumbnail"].source_url
-        case "lg":
-        case "xl":
-          return image["2048x2048"].source_url
-      }
-    },
-
     ...mapState({
       categories: (state) => state.categories,
       categoryMap: (state) => state.categoryMap,
       // countyProfiles: (state) => state.profiles,
       listOfJobs: (state) => state.jobs,
-      defaultImage: (state) => state.defaultImage,
     }),
   },
 
@@ -208,7 +194,7 @@ export default {
         .catch((error) => error.response.status)
       this.image_url = heroobj.guid.rendered
     } else {
-      this.image_url = this.setDefault
+      this.image_url = await this.setDefault
     }
   },
 }

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <BaseSubpageheader />
+    <BaseSubpageheader :image="image" />
     <v-container class="pt-15 pb-15">
       <h1>Madison County Public Meetings</h1>
       <iframe
@@ -17,6 +17,17 @@
     </v-container>
   </div>
 </template>
+
+<script>
+export default {
+  async asyncData({ store }) {
+    const image = await store.dispatch("getFeaturedImage", 0)
+
+    return { image }
+  },
+}
+</script>
+ipt
 
 <style lang="scss" scoped>
 .container {

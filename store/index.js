@@ -18,6 +18,7 @@ export const state = () => ({
   profilePage: null,
   jobs: [],
   defaultImage: null,
+  defaultImageId: 1589,
 })
 /*
 this will update the state
@@ -164,7 +165,6 @@ export const actions = {
           tags,
           title,
           content,
-          icon,
         }) => {
           return {
             acf,
@@ -174,13 +174,11 @@ export const actions = {
             media_url: featured_media,
             tags,
             name: title.rendered,
-            acf_content: acf.content,
-            content,
             icon: acf.icon,
             fax: acf.fax,
             organization_id: acf.organization_id,
             accordion_content: acf.additional_content_repeater,
-            overview: acf.overview,
+            overview: content.rendered,
           }
         }
       )
@@ -387,6 +385,7 @@ export const actions = {
           }
         }
       )
+
       if (options.returnValue) {
         return profiles
       } else {
@@ -514,10 +513,26 @@ export const actions = {
     })
   },
 
-  async setDefaultImage({ commit }) {
-    const url = this.$config.apiUrl + "media/1589"
+  async setDefaultImage({ state, commit }) {
+    const url = this.$config.apiUrl + "media/" + state.defaultImageId
 
     const image = await this.$axios.get(url)
     commit("SET_DEFAULT_IMAGE", image.data)
+  },
+
+  getFeaturedImage({ state }, id) {
+    const url =
+      this.$config.apiUrl + "media/" + (id !== 0 ? id : state.defaultImageId)
+    return this.$axios.get(url).then(({ data }) => {
+      return data
+    })
+  },
+
+  getActiveElectionReport({}, reportID) {
+    const url = this.$config.apiUrl + `election_result?tag=${reportID}`
+
+    return this.$axios.get(url).then(({ data }) => {
+      return data[0]
+    })
   },
 }

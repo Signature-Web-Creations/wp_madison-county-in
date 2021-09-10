@@ -93,7 +93,6 @@ export default {
 
       switch (this.$vuetify.breakpoint.name) {
         case "xs":
-          return array.slice(0, 4)
         case "sm":
         case "md":
           return array.slice(0, 6)

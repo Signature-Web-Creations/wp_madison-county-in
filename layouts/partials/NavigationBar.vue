@@ -28,11 +28,11 @@
 
     <v-spacer />
 
-    <!-- <v-btn class="ml-16" icon>
-      <v-icon small>fas fa-search</v-icon>
-    </v-btn> -->
+    <v-btn v-if="!isMobile" class="ml-16" large text tile to="/covid-19">
+      <v-icon small>fas fa-plus</v-icon>&nbsp;&nbsp;Covid-19
+    </v-btn>
 
-    <v-app-bar-nav-icon @click.stop="drawer = !drawer">
+    <v-app-bar-nav-icon @click.stop="drawer = !drawer" tile>
       <v-icon>fas fa-bars</v-icon>
     </v-app-bar-nav-icon>
   </v-app-bar>
@@ -40,8 +40,11 @@
 
 <script>
 import { mapState, mapActions } from "vuex"
+import { generalMixin } from "~/mixins/general"
 
 export default {
+  mixins: [generalMixin],
+
   props: {
     location: {
       type: Object,
@@ -84,7 +87,7 @@ export default {
   },
 
   created() {
-    this.drawer = this.stateDrawer
+    this.updateDrawer(this.drawer)
     this.updateBarClasses()
   },
 }
@@ -100,13 +103,11 @@ export default {
   );
   &.v-app-bar--is-scrolled {
     &.blur-primary-color {
-      // background-color:rgba(68,100,100,.75) !important;
-      // background-color: rgba(255, 255, 255, 0.75) !important;
       background: #fff !important;
-      // backdrop-filter: blur(10px);
     }
     a,
-    .v-icon {
+    .v-icon,
+    .v-btn {
       color: rgba(68, 100, 100) !important;
     }
   }
@@ -117,5 +118,8 @@ export default {
 }
 .v-icon {
   color: #fff;
+}
+.v-btn {
+  font-size: 16px;
 }
 </style>

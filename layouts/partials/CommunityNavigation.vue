@@ -14,7 +14,7 @@
       <template v-slot:img="{ props }">
         <v-img
           v-bind="props"
-          gradient="to top right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.2)"
+          gradient="to top right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0), rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.7)"
         />
       </template>
 
@@ -36,9 +36,14 @@
 
       <v-spacer></v-spacer>
 
+      <v-btn v-if="!isMobile" class="ml-16" large text tile to="/covid-19">
+        <v-icon small>fas fa-plus</v-icon>&nbsp;&nbsp;Covid-19
+      </v-btn>
+
       <v-app-bar-nav-icon @click.stop="drawer = !drawer">
         <v-icon>fas fa-bars</v-icon>
       </v-app-bar-nav-icon>
+
       <template v-slot:extension>
         <v-tabs
           grow
@@ -135,9 +140,12 @@
 </template>
 
 <script>
-import { mapState, mapActions } from "vuex"
+import { generalMixin } from "~/mixins/general"
+import { officeMixin } from "~/mixins/office"
 
 export default {
+  mixins: [generalMixin, officeMixin],
+
   props: {
     tabs: {
       type: Array,
@@ -158,76 +166,12 @@ export default {
 
   data() {
     return {
-      drawer: false,
-      tab: null,
       showFilters: {
         events: false,
         destinations: false,
         directory: false,
       },
     }
-  },
-
-  watch: {
-    drawer(value) {
-      this.updateDrawer(value)
-    },
-    stateDrawer(value) {
-      this.drawer = value
-    },
-    "$route.path"(value) {
-      this.updateBarClasses()
-    },
-  },
-
-  computed: {
-    getHeight() {
-      switch (this.$vuetify.breakpoint.name) {
-        case "xs":
-          return "200px"
-        case "sm":
-        case "md":
-        case "lg":
-        case "xl":
-          return "300px"
-      }
-    },
-
-    adjustWidth() {
-      switch (this.$vuetify.breakpoint.name) {
-        case "xs":
-        case "sm":
-        case "md":
-          return "padding: 40px 0px;"
-        case "lg":
-        case "xl":
-          return "padding: 40px 150px;"
-      }
-    },
-
-    adjustContentPadding() {
-      switch (this.$vuetify.breakpoint.name) {
-        case "xs":
-          return "padding-top: 250px;"
-        case "sm":
-        case "md":
-        case "lg":
-        case "xl":
-          return "padding-top: 375px;"
-      }
-    },
-
-    ...mapState({
-      stateDrawer: (state) => state.navigation.drawer,
-    }),
-  },
-
-  methods: {
-    ...mapActions("navigation", ["updateDrawer"]),
-  },
-
-  created() {
-    this.updateDrawer(this.drawer)
   },
 }
 </script>
