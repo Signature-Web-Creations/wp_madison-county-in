@@ -213,7 +213,7 @@ export default {
       this.textField = null
       this.filter = filter
       if (this.$refs.searchField) {
-        this.$refs.searchField.$el.focus()
+        this.$refs.searchField.focus()
       }
     },
     async changed(searchinput) {
