@@ -21,6 +21,7 @@
       <form>
         <v-text-field
           v-model="textField"
+          ref="searchField"
           v-if="radioGroup"
           :rules="rules"
           :label="`Search ${filter.label}`"
@@ -28,7 +29,7 @@
           v-on:keyup="changed(textField)"
         ></v-text-field>
       </form>
-      <div v-if="content" class="mx-auto col-12">
+      <div v-if="content && content.length > 0" class="mx-auto col-12">
         <v-list>
           <v-list-item-group
             v-model="listgroup"
@@ -145,6 +146,12 @@
           </v-list-item-group>
         </v-list>
       </div>
+      <div v-else-if="content && content.length === 0">
+        <p>
+          No results not found in {{ filter.label }}. Please, try another search
+          term.
+        </p>
+      </div>
     </v-container>
   </div>
 </template>
@@ -157,6 +164,7 @@ export default {
     radioGroup: null,
     textField: null,
     name: "",
+    count: 0,
     nameRules: [(v) => !!v || "Search term is required"],
     email: "",
     filter: "",
@@ -202,7 +210,13 @@ export default {
       this.key = categories.office.category.e
     },
     updateFilter(filter) {
+      this.count++
+      this.content = null
+      this.textField = null
       this.filter = filter
+      if (this.count > 1) {
+        this.$refs.searchField.$el.focus()
+      }
     },
     async changed(searchinput) {
       this.name =
