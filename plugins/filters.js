@@ -1,6 +1,7 @@
 import Vue from "vue"
+import moment from "moment"
 
-Vue.filter("formatDate", function (value, moment, formatTemplate) {
+Vue.filter("formatDate", function (value, formatTemplate) {
   if (!value) return ""
 
   if (value !== "Closed") {

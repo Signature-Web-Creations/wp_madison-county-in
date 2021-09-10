@@ -76,9 +76,9 @@
                 />
 
                 <v-list-item-subtitle class="mt-2 font-italic">
-                  {{ event.start | formatDate($moment, "MMMM D") }}
+                  {{ event.start | formatDate("MMMM D") }}
                   at
-                  {{ event.start | formatDate($moment, "h:mm a") }}
+                  {{ event.start | formatDate("h:mm a") }}
                 </v-list-item-subtitle>
 
                 <v-list-item-subtitle>

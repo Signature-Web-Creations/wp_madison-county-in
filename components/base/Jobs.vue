@@ -7,7 +7,7 @@
             {{ job.title }}<br />
             <small class="text-subtitle-1">
               Posted:
-              <em>{{ job.date | formatDate($moment, "MMMM D, YYYY") }}</em>
+              <em>{{ job.date | formatDate("MMMM D, YYYY") }}</em>
             </small>
           </h2>
           <!-- <v-spacer v-if="officeUrl === 'human-resources'" />

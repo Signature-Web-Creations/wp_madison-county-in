@@ -40,7 +40,8 @@
       <v-container>
         <v-row no-gutters class="py-2 text-center text-md-left">
           <v-col cols="12" md="6" class="pb-4 pb-md-0">
-            © Copyright 2017 Madison County Government
+            © Copyright {{ date | formatDate("YYYY") }} Madison County
+            Government
           </v-col>
           <v-col cols="12" md="6" class="text-center text-md-right">
             <span v-for="(link, index) in bottomBarLinks" :key="link.name">
@@ -62,6 +63,7 @@
 export default {
   data() {
     return {
+      date: new Date(),
       bottomBarLinks: [
         {
           name: "Disclaimer",

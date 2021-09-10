@@ -24,7 +24,7 @@
             v-html="event.host_organization"
           />
           <v-card-text>
-            <p>{{ event.start | formatDate($moment, "MMMM D") }}</p>
+            <p>{{ event.start | formatDate("MMMM D") }}</p>
             <p class="mb-0">{{ event.description | truncateText(60) }}</p>
           </v-card-text>
         </v-card>
