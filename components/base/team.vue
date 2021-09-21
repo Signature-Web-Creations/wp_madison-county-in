@@ -107,7 +107,6 @@ export default {
   data() {
     return {
       dialog: [],
-      logo: "https://madisoncounty.in.gov/images/recoloredlogo.png",
       members: [],
     }
   },
