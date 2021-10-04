@@ -20,6 +20,7 @@
     "core-js": "^3.9.1",
     "moment": "^2.29.1",
     "nuxt": "^2.15.3",
+    "redirect-ssl": "^3.0.0",
     "vuex-search": "^2.2.5"
   },
   "devDependencies": {

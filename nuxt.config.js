@@ -1,4 +1,5 @@
 import colors from "vuetify/es5/util/colors"
+import redirectSSL from "redirect-ssl"
 
 export default {
   // target: "static",
@@ -7,6 +8,9 @@ export default {
   //   base: "/wp_madison-county-in/"
   //   // middleware: ["bearer-token"]
   // },
+  serverMiddleware: [
+    redirectSSL.create({ enabled: process.env.NODE_ENV === "production" }),
+  ],
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
@@ -21,7 +25,7 @@ export default {
       { hid: "description", name: "description", content: "" },
     ],
     link: [
-      { rel: "icon", type: "image/x-icon", href: "/favicon.ico" },
+      { rel: "icon", type: "image/x-icon", href: "/favicon.png" },
       {
         rel: "stylesheet",
         href:

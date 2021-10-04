@@ -10,7 +10,7 @@
   >
     <v-list-item>
       <v-list-item-avatar>
-        <v-img src="https://madisoncounty.in.gov/images/recoloredlogo.png" />
+        <v-img :src="require('~/assets/recoloredlogo.png')" />
       </v-list-item-avatar>
 
       <v-list-item-content>

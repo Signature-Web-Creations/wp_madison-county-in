@@ -7,7 +7,7 @@
             <v-row align-content="center" justify="center">
               <v-col class="col-auto">
                 <v-img
-                  src="https://madisoncounty.in.gov/images/recoloredlogo.png"
+                  :src="require('~/assets/recoloredlogo.png')"
                   max-height="110"
                   max-width="110"
                 ></v-img>

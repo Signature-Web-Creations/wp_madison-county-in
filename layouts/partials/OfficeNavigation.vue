@@ -26,7 +26,7 @@
           class="mr-3"
           max-height="45"
           max-width="45"
-          src="https://madisoncounty.in.gov/images/recoloredlogo.png"
+          :src="require('~/assets/recoloredlogo.png')"
         />
 
         <v-toolbar-title>
