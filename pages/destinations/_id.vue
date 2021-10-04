@@ -63,7 +63,7 @@ export default {
           icon: "fa-info-circle",
         },
         {
-          name: "Related Events",
+          name: "Community Events",
           icon: "fa-calendar-alt",
         },
       ],
