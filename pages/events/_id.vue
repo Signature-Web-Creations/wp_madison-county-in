@@ -13,6 +13,11 @@
             <div class="detail-tile mb-4">
               <h1 v-html="event.name" />
               <em><p v-html="event.host_organization" /></em>
+              <p class="font-weight-medium">
+                {{ event.start | formatDate("MMMM Do YYYY") }}<br />
+                {{ event.start | formatDate("h:mm ") }} -
+                {{ event.end | formatDate("h:mm a") }}
+              </p>
               <p
                 class="text-muted"
                 v-html="
@@ -46,6 +51,9 @@
         </v-col>
         <v-col cols="12" lg="3" class="pt-md-16">
           <BaseSidebar
+            :datetime="event"
+            :startdatetime="event.start"
+            :enddatetime="event.end"
             :email="event.contact_email"
             :phone="event.contact_phone"
             :c_name="event.contact_name"
