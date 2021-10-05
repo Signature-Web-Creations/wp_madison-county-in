@@ -2,35 +2,32 @@
   <footer app>
     <section class="footer-top">
       <v-container>
-        <v-row no-gutters class="py-10" align-content="center">
-          <v-col cols="12" md="6" class="py-5">
-            <v-row align-content="center" justify="center">
-              <v-col class="col-auto">
-                <v-img
-                  :src="require('~/assets/recoloredlogo.png')"
-                  max-height="110"
-                  max-width="110"
-                ></v-img>
-              </v-col>
-
-              <v-col cols="12" md="6" class="text-center text-md-left">
-                <h4 class="text-uppercase">Madison County Government</h4>
-                <p>
-                  Madison County Government Center<br />
-                  16 East 9th Street<br />
-                  Anderson, IN 46016
-                </p>
-                <nuxt-link :to="{ name: 'map-directions' }">
-                  Get Directions
-                </nuxt-link>
+        <v-row no-gutters class="py-10">
+          <v-col
+            cols="12"
+            class="py-5 text-center d-flex flex-column justify-space-between align-center"
+          >
+            <Logo maxHeight="200" maxWidth="200" />
+            <h3 class="text-uppercase mt-5">Madison County Government</h3>
+            <p>
+              Madison County Government Center<br />
+              16 East 9th Street, Anderson, IN 46016
+            </p>
+            <v-row no-gutters class="pt-10">
+              <v-col
+                cols="12"
+                sm="auto"
+                class="py-1"
+                v-for="(link, index) in footerMenu"
+                :key="link.name"
+              >
+                <nuxt-link :to="link.url">{{ link.name }}</nuxt-link>
+                <span
+                  v-if="index + 1 < footerMenu.length"
+                  class="mx-sm-3"
+                ></span>
               </v-col>
             </v-row>
-          </v-col>
-          <v-col cols="12" md="6" class="py-5 text-center text-md-left">
-            <h4 class="text-uppercase">Help</h4>
-            <div v-for="link in footerMenu" :key="link.name">
-              <nuxt-link :to="link.url">{{ link.name }}</nuxt-link>
-            </div>
           </v-col>
         </v-row>
       </v-container>
@@ -79,6 +76,10 @@ export default {
         },
       ],
       footerMenu: [
+        {
+          name: "Get Directions",
+          url: { name: "map-directions" },
+        },
         {
           name: "Contact Madison County",
           url: "/contact",
