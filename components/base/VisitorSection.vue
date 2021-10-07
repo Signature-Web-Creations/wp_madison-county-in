@@ -13,7 +13,7 @@
             <h2 class="display-2 h2 mb-8">{{ pageData.title.rendered }}</h2>
             <div
               class="white--text mt-8 mb-6"
-              v-html="pageData.acf.overview"
+              v-html="pageData.content.rendered"
             ></div>
 
             <v-btn
