@@ -71,9 +71,9 @@
                   >
                     <v-img
                       :src="
-                        'http://mcapi.signaturewebcreations.com/wp-content/uploads/2021/07/' +
+                        require('~/assets/icons/offices/' +
                         post.icon +
-                        '.png'
+                        '.png')
                       "
                       width="100"
                       height="100"
