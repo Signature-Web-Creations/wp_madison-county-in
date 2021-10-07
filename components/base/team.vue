@@ -4,10 +4,12 @@
     <v-col
       v-for="(profile, index) in members"
       :key="profile.id"
-      sm="3"
-      lg="6"
+      col="6"
+      md="4"
+      xl="3"
       class="mb-10"
     >
+
       <v-dialog v-model="dialog[index]" width="500">
         <template v-slot:activator="{ on, attrs }">
           <v-avatar
@@ -90,6 +92,10 @@
 <script>
 export default {
   props: {
+    largeColumnSize:{
+      type:String,
+      default: "4"
+    },
     team: {
       type: Array,
       required: true,

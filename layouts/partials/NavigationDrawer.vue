@@ -153,6 +153,11 @@ export default {
           icon: "fas fa-info-circle",
         },
         {
+          name: "County Council",
+          url: "/county-council",
+          icon:"fas fa-users",
+        },
+        {
           name: "Live Public Meetings",
           url: "/public-meetings",
           icon: "fas fa-video",
