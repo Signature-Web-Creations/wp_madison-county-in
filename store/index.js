@@ -151,7 +151,8 @@ export const actions = {
     ]
     const fieldParameter = fields.join(",")
     const url =
-      this.$config.apiUrl + `office?per_page=100&_fields=${fieldParameter}`
+      this.$config.apiUrl +
+      `office?parent=0&per_page=100&_fields=${fieldParameter}`
 
     try {
       let offices = await fetch(url).then((res) => res.json())
@@ -373,7 +374,7 @@ export const actions = {
       "tags",
       "categories",
       "acf.office_primary",
-      "acf.office_priority"
+      "acf.office_priority",
     ]
 
     const fieldParameter = fields.join(",")
@@ -400,7 +401,7 @@ export const actions = {
             title: title.rendered,
             titlerole: acf ? acf.titlerole : "",
             primary: acf ? acf.office_primary : false,
-            priority: acf ? acf.office_priority : "3"
+            priority: acf ? acf.office_priority : "3",
           }
         }
       )
