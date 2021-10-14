@@ -1,8 +1,10 @@
 <template>
   <v-row justify="center" class="py-10">
     <!-- picture with hover affect will be -->
+    <!-- <ul><li v-for="member in sortedMembers" :key="member.id">{{member.id}} .. {{member.priority}}</li></ul> -->
+
     <v-col
-      v-for="(profile, index) in members"
+      v-for="(profile, index) in sortedMembers"
       :key="profile.id"
       col="6"
       md="4"
@@ -142,6 +144,20 @@ export default {
       }
       this.members = array
     },
+  },
+  computed: {
+      sortedMembers: function() {
+        function compare(a,b) {
+          if (a.primary == true)
+            return -1
+          if (a.priority == "0" )
+            return -1
+          if ( a.priority < b.priority)
+              return -1;
+          return 0;
+        }
+      return this.members.sort(compare);
+      },
   },
 }
 </script>

@@ -373,6 +373,7 @@ export const actions = {
       "tags",
       "categories",
       "acf.office_primary",
+      "acf.office_priority"
     ]
 
     const fieldParameter = fields.join(",")
@@ -399,6 +400,7 @@ export const actions = {
             title: title.rendered,
             titlerole: acf ? acf.titlerole : "",
             primary: acf ? acf.office_primary : false,
+            priority: acf ? acf.office_priority : "3"
           }
         }
       )
