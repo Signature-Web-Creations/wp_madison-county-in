@@ -1,17 +1,13 @@
 <template>
   <v-row justify="center" class="py-10">
-    <!-- picture with hover affect will be -->
-    <!-- <ul><li v-for="member in sortedMembers" :key="member.id">{{member.id}} .. {{member.priority}}</li></ul> -->
-
     <v-col
-      v-for="(profile, index) in sortedMembers"
+      v-for="(profile, index) in sortMembersByPriority"
       :key="profile.id"
       col="6"
       md="4"
       xl="3"
       class="mb-10"
     >
-
       <v-dialog v-model="dialog[index]" width="500">
         <template v-slot:activator="{ on, attrs }">
           <v-avatar
@@ -94,9 +90,9 @@
 <script>
 export default {
   props: {
-    largeColumnSize:{
-      type:String,
-      default: "4"
+    largeColumnSize: {
+      type: String,
+      default: "4",
     },
     team: {
       type: Array,
@@ -146,18 +142,23 @@ export default {
     },
   },
   computed: {
-      sortedMembers: function() {
-        function compare(a,b) {
-          if (a.primary == true)
-            return -1
-          if (a.priority == "0" )
-            return -1
-          if ( a.priority < b.priority)
-              return -1;
-          return 0;
-        }
-      return this.members.sort(compare);
-      },
+    sortMembersByPriority: function () {
+      function compare(a, b) {
+        if (a.primary == true) return -1
+        if (a.priority == "0") return -1
+        if (a.priority < b.priority) return -1
+        return 0
+      }
+      return this.sortMembersByAlpha.sort(compare)
+    },
+    sortMembersByAlpha: function () {
+      function compare(a, b) {
+        if (a.title < b.title) return -1
+        if (a.title > b.title) return 1
+        return 0
+      }
+      return this.members.sort(compare)
+    },
   },
 }
 </script>

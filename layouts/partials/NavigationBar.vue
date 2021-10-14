@@ -21,7 +21,7 @@
       />
 
       <v-toolbar-title
-        class="mr-16 text-decoration-none"
+        class="mr-10 text-decoration-none"
         v-text="location.county + ', ' + location.state.abbrv"
       />
     </a>
