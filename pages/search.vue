@@ -37,18 +37,23 @@
             :key="i"
           >
             <v-list-item
-              v-if="item.type === 'office' && item.categories[0] === 5"
-              :to="'goverment/' + item.slug"
+              v-if="item.type === 'office'"
+              :href="
+                item.acf.url.length == 0
+                  ? categories.office.category[item.categories[0]] +
+                    '/' +
+                    item.slug
+                  : item.acf.url
+              "
             >
               <v-list-item-content>
                 <v-list-item-title
                   v-html="item.title.rendered"
                 ></v-list-item-title>
                 <v-list-item-subtitle
-                  class="mt-1 font-italic mb-4"
-                  v-text="'Government'"
+                  class="mt-1 font-italic mb-4 text-capitalize"
+                  v-text="categories.office.category[item.categories[0]]"
                 />
-
                 <v-list-item-subtitle
                   v-html="
                     $options.filters.truncateText(item.excerpt.rendered, 150)
@@ -56,14 +61,13 @@
                 />
               </v-list-item-content>
             </v-list-item>
+
             <v-list-item
               v-else-if="item.type === 'community'"
               :to="'community/' + item.slug"
             >
               <v-list-item-content>
-                <v-list-item-title
-                  v-html="item.title.rendered"
-                ></v-list-item-title>
+                <v-list-item-title v-html="item.title"></v-list-item-title>
                 <v-list-item-subtitle
                   class="mt-1 font-italic mb-4"
                   v-html="item.type"
@@ -75,14 +79,12 @@
                 />
               </v-list-item-content>
             </v-list-item>
-            <v-list-item
+            <!-- <v-list-item
               v-else-if="item.type === 'office' && item.categories[0] === 15"
               :to="'residents/' + item.slug"
             >
               <v-list-item-content>
-                <v-list-item-title
-                  v-html="item.title.rendered"
-                ></v-list-item-title>
+                <v-list-item-title v-html="item.title"></v-list-item-title>
 
                 <v-list-item-subtitle
                   class="mt-1 font-italic mb-4"
@@ -95,7 +97,7 @@
                   "
                 />
               </v-list-item-content>
-            </v-list-item>
+            </v-list-item> -->
             <v-list-item
               v-else-if="item.media_type === 'file'"
               :href="item.guid.rendered"
@@ -231,6 +233,7 @@ export default {
             "&search=" +
             searchinput
         ).then((res) => res.json())
+        // .then((res) => console.log(res[0].title))
       }
     },
   },
