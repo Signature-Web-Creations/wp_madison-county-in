@@ -28,19 +28,21 @@
             }"
           >
             <div
-              class="mb-5 text-center"
+              class="mb-5 d-flex text-center"
               :class="{
-                'text-lg-right': index % 2 !== 0,
-                'text-lg-left': index % 2 === 0,
+                'text-md-right pr-lg-4 justify-end': index % 2 !== 0,
+                'text-md-left pl-lg-4 justify-start': index % 2 === 0,
               }"
             >
               <h2
-                class="section-name display-2 h2 mb-10 text-center"
+                class="section-name display-1 h2 mb-10 text-center"
                 :class="{
-                  'text-lg-left ml-lg-4': index % 2 === 0,
-                  'text-lg-right mr-lg-4 lightgrey--text': index % 2 !== 0,
+                  '': index % 2 === 0,
+                  'lightgrey--text': index % 2 !== 0,
                 }"
               >
+                <!-- Government Residential & Support -->
+                <!-- Government Administration & Public Safety -->
                 {{ category.name }}
               </h2>
             </div>
@@ -71,9 +73,7 @@
                   >
                     <v-img
                       :src="
-                        require('~/assets/icons/offices/' +
-                        post.icon +
-                        '.png')
+                        require('~/assets/icons/offices/' + post.icon + '.png')
                       "
                       width="100"
                       height="100"
@@ -212,11 +212,24 @@ export default {
     padding: 0 150px !important;
   }
   h2 {
+    font-size: 2rem;
     font-weight: 500 !important;
-    &::after {
-      bottom: -6px;
-      width: 95%;
-    }
+    display: flex;
+    // &.text-right {
+    // }
+    // &::after {
+    //   bottom: -6px;
+    //   width: 90%;
+    //   // display: inline;
+    // }
+    // & + .accent-bar {
+    //   display: none;
+    //   // height: 2px;
+    //   // background-color: #ead11b;
+    //   // position: absolute;
+    //   // bottom: -6px;
+    //   // width: 100%;
+    // }
   }
   .p-content {
     font-size: 18px;

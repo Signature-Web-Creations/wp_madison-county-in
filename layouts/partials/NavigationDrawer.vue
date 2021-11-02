@@ -155,7 +155,7 @@ export default {
         {
           name: "County Council",
           url: "/county-council",
-          icon:"fas fa-users",
+          icon: "fas fa-users",
         },
         {
           name: "Live Public Meetings",
@@ -170,13 +170,13 @@ export default {
       ],
       categorySections: [
         {
-          name: "Government",
+          name: "Administration & <br> Public Safety",
           url: "/#government",
           icon: "fas fa-university",
           offices: [],
         },
         {
-          name: "Residents",
+          name: "Residential & <br> Support",
           url: "/#residents",
           icon: "fas fa-house-user",
           offices: [],

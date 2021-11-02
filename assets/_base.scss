@@ -6,12 +6,12 @@
   &:after {
     content: "";
     position: absolute;
-    width: 100%;
+    width: 90%;
     height: 4px;
     background-color: #ead11b;
-
     bottom: -10px;
-    left: 0;
+    left: 50%;
+    margin-left: -45%;
   }
 }
 p {

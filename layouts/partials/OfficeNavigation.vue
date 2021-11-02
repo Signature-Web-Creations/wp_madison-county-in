@@ -182,6 +182,19 @@ export default {
       tab: null,
     }
   },
+  computed: {
+    sortedArray: function() {
+      function compare(a) {
+        
+        if (a.primary !== true)
+          return -1;
+        if (a.name === true)
+          return 1;
+        return 0;
+      }
+    return this.arrays.sort(compare);
+  }
+}
 }
 </script>
 
