@@ -40,9 +40,8 @@
                   '': index % 2 === 0,
                   'lightgrey--text': index % 2 !== 0,
                 }"
-              >
-                {{ category.name }}
-              </h2>
+                v-html="category.name"
+              />
             </div>
 
             <div
