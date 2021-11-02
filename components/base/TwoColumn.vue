@@ -41,8 +41,6 @@
                   'lightgrey--text': index % 2 !== 0,
                 }"
               >
-                <!-- Government Residential & Support -->
-                <!-- Government Administration & Public Safety -->
                 {{ category.name }}
               </h2>
             </div>
@@ -59,32 +57,29 @@
             <div
               v-for="post in category.posts"
               :key="post.slug"
-              class="d-inline-flex ma-4"
+              class="d-inline-flex ma-4 relative"
             >
-              <v-tooltip bottom>
-                <template v-slot:activator="{ on, attrs }">
-                  <v-btn
-                    v-bind="attrs"
-                    v-on="on"
-                    width="100"
-                    height="100"
-                    elevation="2"
-                    :to="'/' + category.slug + '/' + post.slug"
-                  >
-                    <v-img
-                      :src="
-                        require('~/assets/icons/offices/' + post.icon + '.png')
-                      "
-                      width="100"
-                      height="100"
-                    />
-                  </v-btn>
-                </template>
-                <span
-                  class="white--text cardpost_h2_title pa-3"
-                  v-html="post.name"
+              <v-btn
+                v-bind="attrs"
+                v-on="on"
+                width="150"
+                height="150"
+                elevation="2"
+                :to="'/' + category.slug + '/' + post.slug"
+              >
+                <v-img
+                  :src="require('~/assets/icons/offices/' + post.icon + '.png')"
+                  width="90"
+                  height="90"
+                  max-width="75"
+                  max-height="75"
+                  class="bottom absolute"
                 />
-              </v-tooltip>
+              </v-btn>
+              <span
+                class="absolute block justify-center text-center cardpost_h2_title blackish--text pa-3"
+                v-html="post.name"
+              />
             </div>
           </v-sheet>
         </v-container>
@@ -215,21 +210,6 @@ export default {
     font-size: 2rem;
     font-weight: 500 !important;
     display: flex;
-    // &.text-right {
-    // }
-    // &::after {
-    //   bottom: -6px;
-    //   width: 90%;
-    //   // display: inline;
-    // }
-    // & + .accent-bar {
-    //   display: none;
-    //   // height: 2px;
-    //   // background-color: #ead11b;
-    //   // position: absolute;
-    //   // bottom: -6px;
-    //   // width: 100%;
-    // }
   }
   .p-content {
     font-size: 18px;
@@ -239,6 +219,20 @@ export default {
     @media screen and (min-width: 960px) {
       font-size: 20px;
     }
+  }
+
+  .cardpost_h2_title {
+    bottom: 0;
+    font-size: 0.82rem;
+    width: 100%;
+  }
+  .bottom {
+    bottom: 0;
+  }
+  .bottom-center {
+    bottom: 0;
+    left: 50%;
+    margin-right: -45%;
   }
 }
 </style>
