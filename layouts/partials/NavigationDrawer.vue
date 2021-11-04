@@ -62,7 +62,7 @@
       <v-list-group
         dense
         v-for="category in categorySections"
-        :key="category.name"
+        :key="category.slug"
         no-action
       >
         <template v-slot:activator>
@@ -79,7 +79,7 @@
           v-for="office in category.offices"
           :key="office.name"
           link
-          :to="('/' + category.name + '/' + office.slug) | lowerCase"
+          :to="('/' + category.slug + '/' + office.slug) | lowerCase"
         >
           <v-list-item-content>
             <v-list-item-title class="" v-html="office.name" />
@@ -173,12 +173,14 @@ export default {
           name: "Administration & <br> Public Safety",
           url: "/#government",
           icon: "fas fa-university",
+          slug: "government",
           offices: [],
         },
         {
           name: "Residential & <br> Support",
           url: "/#residents",
           icon: "fas fa-house-user",
+          slug: "residentialsupport",
           offices: [],
         },
       ],
