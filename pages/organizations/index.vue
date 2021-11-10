@@ -6,53 +6,65 @@
         <v-col cols="12" lg="7" class="mb-3">
           <h1>Madison County Directory</h1>
         </v-col>
-        <v-col cols="12" lg="7" class="mb-3">
-          <v-tabs
-            v-model="tab"
-            background-color="transparent"
-            color="primary"
-            grow
+        <v-col cols="12" lg="3" class="mb-3">
+          <v-text-field
+            v-if="showFilters"
+            label="Search by name, city or zip"
+            v-model="searchTerm"
+            @input="directoryList = filterItems"
           >
-            <v-tab
-              v-for="item in filters"
-              :key="item.id"
-              @click="setFilter(item.id)"
-            >
-              {{ item.name }}
-            </v-tab>
-          </v-tabs>
+            <v-icon slot="append" small>
+              fa-search
+            </v-icon>
+          </v-text-field>
+        </v-col>
+        <v-col cols="12" lg="7" class="mb-3">
+          <div>
+            <v-list two-line>
+              <v-list-item-group active-class="primary--text">
+                <template v-for="(organization, index) in directoryList">
+                  <v-list-item
+                    :key="organization.id"
+                    :to="{
+                      name: 'organizations-id',
+                      params: { id: organization.organization_id },
+                    }"
+                  >
+                    <template>
+                      <v-list-item-avatar size="100" tile>
+                        <v-img
+                          v-if="organization.organization_image"
+                          :src="organization.organization_image"
+                          contain
+                        />
+                        <v-img
+                          v-else
+                          :src="require('~/assets/logo-icon.png')"
+                          height="80"
+                        />
+                      </v-list-item-avatar>
+                      <v-list-item-content>
+                        <v-list-item-title
+                          class="font-weight-bold"
+                          v-text="organization.name"
+                        />
 
-          <v-tabs-items v-model="tab" class="pt-5">
-            <v-tab-item v-for="item in filters" :key="item.id">
-              <v-card flat>
-                <v-treeview
-                  :active.sync="active"
-                  :items="items"
-                  :load-children="fetchOrganizations"
-                  :open.sync="open"
-                  :value="open"
-                  activatable
-                  color="primary"
-                  open-on-click
-                  transition
-                  hoverable
-                  @update:open="updateOrganizationList"
-                  @update:active="goTo"
-                >
-                  <template v-slot:prepend="{ item }">
-                    <v-img
-                      v-if="!item.children"
-                      :src="item.organization_image"
-                      contain
-                      width="50"
-                      min-height="60"
-                      class="py-3 mr-4"
-                    />
-                  </template>
-                </v-treeview>
-              </v-card>
-            </v-tab-item>
-          </v-tabs-items>
+                        <div
+                          class="mt-2 font-weight-light"
+                          v-html="organization.description"
+                        />
+                      </v-list-item-content>
+                    </template>
+                  </v-list-item>
+
+                  <v-divider
+                    v-if="index < directoryList.length - 1"
+                    :key="index"
+                  ></v-divider>
+                </template>
+              </v-list-item-group>
+            </v-list>
+          </div>
         </v-col>
       </v-row>
     </v-container>
@@ -65,6 +77,8 @@ const pause = (ms) => new Promise((resolve) => setTimeout(resolve, ms))
 export default {
   data: () => ({
     active: [],
+    searchTerm: "",
+    directoryList: [],
     open: [],
     tab: null,
     filters: [
@@ -77,6 +91,10 @@ export default {
         id: 1,
       },
     ],
+    showFilters: {
+      type: Boolean,
+      default: true,
+    },
     cityList: [],
     categoryList: [],
     items: undefined,
@@ -97,6 +115,21 @@ export default {
   },
 
   computed: {
+    filterItems() {
+      if (this.searchTerm === "") {
+        return this.organizationList
+      } else {
+        return this.organizationList.filter(
+          (item) =>
+            item.name.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
+            item.city.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
+            item.zip.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
+            item.description
+              .toLowerCase()
+              .includes(this.searchTerm.toLowerCase())
+        )
+      }
+    },
     categoryItems() {
       let array = []
 
@@ -175,17 +208,17 @@ export default {
       return item.children
     },
 
-    setFilter(id) {
-      if (id === 0) {
-        this.items = this.cityItems
-      } else if (id === 1) {
-        this.items = this.categoryItems
-      }
-    },
+    // setFilter(id) {
+    //   if (id === 0) {
+    //     this.items = this.cityItems
+    //   } else if (id === 1) {
+    //     this.items = this.categoryItems
+    //   }
+    // },
 
-    updateOrganizationList(array) {
-      this.open = array
-    },
+    // updateOrganizationList(array) {
+    //   this.open = array
+    // },
 
     getCategoryList() {
       let array = []
@@ -203,23 +236,26 @@ export default {
       this.categoryList = new Set(array)
     },
 
-    getCityList() {
-      let array = []
+    // getCityList() {
+    //   let array = []
 
-      this.organizationList.forEach((element) => {
-        if (element.city != "") {
-          let city = element.city.toLowerCase()
-          city = this.capitalizeWords(city)
-          array.push(city)
-        }
-      })
+    //   this.organizationList.forEach((element) => {
+    //     if (element.city != "") {
+    //       let city = element.city.toLowerCase()
+    //       city = this.capitalizeWords(city)
+    //       array.push(city)
+    //     }
+    //   })
 
-      array.sort((a, b) => {
-        return a.localeCompare(b)
-      })
+    //   array.sort((a, b) => {
+    //     return a.localeCompare(b)
+    //   })
 
-      this.cityList = new Set(array)
-    },
+    //   this.cityList = new Set(array)
+    // },
+    // searchList() {
+    //   this.organizationList = this.filterItems
+    // },
 
     capitalizeWords(string) {
       return string.replace(/(?:^|\s)\S/g, function (a) {
@@ -229,9 +265,10 @@ export default {
   },
 
   created() {
-    this.getCityList()
-    this.getCategoryList()
-    this.setFilter(0)
+    this.directoryList = this.filterItems
+    // this.getCityList()
+    // this.getCategoryList()
+    // this.setFilter(0)
   },
 }
 </script>

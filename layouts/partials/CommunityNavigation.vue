@@ -173,7 +173,7 @@ export default {
       showFilters: {
         events: false,
         destinations: false,
-        directory: false,
+        directory: true,
       },
     }
   },

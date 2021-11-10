@@ -67,7 +67,7 @@ export default {
     },
     showFilters: {
       type: Boolean,
-      default: false,
+      default: true,
     },
   },
 
