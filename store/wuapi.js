@@ -78,12 +78,12 @@ export const state = () => ({
       image: "/img/events/categories/11-fairs-festivals.png",
       color: "#DE590F",
     },
-    {
-      key: "9",
-      name: "Faith/Religious",
-      image: "/img/events/categories/9-faith.png",
-      color: "#446257",
-    },
+    // {
+    //   key: "9",
+    //   name: "Faith/Religious",
+    //   image: "/img/events/categories/9-faith.png",
+    //   color: "#446257",
+    // },
     {
       key: "6",
       name: "Food & Drink",

@@ -41,7 +41,7 @@ export default {
     let options = {
       type: "featured",
       limit: "3",
-      categories: "18,7,11,9,6,3,4,16",
+      categories: "18,7,11,6,3,4,16",
     }
     await this.getEvents(options)
   },
