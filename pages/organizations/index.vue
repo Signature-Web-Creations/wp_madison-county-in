@@ -6,7 +6,7 @@
         <v-col cols="12" lg="7" class="mb-3">
           <h1>Madison County Directory</h1>
         </v-col>
-        <v-col cols="12" lg="3" class="mb-3">
+        <v-col cols="12" lg="7" class="mb-3">
           <v-text-field
             v-if="showFilters"
             label="Search by name, city or zip"
@@ -47,6 +47,9 @@
                         <v-list-item-title
                           class="font-weight-bold"
                           v-text="organization.name"
+                        />
+                        <div
+                          v-text="organization.city + ', ' + organization.state"
                         />
 
                         <div
