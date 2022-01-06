@@ -23,6 +23,18 @@ export default {
     ],
   },
 
+
+    // mode: 'universal',
+    // serverMiddleware: [{
+    //     path: '/',
+    //     handler: './middleware/redirects'
+    // }],
+    router: {
+      // ran before every route on both client and server
+      middleware: ['redirects']
+    },
+
+
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: [],
 
