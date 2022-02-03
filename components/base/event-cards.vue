@@ -15,6 +15,7 @@
         <v-card
           elevation="2"
           class="event-card"
+          :class="event.priority ? 'priority' : ''"
           height="100%"
           :to="{ name: 'events-id', params: { id: event.id } }"
         >
@@ -37,6 +38,13 @@
 import { mapState, mapActions } from "vuex"
 
 export default {
+  data() {
+    return {
+      priorityEventId: "9bf6c38eff142c31f784632970482af8",
+      communityeventLists: [],
+    }
+  },
+
   async fetch() {
     let options = {
       type: "featured",
@@ -44,25 +52,35 @@ export default {
       categories: "18,7,11,6,3,4,16",
     }
     await this.getEvents(options)
+    await this.getPriorityEvent(this.priorityEventId)
   },
 
-  computed: mapState({
+  computed: {
     eventList() {
+      let events = this.featuredEvents.slice()
+
+      if (this.priorityEvent) {
+        events.unshift(this.priorityEvent)
+      }
+
       switch (this.$vuetify.breakpoint.name) {
         case "xs":
-          return this.featuredEvents.slice(0, 1)
+          return events.slice(0, 1)
         case "sm":
-          return this.featuredEvents.slice(0, 2)
+          return events.slice(0, 2)
         case "md":
         case "lg":
         case "xl":
-          return this.featuredEvents
+          return events.slice(0, 3)
       }
     },
-    featuredEvents: (state) => state.wuapi.featuredEvents,
-  }),
+    ...mapState({
+      featuredEvents: (state) => state.wuapi.featuredEvents,
+      priorityEvent: (state) => state.wuapi.priorityEvent,
+    }),
+  },
 
-  methods: mapActions("wuapi", ["getEvents"]),
+  methods: mapActions("wuapi", ["getEvents", "getPriorityEvent"]),
 }
 </script>
 
@@ -75,9 +93,13 @@ export default {
 .event-card {
   background-color: rgba(4, 4, 4, 0.5);
   color: #fff;
+  &.priority {
+    background-color: rgba(80, 127, 136, 0.5);
+  }
   .v-card__title {
     font-size: 17px;
     line-height: 1.2;
+    word-break: break-word;
   }
   p {
     color: #fff;

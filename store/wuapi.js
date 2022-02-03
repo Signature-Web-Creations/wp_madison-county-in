@@ -17,6 +17,7 @@ const getAuthorization = (config, axios) => {
 export const state = () => ({
   token: "",
   featuredEvents: [],
+  priorityEvent: null,
   latestEvents: [],
   event: {},
   directory: [],
@@ -557,6 +558,9 @@ export const mutations = {
   UPDATE_LATEST_EVENTS: (state, array) => {
     state.latestEvents = array
   },
+  SET_PRIORITY_EVENT: (state, object) => {
+    state.priorityEvent = object
+  },
   SET_EVENT: (state, object) => {
     state.event = object
   },
@@ -580,7 +584,6 @@ export const actions = {
     await commit("UPDATE_TOKEN", auth.data.access_token)
     return auth.data.access_token
   },
-
   async getEvents({ state, dispatch, commit }, options) {
     if (!state.token) {
       await dispatch("setApiToken")
@@ -654,6 +657,31 @@ export const actions = {
     }
   },
 
+  async getPriorityEvent({ state, dispatch, commit }, id) {
+    if (!state.token) {
+      await dispatch("setApiToken")
+    }
+
+    const url = "/wuapi/event/" + id
+
+    const priorityEvent = await this.$axios
+      .get(url, {
+        headers: {
+          Authorization: "Bearer " + state.token,
+          "Content-Type": "application/json",
+        },
+      })
+      .then((response) => {
+        let data = response.data
+        data.priority = true
+        return data
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+
+    commit("SET_PRIORITY_EVENT", priorityEvent)
+  },
   async getEvent({ state, dispatch, commit }, id) {
     if (!state.token) {
       await dispatch("setApiToken")
