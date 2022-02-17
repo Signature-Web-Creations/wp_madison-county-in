@@ -40,7 +40,7 @@ import { mapState, mapActions } from "vuex"
 export default {
   data() {
     return {
-      priorityEventId: "9bf6c38eff142c31f784632970482af8",
+      priorityEventId: "",
       communityeventLists: [],
     }
   },
