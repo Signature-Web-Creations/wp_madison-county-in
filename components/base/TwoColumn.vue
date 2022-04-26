@@ -64,9 +64,22 @@
                 width="150"
                 height="150"
                 elevation="2"
-                :to="'/' + category.slug + '/' + post.slug"
+                :to="
+                  !post.icon.search(/\bfas\b||\bfar\b||\bfal\b/)
+                    ? post.url
+                    : '/' + category.slug + '/' + post.slug
+                "
               >
+                <v-icon
+                  v-if="
+                    !post.icon.search(/\bfas\b/) ||
+                    !post.icon.search(/\bfar\b/) ||
+                    !post.icon.search(/\bfal\b/)
+                  "
+                  >{{ post.icon }}</v-icon
+                >
                 <v-img
+                  v-else
                   :src="require('~/assets/icons/offices/' + post.icon + '.png')"
                   width="90"
                   height="90"

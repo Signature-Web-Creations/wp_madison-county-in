@@ -45,17 +45,17 @@
       </v-list-item>
 
       <v-list-item
-        v-for="link in menuItems"
-        :key="link.name"
+        v-for="menuItem in filteredMenuItem"
+        :key="menuItem.name"
         link
-        :to="link.url"
+        :to="menuItem.url"
       >
         <v-list-item-icon>
-          <v-icon dense>{{ link.icon }}</v-icon>
+          <v-icon dense>{{ menuItem.icon }}</v-icon>
         </v-list-item-icon>
 
         <v-list-item-content>
-          <v-list-item-title>{{ link.name }}</v-list-item-title>
+          <v-list-item-title>{{ menuItem.name }}</v-list-item-title>
         </v-list-item-content>
       </v-list-item>
 
@@ -151,21 +151,29 @@ export default {
           name: "About Us",
           url: "/about",
           icon: "fas fa-info-circle",
+          inMenu: true,
+          isOffice: false,
         },
         {
           name: "County Council",
           url: "/county-council",
           icon: "fas fa-users",
+          inMenu: false,
+          isOffice: true,
         },
         {
           name: "Live Public Meetings",
           url: "/public-meetings",
           icon: "fas fa-video",
+          inMenu: true,
+          isOffice: false,
         },
         {
           name: "Election Results",
           url: "/election-results",
           icon: "fas fa-vote-yea",
+          inMenu: true,
+          isOffice: false,
         },
       ],
       categorySections: [
@@ -225,12 +233,58 @@ export default {
   computed: mapState({
     offices: (state) => state.offices,
     drawer: (state) => state.navigation.drawer,
+    filteredMenuItem() {
+      let tempMenuitems = this.menuItems
+      tempMenuitems = tempMenuitems.filter((menuItem) => {
+        return menuItem.inMenu
+      })
+      return tempMenuitems
+    },
   }),
 
   methods: {
     ...mapActions("navigation", ["updateDrawer"]),
     // ...mapActions("getOffices"),
+    addRow(array, object) {
+      array.push(object) // what to push unto the rows array?
+    },
+    appendOffices: function (categoryId, object) {
+      let categoryArray = this.categorySections
+      this.addRow(
+        categoryArray[
+          categoryArray.findIndex(
+            (categoryArray) => categoryArray.id === categoryId
+          )
+        ].posts,
+        object
+      )
+    },
+    filteredPost: function () {
+      this.categorySections.forEach((categoryObject) => {
+        categoryObject.offices.sort((a, b) => {
+          let fa = a.name.toLowerCase(),
+            fb = b.name.toLowerCase()
+          if (fa < fb) {
+            return -1
+          }
+          if (fa > fb) {
+            return 1
+          }
+          return 0
+        })
+      })
+    },
     governmentOffices() {
+      this.categorySections[0].offices = this.offices.filter(
+        (offices) => offices.categories[0] === 5
+      )
+    },
+    judicialOffice() {
+      this.categorySections[0].offices = this.offices.filter(
+        (offices) => offices.categories[0] === 5
+      )
+    },
+    publicHealth() {
       this.categorySections[0].offices = this.offices.filter(
         (offices) => offices.categories[0] === 5
       )
@@ -241,7 +295,10 @@ export default {
       )
     },
   },
-
+  mounted: function () {
+    this.appendOffices(5, this.menuItems[0])
+    this.filteredPost()
+  },
   created() {
     this.governmentOffices()
     this.residentsOffices()

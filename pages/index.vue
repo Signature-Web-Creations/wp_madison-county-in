@@ -9,16 +9,55 @@
 </template>
 
 <script>
+import { generalMixin } from "~/mixins/general"
 export default {
+  mixins: [generalMixin],
   data() {
     return {
       absolute: true,
       opacity: 0.35,
       overlay: true,
       zIndex: 0,
+      organizedPosts: [],
+      menuItems: [
+        {
+          name: "County Council",
+          url: "/county-council",
+          icon: "countycouncil",
+        },
+      ],
+      // posts: [],
     }
   },
-
+  methods: {
+    addRow(where, what) {
+      where.push(what) // what to push unto the rows array?
+    },
+    appendOffices: function (categoryId, object) {
+      let postsArray = this.posts
+      this.addRow(
+        postsArray[
+          postsArray.findIndex((postsArray) => postsArray.id === categoryId)
+        ].posts,
+        object
+      )
+    },
+    filteredPost: function () {
+      this.posts.forEach((postObject) => {
+        postObject.posts.sort((a, b) => {
+          let fa = a.name.toLowerCase(),
+            fb = b.name.toLowerCase()
+          if (fa < fb) {
+            return -1
+          }
+          if (fa > fb) {
+            return 1
+          }
+          return 0
+        })
+      })
+    },
+  },
   async asyncData({ $config, store }) {
     let homeSliderItems = await fetch(
       $config.apiUrl + "home_features"
@@ -34,6 +73,7 @@ export default {
     await store.dispatch("getOffices")
     await store.dispatch("getCategories")
     const posts = await store.dispatch("getCategoriesWithPosts", true)
+
     // await store.dispatch("getFeaturedImages")
 
     const destinations = await store.dispatch("wuapi/getDestinations", {
@@ -48,6 +88,10 @@ export default {
     })
 
     return { slides, posts, destinations, events }
+  },
+  mounted: function () {
+    this.appendOffices(5, this.menuItems[0])
+    this.filteredPost()
   },
 }
 </script>
