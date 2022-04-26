@@ -253,9 +253,9 @@ export default {
       this.addRow(
         categoryArray[
           categoryArray.findIndex(
-            (categoryArray) => categoryArray.id === categoryId
+            (categoryArray) => categoryArray.slug === categoryId
           )
-        ].posts,
+        ].offices,
         object
       )
     },
@@ -296,7 +296,7 @@ export default {
     },
   },
   mounted: function () {
-    this.appendOffices(5, this.menuItems[0])
+    this.appendOffices("government", this.menuItems[1])
     this.filteredPost()
   },
   created() {
