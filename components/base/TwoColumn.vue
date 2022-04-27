@@ -144,16 +144,18 @@ export default {
 
   methods: {
     itemImage(image) {
+      console.log(image)
       switch (this.$vuetify.breakpoint.name) {
         case "xs":
-          return image.medium_large.source_url
+          // return image.medium_large.source_url
         case "sm":
-          return image.large.source_url
+          // return image.large.source_url
         case "md":
-          return image["post-thumbnail"].source_url
+          // return image["post-thumbnail"].source_url
         case "lg":
         case "xl":
-          return image["2048x2048"].source_url
+          return image.full.source_url
+          // return image["2048x2048"].source_url
       }
     },
   },
