@@ -58,7 +58,9 @@
               :key="post.slug"
               class="d-inline-flex ma-4 relative"
             >
-              <v-btn
+              <!-- {{ post.icon }}
+              {{ category }} -->
+              <!-- <v-btn
                 v-bind="attrs"
                 v-on="on"
                 width="150"
@@ -66,6 +68,16 @@
                 elevation="2"
                 :to="
                   !post.icon.search(/\bfas\b||\bfar\b||\bfal\b/)
+                    ? post.url
+                    : '/' + category.slug + '/' + post.slug
+                "
+              > -->
+              <v-btn
+                width="150"
+                height="150"
+                elevation="2"
+                :to="
+                  post.icon.search(/\bfas\b||\bfar\b||\bfal\b/) || post.url
                     ? post.url
                     : '/' + category.slug + '/' + post.slug
                 "
@@ -146,15 +158,25 @@ export default {
     itemImage(image) {
       switch (this.$vuetify.breakpoint.name) {
         case "xs":
-          return image.medium_large.source_url
+          return typeof image.medium_large === "undefined"
+            ? image.full.source_url
+            : image.medium_large.source_url
         case "sm":
-          return image.large.source_url
+          return typeof image.large === "undefined"
+            ? image.full.source_url
+            : image.large.source_url
         case "md":
-          return image["post-thumbnail"].source_url
+          return typeof image["post-thumbnail"] === "undefined"
+            ? image.full.source_url
+            : image["post-thumbnail"].source_url
         case "lg":
+          return image.full.source_url
         case "xl":
-          return image["2048x2048"].source_url
+          return typeof image["2048x2048"] === "undefined"
+            ? image.full.source_url
+            : image["2048x2048"].source_url
       }
+      return image.full.source_url
     },
   },
 }
