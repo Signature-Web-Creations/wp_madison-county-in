@@ -178,10 +178,31 @@ export default {
       ],
       categorySections: [
         {
-          name: "Administration & <br> Public Safety",
+          name: "Court & Legal",
+          url: "/#legal",
+          icon: "fas fa-balance-scale",
+          slug: "legal",
+          offices: [],
+        },
+        {
+          name: "Government<br>Administration",
           url: "/#government",
           icon: "fas fa-university",
           slug: "government",
+          offices: [],
+        },
+        {
+          name: "Public Health",
+          url: "/#public-health",
+          icon: "fas fa-briefcase-medical",
+          slug: "public-health",
+          offices: [],
+        },
+        {
+          name: "Public Safety",
+          url: "/#public-Safety",
+          icon: "fas fa-user-shield",
+          slug: "public-Safety",
           offices: [],
         },
         {
@@ -194,17 +215,17 @@ export default {
       ],
       wuSections: [
         {
-          name: "Events",
+          name: "Community Events",
           url: "/events",
           icon: "fas fa-calendar-alt",
         },
         {
-          name: "Directory",
+          name: "Community Directory",
           url: "/organizations",
           icon: "fas fa-folder-open",
         },
         {
-          name: "Destinations",
+          name: "Community Destinations",
           url: "/destinations",
           icon: "fas fa-star",
         },
@@ -275,22 +296,27 @@ export default {
       })
     },
     governmentOffices() {
-      this.categorySections[0].offices = this.offices.filter(
+      this.categorySections[1].offices = this.offices.filter(
         (offices) => offices.categories[0] === 5
       )
     },
     judicialOffice() {
       this.categorySections[0].offices = this.offices.filter(
-        (offices) => offices.categories[0] === 5
+        (offices) => offices.categories[0] === 87
+      )
+    },
+    publicSafetyOffice() {
+      this.categorySections[3].offices = this.offices.filter(
+        (offices) => offices.categories[0] === 85
       )
     },
     publicHealth() {
-      this.categorySections[0].offices = this.offices.filter(
-        (offices) => offices.categories[0] === 5
+      this.categorySections[2].offices = this.offices.filter(
+        (offices) => offices.categories[0] === 86
       )
     },
     residentsOffices() {
-      this.categorySections[1].offices = this.offices.filter(
+      this.categorySections[4].offices = this.offices.filter(
         (offices) => offices.categories[0] === 15
       )
     },
@@ -302,6 +328,9 @@ export default {
   created() {
     this.governmentOffices()
     this.residentsOffices()
+    this.judicialOffice()
+    this.publicHealth()
+    this.publicSafetyOffice()
   },
 }
 </script>
