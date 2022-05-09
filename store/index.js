@@ -549,8 +549,7 @@ export const actions = {
   },
 
   getActiveElectionReport({}, reportID) {
-    const url = this.$config.apiUrl + `election_result?tag=${reportID}`
-
+    const url = this.$config.apiUrl + `election_result?tags=${reportID}`
     return this.$axios.get(url).then(({ data }) => {
       return data[0]
     })
