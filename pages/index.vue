@@ -30,8 +30,8 @@ export default {
     }
   },
   methods: {
-    addRow(where, what) {
-      where.push(what) // what to push unto the rows array?
+    addRow(array, object) {
+      array.push(object) // what to push unto the rows array?
     },
     appendOffices: function (categoryId, object) {
       let postsArray = this.posts
@@ -73,7 +73,7 @@ export default {
     await store.dispatch("getOffices")
     await store.dispatch("getCategories")
     const posts = await store.dispatch("getCategoriesWithPosts", true)
-
+    // console.log(posts)
     // await store.dispatch("getFeaturedImages")
 
     const destinations = await store.dispatch("wuapi/getDestinations", {
