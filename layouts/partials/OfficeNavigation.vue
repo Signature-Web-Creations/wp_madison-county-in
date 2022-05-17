@@ -120,7 +120,7 @@
           <v-tab-item id="tabs-icons-text-2" :style="adjustWidth">
             <v-container class="tab-pane fade px-md-16">
               <h1>Upcoming Community Events</h1>
-              <!-- <BaseEventList :events="events" /> -->
+              <BaseEventList :events="events" />
             </v-container>
           </v-tab-item>
 
@@ -170,7 +170,7 @@ export default {
     },
     resources: [Array, Boolean],
     backgroundImage: String,
-    // events: Array,
+    events: Array,
     team: Array,
     office: Object,
     jobs: Array,

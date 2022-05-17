@@ -91,27 +91,27 @@ export default {
       listOfDestinations = filteredDestinations
     }
 
-    // let listOfEvents = await store.dispatch("wuapi/getEvents", {
-    //   returnValue: true,
-    //   type: "latest",
-    //   limit: "100",
-    // })
-    // const filteredEvents = listOfEvents.filter(
-    //   (events) => events.city.toLowerCase() === community.slug
-    // )
-    // if (filteredEvents.length === 0) {
-    //   listOfEvents = await store.dispatch("wuapi/getEvents", {
-    //     returnValue: true,
-    //     type: "latest",
-    //     limit: "100",
-    //     zip: communities.filter(
-    //       ({ tags, slug }) => tags.includes(city_tag_id) && slug
-    //     )[0].zip,
-    //     distance: 5,
-    //   })
-    // } else {
-    //   listOfEvents = filteredEvents
-    // }
+    let listOfEvents = await store.dispatch("wuapi/getEvents", {
+      returnValue: true,
+      type: "latest",
+      limit: "100",
+    })
+    const filteredEvents = listOfEvents.filter(
+      (events) => events.city.toLowerCase() === community.slug
+    )
+    if (filteredEvents.length === 0) {
+      listOfEvents = await store.dispatch("wuapi/getEvents", {
+        returnValue: true,
+        type: "latest",
+        limit: "100",
+        zip: communities.filter(
+          ({ tags, slug }) => tags.includes(city_tag_id) && slug
+        )[0].zip,
+        distance: 5,
+      })
+    } else {
+      listOfEvents = filteredEvents
+    }
     const countyProfiles = await store.dispatch("getCountyProfiles", {
       categories: community.categories[0],
       tags: community.tags[0],
