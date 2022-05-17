@@ -87,7 +87,7 @@ export default {
     //   returnValue: true,
     // })
 
-    return { slides, posts, destinations, events }
+    return { slides, posts, destinations }
   },
   mounted: function () {
     this.appendOffices(5, this.menuItems[0])
