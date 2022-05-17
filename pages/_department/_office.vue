@@ -8,13 +8,13 @@
     <OfficeNavigation
       :tabs="tabs"
       :backgroundImage="image_url"
-      :events="listOfEvents"
       :team="countyProfiles"
       :office="office"
       :jobs="jobPositions"
       :resources="office.acf.resources"
       :contactInfo="primaryContact"
     />
+    <!-- :events="listOfEvents" -->
   </div>
 </template>
 
@@ -65,28 +65,28 @@ export default {
       returnValue: true,
     })
 
-    let listOfEvents = []
-    if (office.organization_id) {
-      listOfEvents = await store.dispatch("wuapi/getEvents", {
-        returnValue: true,
-        type: "latest",
-        limit: "100",
-        search: office.name.toLowerCase(),
-        copromotion: "2",
-      })
-      const filteredEvents = listOfEvents.filter((events) => {
-        events.organization_id.trim() === office.organization_id.trim()
-      })
-      if (filteredEvents.length !== 0) {
-        listOfEvents = filteredEvents
-      }
-    } else {
-      listOfEvents = await store.dispatch("wuapi/getEvents", {
-        returnValue: true,
-        type: "latest",
-        limit: "100",
-      })
-    }
+    // let listOfEvents = []
+    // if (office.organization_id) {
+    //   listOfEvents = await store.dispatch("wuapi/getEvents", {
+    //     returnValue: true,
+    //     type: "latest",
+    //     limit: "100",
+    //     search: office.name.toLowerCase(),
+    //     copromotion: "2",
+    //   })
+    //   const filteredEvents = listOfEvents.filter((events) => {
+    //     events.organization_id.trim() === office.organization_id.trim()
+    //   })
+    //   if (filteredEvents.length !== 0) {
+    //     listOfEvents = filteredEvents
+    //   }
+    // } else {
+    //   listOfEvents = await store.dispatch("wuapi/getEvents", {
+    //     returnValue: true,
+    //     type: "latest",
+    //     limit: "100",
+    //   })
+    // }
 
     return {
       offices,

@@ -120,12 +120,12 @@
           <v-tab-item id="tabs-icons-text-2" :style="adjustWidth">
             <v-container class="tab-pane fade px-md-16">
               <h1>Upcoming Community Events</h1>
-              <BaseEventList :events="events" />
+              <!-- <BaseEventList :events="events" /> -->
             </v-container>
           </v-tab-item>
 
           <v-tab-item
-            v-if="team.length != 0"
+            v-if="`.length != 0"
             id="tabs-icons-text-3"
             :style="adjustWidth"
           >
@@ -183,18 +183,15 @@ export default {
     }
   },
   computed: {
-    sortedArray: function() {
+    sortedArray: function () {
       function compare(a) {
-        
-        if (a.primary !== true)
-          return -1;
-        if (a.name === true)
-          return 1;
-        return 0;
+        if (a.primary !== true) return -1
+        if (a.name === true) return 1
+        return 0
       }
-    return this.arrays.sort(compare);
-  }
-}
+      return this.arrays.sort(compare)
+    },
+  },
 }
 </script>
 
