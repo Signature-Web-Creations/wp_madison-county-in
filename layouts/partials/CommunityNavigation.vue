@@ -106,10 +106,10 @@
           <v-tab-item id="tabs-icons-text-2" :style="adjustWidth">
             <v-container class="tab-pane fade px-md-16">
               <h1 v-html="community.name + ' Events'"></h1>
-              <BaseEventList
+              <!-- <BaseEventList
                 :events="events"
                 :showFilters="showFilters.destinations"
-              />
+              /> -->
             </v-container>
           </v-tab-item>
 

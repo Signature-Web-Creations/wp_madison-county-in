@@ -67,7 +67,7 @@
       </v-slide-x-transition>
     </v-sheet>
 
-    <BaseEventCards />
+    <!-- <BaseEventCards /> -->
   </v-container>
 </template>
 

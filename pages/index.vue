@@ -4,7 +4,7 @@
     <BaseTwoColumn :categories="posts" />
     <BaseVisitorSection />
     <WhatsUpDestinations :destinations="destinations" />
-    <BaseUpcomingevents :events="events" />
+    <!-- <BaseUpcomingevents :events="events" /> -->
   </section>
 </template>
 
@@ -80,12 +80,12 @@ export default {
       returnValue: true,
     })
 
-    const events = await store.dispatch("wuapi/getEvents", {
-      type: "latest",
-      limit: "6",
-      categories: "18,7,11,9,6,3,4,16",
-      returnValue: true,
-    })
+    // const events = await store.dispatch("wuapi/getEvents", {
+    //   type: "latest",
+    //   limit: "6",
+    //   categories: "18,7,11,9,6,3,4,16",
+    //   returnValue: true,
+    // })
 
     return { slides, posts, destinations, events }
   },

@@ -91,7 +91,7 @@ export default {
     return {
       offices,
       office_tag_id,
-      listOfEvents,
+      // listOfEvents,
       office,
       tags,
       countyProfiles,

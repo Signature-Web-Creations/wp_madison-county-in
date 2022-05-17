@@ -125,7 +125,7 @@
           </v-tab-item>
 
           <v-tab-item
-            v-if="`.length != 0"
+            v-if="team.length != 0"
             id="tabs-icons-text-3"
             :style="adjustWidth"
           >
@@ -170,7 +170,7 @@ export default {
     },
     resources: [Array, Boolean],
     backgroundImage: String,
-    events: Array,
+    // events: Array,
     team: Array,
     office: Object,
     jobs: Array,
