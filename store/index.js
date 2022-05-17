@@ -319,17 +319,17 @@ export const actions = {
     }
   },
 
-  // async getFeaturedImages({ commit }) {
-  //   const fields = ["id", "guid"]
-  //   const parameters = fields.join(",")
-  //   const url = this.$config.apiUrl + `media?_fields=${parameters}`
-  //   try {
-  //     let featuredImages = await fetch(url).then((res) => res.json())
-  //     commit("UPDATE_FEATURED_IMAGES", featuredImages)
-  //   } catch (error) {
-  //     console.log(error)
-  //   }
-  // },
+  async getFeaturedImages({ commit }) {
+    const fields = ["id", "guid"]
+    const parameters = fields.join(",")
+    const url = this.$config.apiUrl + `media?_fields=${parameters}`
+    try {
+      let featuredImages = await fetch(url).then((res) => res.json())
+      commit("UPDATE_FEATURED_IMAGES", featuredImages)
+    } catch (error) {
+      console.log(error)
+    }
+  },
 
   async getCountyPrimaryProfiles({ commit }, options) {
     const url = this.$config.apiUrl + "profile?tags=65&per_page=100"

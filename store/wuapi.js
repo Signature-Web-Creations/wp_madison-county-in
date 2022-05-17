@@ -584,78 +584,77 @@ export const actions = {
     await commit("UPDATE_TOKEN", auth.data.access_token)
     return auth.data.access_token
   },
-  // async getEvents({ state, dispatch, commit }, options) {
-  //   if (!state.token) {
-  //     await dispatch("setApiToken")
-  //   }
-  //   options.categories == undefined ? (options.categories = "") : null
+  async getEvents({ state, dispatch, commit }, options) {
+    if (!state.token) {
+      await dispatch("setApiToken")
+    }
+    options.categories == undefined ? (options.categories = "") : null
 
-  //   let organization_id = this.$config.orgId
-  //   if (options.organization_id) {
-  //     organization_id = options.organization_id
-  //   }
+    let organization_id = this.$config.orgId
+    if (options.organization_id) {
+      organization_id = options.organization_id
+    }
 
-  //   let copromotion = 1
-  //   if (options.copromotion) {
-  //     copromotion = options.copromotion
-  //   }
+    let copromotion = 1
+    if (options.copromotion) {
+      copromotion = options.copromotion
+    }
 
-  //   let url = ""
-  //   if (options.zip) {
-  //     url =
-  //       this.$config.wuApiUrl +
-  //       "/event?zip=" +
-  //       options.zip +
-  //       "&distance=" +
-  //       options.distance
-  //   } else {
-  //     url =
-  //       this.$config.wuApiUrl +
-  //       "/event?organization_id=" +
-  //       organization_id +
-  //       "&copromotion=" +
-  //       copromotion
-  //   }
+    let url = ""
+    if (options.zip) {
+      url =
+        this.$config.wuApiUrl +
+        "/event?zip=" +
+        options.zip +
+        "&distance=" +
+        options.distance
+    } else {
+      url =
+        this.$config.wuApiUrl +
+        "/event?organization_id=" +
+        organization_id +
+        "&copromotion=" +
+        copromotion
+    }
 
-  //   if (options.limit) {
-  //     url += "&limit=" + options.limit
-  //   }
-  //   if (options.categories) {
-  //     url += "&categories=" + options.categories
-  //   }
+    if (options.limit) {
+      url += "&limit=" + options.limit
+    }
+    if (options.categories) {
+      url += "&categories=" + options.categories
+    }
 
-  //   if (options.search) {
-  //     url += "&search=" + options.search
-  //   }
+    if (options.search) {
+      url += "&search=" + options.search
+    }
 
-  //   if (options.dateFrom) {
-  //     url += "&dateFrom=" + options.dateFrom
-  //   }
-  //   const events = await this.$axios
-  //     .get(url, {
-  //       headers: {
-  //         Authorization: "Bearer " + state.token,
-  //         "Content-Type": "application/json",
-  //       },
-  //     })
-  //     .then((response) => {
-  //       return response.data
-  //     })
-  //     .catch((error) => {
-  //       console.log(error)
-  // context.error(error)
-  // })
-
-  //   if (options.type == "featured") {
-  //     commit("UPDATE_FEATURED_EVENTS", events.slice(0, options.limit))
-  //   } else if (options.type == "latest") {
-  //     if (options.returnValue) {
-  //       return events.slice(0, options.limit)
-  //     } else {
-  //       commit("UPDATE_LATEST_EVENTS", events.slice(0, options.limit))
-  //     }
-  //   }
-  // },
+    if (options.dateFrom) {
+      url += "&dateFrom=" + options.dateFrom
+    }
+    const events = await this.$axios
+      .get(url, {
+        headers: {
+          Authorization: "Bearer " + state.token,
+          "Content-Type": "application/json",
+        },
+      })
+      .then((response) => {
+        return response.data
+      })
+      .catch((error) => {
+        console.log(error)
+        // context.error(error)
+      })
+    if (options.type == "featured") {
+      commit("UPDATE_FEATURED_EVENTS", events.slice(0, options.limit))
+    } else if (options.type == "latest") {
+      if (options.returnValue) {
+        return events.slice(0, options.limit)
+      } else {
+        commit("UPDATE_LATEST_EVENTS", events.slice(0, options.limit))
+      }
+    }
+  },
 
   async getPriorityEvent({ state, dispatch, commit }, id) {
     if (!state.token) {
