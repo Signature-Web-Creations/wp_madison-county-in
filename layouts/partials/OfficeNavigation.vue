@@ -136,13 +136,15 @@
           </v-tab-item>
 
           <v-tab-item
-            v-if="jobs.length != 0"
+            v-if="office.slug === 'human-resources'"
             id="tabs-icons-text-4"
             :style="adjustWidth"
           >
             <v-container class="tab-pane fade px-md-16">
-              <h1>Open Positions</h1>
-              <BaseJobs :jobs="jobs" />
+              <iframe
+                src="https://www.whatsup247.com/widgetsv2/get?id=88a493c823622a082270ecd8fc19d215"
+                style="width: 100%; height: 800px; border: 0;"
+              ></iframe>
             </v-container>
           </v-tab-item>
         </v-tabs-items>
