@@ -134,8 +134,17 @@
               <BaseTeam :team="team" :title="office.name" />
             </v-container>
           </v-tab-item>
-
           <v-tab-item
+            v-if="office.slug === 'human-resources'"
+            id="tabs-icons-text-4"
+            :style="adjustWidth"
+          >
+            <v-container class="tab-pane fade px-md-16">
+              <h1>Open Positions</h1>
+              <BaseJobs :jobs="jobs" />
+            </v-container>
+          </v-tab-item>
+          <!-- <v-tab-item
             v-if="office.slug === 'human-resources'"
             id="tabs-icons-text-4"
             :style="adjustWidth"
@@ -146,7 +155,7 @@
                 style="width: 100%; height: 800px; border: 0;"
               ></iframe>
             </v-container>
-          </v-tab-item>
+          </v-tab-item> -->
         </v-tabs-items>
       </v-container>
       <BaseBottomNavigation
