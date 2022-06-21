@@ -140,413 +140,371 @@ export const state = () => ({
       color: "#70006E",
     },
   ],
-  destinations_categories: [
-    {
-      name: "Misc",
-      image: "https://www.whatsup247.com/img/destinations/categories/misc.png",
-      color: "#fb8909",
-    },
-    {
-      name: "Architecture & Installations",
-      image:
-        "https://www.whatsup247.com/img/destinations/categories/architecture.png",
-      color: "#000000",
-    },
-    {
-      name: "Breweries, Distilleries & Wineries",
-      image:
-        "https://www.whatsup247.com/img/destinations/categories/wineries-distilleries.png",
-      color: "#e18d19",
-    },
-    {
-      name: "History: Cultural History & Markers",
-      image:
-        "https://www.whatsup247.com/img/destinations/categories/culture.png",
-      color: "#000000",
-    },
-    {
-      name: "Event Venues",
-      image:
-        "https://www.whatsup247.com/img/destinations/categories/venues.png",
-      color: "#000000",
-    },
-    {
-      name: "Fairs & Festivals",
-      image:
-        "https://www.whatsup247.com/img/destinations/categories/fairs-festivals.png",
-      color: "#DE590F",
-    },
-    {
-      name: "History: Faith Heritage & Cemeteries",
-      image: "https://www.whatsup247.com/img/destinations/categories/faith.png",
-      color: "#446257",
-    },
-    {
-      name: "Food & Culinary",
-      image: "https://www.whatsup247.com/img/destinations/categories/food.png",
-      color: "#9C002B",
-    },
-    {
-      name: "Health & Fitness",
-      image:
-        "https://www.whatsup247.com/img/destinations/categories/health-fitness.png",
-      color: "#485E86",
-    },
-    {
-      name: "History: Historic Cities, Towns & Districts",
-      image:
-        "https://www.whatsup247.com/img/destinations/categories/cities.png",
-      color: "#000000",
-    },
-    {
-      name: "Libraries",
-      image:
-        "https://www.whatsup247.com/img/destinations/categories/libraries.png",
-      color: "#000000",
-    },
-    {
-      name: "History: Museums & Collections",
-      image:
-        "https://www.whatsup247.com/img/destinations/categories/museums.png",
-      color: "#b89a00",
-    },
-    {
-      name: "Natural Spaces & Archaeology",
-      image:
-        "https://www.whatsup247.com/img/destinations/categories/archaeology.png",
-      color: "#000000",
-    },
-    {
-      name: "Parks & Preserves",
-      image: "https://www.whatsup247.com/img/destinations/categories/parks.png",
-      color: "#000000",
-    },
-    {
-      name: "Performing Arts & Entertainment",
-      image:
-        "https://www.whatsup247.com/img/destinations/categories/arts-entertainment.png",
-      color: "#902610",
-    },
-    {
-      name: "Shopping & Antiques",
-      image:
-        "https://www.whatsup247.com/img/destinations/categories/shopping.png",
-      color: "#000000",
-    },
-    {
-      name: "History: Sports Heritage",
-      image:
-        "https://www.whatsup247.com/img/destinations/categories/sports-heritage.png",
-      color: "#000000",
-    },
-    {
-      name: "Sports & Recreation",
-      image:
-        "https://www.whatsup247.com/img/destinations/categories/sports-recreation.png",
-      color: "#2ab700",
-    },
-    {
-      name: "Arts & Artisans",
-      image: "https://www.whatsup247.com/img/destinations/categories/arts.png",
-      color: "#000000",
-    },
-    {
-      name: "Trails: Heritage & Byways",
-      image:
-        "https://www.whatsup247.com/img/destinations/categories/trails.png",
-      color: "#000000",
-    },
-    {
-      name: "Trails: Hiking & Biking",
-      image:
-        "https://www.whatsup247.com/img/destinations/categories/hiking-biking.png",
-      color: "#000000",
-    },
-    {
-      name: "Travel & Lodging",
-      image:
-        "https://www.whatsup247.com/img/destinations/categories/travel-lodging.png",
-      color: "#543800",
-    },
-    {
-      name: "Agricultural Markets & Adventures",
-      image:
-        "https://www.whatsup247.com/img/destinations/categories/agriculture.png",
-      color: "#000000",
-    },
-    {
-      name: "Colleges & Universities",
-      image:
-        "https://www.whatsup247.com/img/destinations/categories/colleges.png",
-      color: "#000000",
-    },
-  ],
-  directory_categories: [
+  organization_categories: [
     {
       key: "0",
       name: "Misc",
-      image: "https://www.whatsup247.com/img/directory/categories/misc.png",
-      color: "#fb8909",
+      image: "https://www.whatsup247.com/img/directory/categories/misc.svg",
+      color: "#595959"
     },
     {
       key: "1",
-      name: "Agriculture",
-      image:
-        "https://www.whatsup247.com/img/directory/categories/agriculture.png",
-      color: "#017500",
+      name: "Agriculture & Farm",
+      image: "https://www.whatsup247.com/img/directory/categories/agriculture.svg",
+      color: "#2E395B"
     },
     {
       key: "2",
       name: "Antiques",
-      image: "https://www.whatsup247.com/img/directory/categories/antiques.png",
-      color: "#686542",
+      image: "https://www.whatsup247.com/img/directory/categories/antiques.svg",
+      color: "#00B8C6"
     },
     {
       key: "3",
-      name: "Arts & Entertainment",
-      image:
-        "https://www.whatsup247.com/img/directory/categories/arts-entertainment.png",
-      color: "#902610",
-    },
-    {
-      key: "30",
-      name: "Auctions",
-      image: "https://www.whatsup247.com/img/directory/categories/auctions.png",
-      color: "#d1af00",
+      name: "Performing Arts & Entertainment",
+      image: "https://www.whatsup247.com/img/directory/categories/arts-entertainment.svg",
+      color: "#F97A4E"
     },
     {
       key: "4",
-      name: "Auto & Motorcycle Services",
-      image:
-        "https://www.whatsup247.com/img/directory/categories/auto-motorcycle-services.png",
-      color: "#005495",
-    },
-    {
-      key: "37",
-      name: "Breweries/Wineries & Distilleries",
-      image:
-        "https://www.whatsup247.com/img/directory/categories/wineries-distilleries.png",
-      color: "#e18d19",
+      name: "Auto, Truck & Cycle",
+      image: "https://www.whatsup247.com/img/directory/categories/auto.svg",
+      color: "#823A3A"
     },
     {
       key: "5",
       name: "Business & Professional Services",
-      image:
-        "https://www.whatsup247.com/img/directory/categories/business-professional-services.png",
-      color: "#3f5459",
+      image: "https://www.whatsup247.com/img/directory/categories/business-professional-services.svg",
+      color: "#315474"
     },
     {
       key: "6",
       name: "Cleaning Services",
-      image:
-        "https://www.whatsup247.com/img/directory/categories/cleaning-services.png",
-      color: "#b6c800",
+      image: "https://www.whatsup247.com/img/directory/categories/cleaning-services.svg",
+      color: "#47799E"
     },
     {
       key: "7",
       name: "Community & Civic Organizations",
-      image:
-        "https://www.whatsup247.com/img/directory/categories/community-civic-organizations.png",
-      color: "#403265",
+      image: "https://www.whatsup247.com/img/directory/categories/community-civic-organizations.svg",
+      color: "#A04059"
     },
     {
       key: "8",
       name: "Construction/Equipment & Contractors",
-      image:
-        "https://www.whatsup247.com/img/directory/categories/construction-equipment-contractors.png",
-      color: "#eab039",
+      image: "https://www.whatsup247.com/img/directory/categories/construction-equipment-contractors.svg",
+      color: "#315474"
     },
     {
       key: "9",
       name: "Dry Cleaners/Laundry",
-      image:
-        "https://www.whatsup247.com/img/directory/categories/dry-cleaners-laundry.png",
-      color: "#3d7dae",
+      image: "https://www.whatsup247.com/img/directory/categories/dry-cleaners-laundry.svg",
+      color: "#47799E"
     },
     {
       key: "10",
-      name: "Education/School",
-      image:
-        "https://www.whatsup247.com/img/directory/categories/education.png",
-      color: "#000000",
+      name: "Education & Schools",
+      image: "https://www.whatsup247.com/img/directory/categories/education.svg",
+      color: "#29593A"
     },
     {
       key: "11",
       name: "Event Planning/Coordination",
-      image:
-        "https://www.whatsup247.com/img/directory/categories/event-planning-coordination.png",
-      color: "#a900b0",
-    },
-    {
-      key: "24",
-      name: "Faith/Religious",
-      image:
-        "https://www.whatsup247.com/img/directory/categories/faith-religious.png",
-      color: "#446257",
+      image: "https://www.whatsup247.com/img/directory/categories/event-planning.svg",
+      color: "#47799E"
     },
     {
       key: "12",
       name: "Financial Products & Services",
-      image:
-        "https://www.whatsup247.com/img/directory/categories/financial-services-products.png",
-      color: "#009a4a",
+      image: "https://www.whatsup247.com/img/directory/categories/financial-services.svg",
+      color: "#4AA598"
     },
     {
       key: "13",
-      name: "Fitness & Personal Care",
-      image:
-        "https://www.whatsup247.com/img/directory/categories/fitness-personal-care.png",
-      color: "#485e86",
+      name: "Fitness",
+      image: "https://www.whatsup247.com/img/directory/categories/fitness.svg",
+      color: "#7BBA5A"
     },
     {
-      key: "32",
-      name: "Funeral Home Services",
-      image:
-        "https://www.whatsup247.com/img/directory/categories/funeral-home-services.png",
-      color: "#6c0077",
-    },
-    {
-      key: "31",
-      name: "Government Offices",
-      image:
-        "https://www.whatsup247.com/img/directory/categories/government-offices.png",
-      color: "#8b8734",
+      key: "14",
+      name: "Restaurants",
+      image: "https://www.whatsup247.com/img/directory/categories/restaurants.svg",
+      color: "#FE6625"
     },
     {
       key: "15",
-      name: "Health Care/Rehab & Therapy",
-      image:
-        "https://www.whatsup247.com/img/directory/categories/health-care-rehab-physical-therapy.png",
-      color: "#780008",
+      name: "Health Care",
+      image: "https://www.whatsup247.com/img/directory/categories/health-care.svg",
+      color: "#7BBA5A"
     },
     {
       key: "16",
-      name: "Home & Garden",
-      image:
-        "https://www.whatsup247.com/img/directory/categories/home-garden.png",
-      color: "#4d8000",
+      name: "Residential Services",
+      image: "https://www.whatsup247.com/img/directory/categories/residential.svg",
+      color: "#47799E"
     },
     {
-      key: "33",
-      name: "Libraries/Museums",
-      image:
-        "https://www.whatsup247.com/img/directory/categories/libraries-museums.png",
-      color: "#b89a00",
+      key: "17",
+      name: "Information Technology",
+      image: "https://www.whatsup247.com/img/directory/categories/it.svg",
+      color: "#315474"
     },
     {
       key: "18",
       name: "Manufacturing",
-      image:
-        "https://www.whatsup247.com/img/directory/categories/manufacturing.png",
-      color: "#3f5459",
+      image: "https://www.whatsup247.com/img/directory/categories/manufacturing.svg",
+      color: "#2E395B"
     },
     {
       key: "19",
       name: "Media & Marketing",
-      image:
-        "https://www.whatsup247.com/img/directory/categories/media-marketing.png",
-      color: "#009d90",
+      image: "https://www.whatsup247.com/img/directory/categories/media-marketing.svg",
+      color: "#315474"
     },
     {
       key: "20",
       name: "Pet Care & Services",
-      image:
-        "https://www.whatsup247.com/img/directory/categories/pet-animal-service-sales.png",
-      color: "#93a57a",
+      image: "https://www.whatsup247.com/img/directory/categories/pet-care.svg",
+      color: "#47799E"
     },
     {
       key: "21",
       name: "Photo & Video Services",
-      image:
-        "https://www.whatsup247.com/img/directory/categories/photography-videography.png",
-      color: "#007f26",
-    },
-    {
-      key: "23",
-      name: "Real Estate",
-      image:
-        "https://www.whatsup247.com/img/directory/categories/real-estate.png",
-      color: "#001c68",
-    },
-    {
-      key: "14",
-      name: "Restaurants & Food Services",
-      image:
-        "https://www.whatsup247.com/img/directory/categories/restaurants-food-services.png",
-      color: "#9c002b",
-    },
-    {
-      key: "25",
-      name: "Retail & Shopping",
-      image:
-        "https://www.whatsup247.com/img/directory/categories/retail-shopping.png",
-      color: "#305300",
-    },
-    {
-      key: "34",
-      name: "Senior/Elderly Services",
-      image:
-        "https://www.whatsup247.com/img/directory/categories/senior-elderly-services.png",
-      color: "#1a38ff",
-    },
-    {
-      key: "35",
-      name: "Social Services",
-      image:
-        "https://www.whatsup247.com/img/directory/categories/social-services.png",
-      color: "#7632ff",
-    },
-    {
-      key: "26",
-      name: "Sports & Recreation",
-      image:
-        "https://www.whatsup247.com/img/directory/categories/sports-recreation.png",
-      color: "#2ab700",
-    },
-    {
-      key: "29",
-      name: "Transportation (Logistics)",
-      image:
-        "https://www.whatsup247.com/img/directory/categories/transportation-logistics.png",
-      color: "#796500",
-    },
-    {
-      key: "27",
-      name: "Transportation (Public)",
-      image:
-        "https://www.whatsup247.com/img/directory/categories/transportation-public.png",
-      color: "#a98d00",
-    },
-    {
-      key: "28",
-      name: "Travel & Lodging/Camping",
-      image:
-        "https://www.whatsup247.com/img/directory/categories/travel-lodging-camping.png",
-      color: "#543800",
+      image: "https://www.whatsup247.com/img/directory/categories/photo-video.svg",
+      color: "#47799E"
     },
     {
       key: "22",
       name: "Utilities",
-      image:
-        "https://www.whatsup247.com/img/directory/categories/utilities.png",
-      color: "#f75b00",
+      image: "https://www.whatsup247.com/img/directory/categories/utilities.svg",
+      color: "#AF4C35"
+    },
+    {
+      key: "23",
+      name: "Real Estate",
+      image: "https://www.whatsup247.com/img/directory/categories/real-estate.svg",
+      color: "#47799E"
+    },
+    {
+      key: "24",
+      name: "Faith & Spirituality",
+      image: "https://www.whatsup247.com/img/directory/categories/religious.svg",
+      color: "#A04059"
+    },
+    {
+      key: "25",
+      name: "Retail & Shopping",
+      image: "https://www.whatsup247.com/img/directory/categories/retail-shopping.svg",
+      color: "#00B8C6"
+    },
+    {
+      key: "26",
+      name: "Sports & Recreation",
+      image: "https://www.whatsup247.com/img/directory/categories/sports-recreation.svg",
+      color: "#4E7733"
+    },
+    {
+      key: "27",
+      name: "Public Transit",
+      image: "https://www.whatsup247.com/img/directory/categories/public-transit.svg",
+      color: "#D19D2A"
+    },
+    {
+      key: "28",
+      name: "Lodging & Camping",
+      image: "https://www.whatsup247.com/img/directory/categories/lodging-camping.svg",
+      color: "#E2C830"
+    },
+    {
+      key: "29",
+      name: "Logistics & Shipping",
+      image: "https://www.whatsup247.com/img/directory/categories/logistics.svg",
+      color: "#2E395B"
+    },
+    {
+      key: "30",
+      name: "Auctions",
+      image: "https://www.whatsup247.com/img/directory/categories/auctions.svg",
+      color: "#00B8C6"
+    },
+    {
+      key: "31",
+      name: "Government",
+      image: "https://www.whatsup247.com/img/directory/categories/government.svg",
+      color: "#383838"
+    },
+    {
+      key: "32",
+      name: "Funeral Home Services",
+      image: "https://www.whatsup247.com/img/directory/categories/funeral-home.svg",
+      color: "#47799E"
+    },
+    {
+      key: "33",
+      name: "Libraries",
+      image: "https://www.whatsup247.com/img/directory/categories/libraries.svg",
+      color: "#29593A"
+    },
+    {
+      key: "34",
+      name: "Senior/Elderly Services",
+      image: "https://www.whatsup247.com/img/directory/categories/senior-elderly-services.svg",
+      color: "#A04059"
+    },
+    {
+      key: "35",
+      name: "Social Services",
+      image: "https://www.whatsup247.com/img/directory/categories/social-services.svg",
+      color: "#A04059"
     },
     {
       key: "36",
       name: "Veterans",
-      image: "https://www.whatsup247.com/img/directory/categories/veterans.png",
-      color: "#1a3218",
+      image: "https://www.whatsup247.com/img/directory/categories/veterans.svg",
+      color: "#A04059"
     },
     {
-      key: "17",
-      name: "Websites & IT",
-      image:
-        "https://www.whatsup247.com/img/directory/categories/websites-it.png",
-      color: "#0165b0",
+      key: "37",
+      name: "Breweries/Wineries & Distilleries",
+      image: "https://www.whatsup247.com/img/directory/categories/wineries-distilleries.svg",
+      color: "#FE6625"
     },
+    {
+      key: "38",
+      name: "Marine/Boating & Watercraft",
+      image: "https://www.whatsup247.com/img/directory/categories/marine-boating-watercraft.svg",
+      color: "#4E7733"
+    },
+    {
+      key: "39",
+      name: "Agritourism",
+      image: "https://www.whatsup247.com/img/directory/categories/agritourism.svg",
+      color: "#F97A4E"
+    },
+    {
+      key: "40",
+      name: "Arts & Artisans",
+      image: "https://www.whatsup247.com/img/directory/categories/arts.svg",
+      color: "#F97A4E"
+    },
+    {
+      key: "41",
+      name: "Venues",
+      image: "https://www.whatsup247.com/img/directory/categories/venues.svg",
+      color: "#F97A4E"
+    },
+    {
+      key: "42",
+      name: "Fairs & Festivals",
+      image: "https://www.whatsup247.com/img/directory/categories/fairs-festivals.svg",
+      color: "#F97A4E"
+    },
+    {
+      key: "43",
+      name: "Catering & Food Services",
+      image: "https://www.whatsup247.com/img/directory/categories/food.svg",
+      color: "#47799E"
+    },
+    {
+      key: "44",
+      name: "Museums",
+      image: "https://www.whatsup247.com/img/directory/categories/museums.svg",
+      color: "#F97A4E"
+    },
+    {
+      key: "45",
+      name: "Parks",
+      image: "https://www.whatsup247.com/img/directory/categories/parks.svg",
+      color: "#4E7733"
+    },
+    {
+      key: "46",
+      name: "Nature Preserves",
+      image: "https://www.whatsup247.com/img/directory/categories/nature.svg",
+      color: "#4E7733"
+    },
+    {
+      key: "47",
+      name: "Trails",
+      image: "https://www.whatsup247.com/img/directory/categories/trails.svg",
+      color: "#4E7733"
+    },
+    {
+      key: "48",
+      name: "Travel",
+      image: "https://www.whatsup247.com/img/directory/categories/travel.svg",
+      color: "#E2C830"
+    },
+    {
+      key: "49",
+      name: "History & Cultural Heritage",
+      image: "https://www.whatsup247.com/img/directory/categories/history-culture.svg",
+      color: "#F97A4E"
+    },
+    {
+      key: "50",
+      name: "Transportation Services",
+      image: "https://www.whatsup247.com/img/directory/categories/transportation.svg",
+      color: "#D19D2A"
+    },
+    {
+      key: "51",
+      name: "Industrial Services",
+      image: "https://www.whatsup247.com/img/directory/categories/industrial.svg",
+      color: "#315474"
+    },
+    {
+      key: "52",
+      name: "Communications",
+      image: "https://www.whatsup247.com/img/directory/categories/communications.svg",
+      color: "#AF4C35"
+    },
+    {
+      key: "53",
+      name: "Child Care Services",
+      image: "https://www.whatsup247.com/img/directory/categories/child-care.svg",
+      color: "#29593A"
+    },
+    {
+      key: "54",
+      name: "Lawn & Garden",
+      image: "https://www.whatsup247.com/img/directory/categories/lawn.svg",
+      color: "#00B8C6"
+    },
+    {
+      key: "55",
+      name: "Natural Spaces & Archaeology",
+      image: "https://www.whatsup247.com/img/directory/categories/archaeology.svg",
+      color: "#4E7733"
+    },
+    {
+      key: "56",
+      name: "Architecture & Installations",
+      image: "https://www.whatsup247.com/img/directory/categories/architecture.svg",
+      color: "#F97A4E"
+    },
+    {
+      key: "57",
+      name: "Bars & Lounges",
+      image: "https://www.whatsup247.com/img/directory/categories/bars.svg",
+      color: "#FE6625"
+    },
+    {
+      key: "58",
+      name: "Personal Care",
+      image: "https://www.whatsup247.com/img/directory/categories/personal-care.svg",
+      color: "#7BBA5A"
+    },
+    {
+      key: "59",
+      name: "Coffee Shops and Roasteries",
+      image: "https://www.whatsup247.com/img/directory/categories/coffee.svg",
+      color: "#FE6625"
+    }
   ],
-  test: "test in store wuapi",
 })
+
+
 
 export const mutations = {
   UPDATE_TOKEN: (state, string) => {
@@ -858,6 +816,6 @@ export const actions = {
 
 export const getters = {
   getDirectoryCategories: (state) => {
-    return state.directory_categories
+    return state.organization_categories
   },
 }

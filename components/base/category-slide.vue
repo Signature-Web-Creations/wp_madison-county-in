@@ -44,14 +44,11 @@ import {mapState} from 'vuex'
 export default {
 	props: ['title', 'desc', 'type'],
     data(){return {categories:[]}},
-    computed:mapState("wuapi", ["event_categories","destinations_categories","directory_categories"]),
+    computed:mapState("wuapi", ["event_categories","organization_categories"]),
     created(){
         if (this.type === "events"){ this.categories = this.event_categories;}
-        else if (this.type === "destinations")
-        { this.categories = this.destination_categories;}
-        else if (this.type === "directory")
-        { this.categories = this.directory_categories;}
-        
+        else
+        { this.categories = this.organization_categories;}
     }
 };
 </script>

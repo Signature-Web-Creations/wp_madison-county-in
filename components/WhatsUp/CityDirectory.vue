@@ -18,14 +18,14 @@
             :key="organization.id"
             :to="{
               name: 'organizations-id',
-              params: { id: organization.organization_id },
+              params: { id: organization.id },
             }"
           >
             <template>
               <v-list-item-avatar size="100" tile>
                 <v-img
-                  v-if="organization.organization_image"
-                  :src="organization.organization_image"
+                  v-if="organization.logo"
+                  :src="organization.logo"
                   contain
                 />
                 <v-img

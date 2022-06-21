@@ -14,8 +14,8 @@
               <div class="d-flex flex-row mb-6 align-center">
                 <v-img
                   class="mr-4"
-                  v-if="organization.organization_image"
-                  :src="organization.organization_image"
+                  v-if="organization.logo"
+                  :src="organization.logo"
                   contain
                   max-width="150"
                 />
