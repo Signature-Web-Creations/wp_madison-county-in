@@ -119,7 +119,7 @@
             <v-list-item
               v-for="item in resources"
               :key="item.id"
-              :href="item.document.url"
+              :href="item.document.url || item.site_url.url"
               target="_blank"
             >
               <v-list-item-icon>
@@ -129,8 +129,14 @@
               </v-list-item-icon>
               <v-list-item-content>
                 <v-list-item-title
+                  v-if="item.document"
                   class="lightgrey--text"
                   v-html="item.document.title"
+                />
+                <v-list-item-title
+                  v-else
+                  class="lightgrey--text"
+                  v-html="item.site_url.title"
                 />
               </v-list-item-content>
             </v-list-item>

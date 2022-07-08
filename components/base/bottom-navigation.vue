@@ -99,7 +99,7 @@
           <v-list-item
             v-for="item in docs"
             :key="item.id"
-            :href="item.document.url"
+            :href="item.document.url || item.site_url.url"
             target="_blank"
           >
             <v-list-item-icon>
@@ -109,7 +109,7 @@
             </v-list-item-icon>
             <v-list-item-title
               class="blackish--text"
-              v-html="item.document.title"
+              v-html="item.document.title || item.site_url.title"
             />
           </v-list-item>
         </v-card-text>
