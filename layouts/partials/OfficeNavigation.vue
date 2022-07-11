@@ -28,7 +28,6 @@
           max-width="45"
           :src="require('~/assets/recoloredlogo.png')"
         />
-
         <v-toolbar-title>
           Madison County, IN
         </v-toolbar-title>
