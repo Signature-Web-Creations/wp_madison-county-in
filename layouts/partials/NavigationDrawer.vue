@@ -155,13 +155,6 @@ export default {
           isOffice: false,
         },
         {
-          name: "County Council",
-          url: "/county-council",
-          icon: "fas fa-users",
-          inMenu: false,
-          isOffice: true,
-        },
-        {
           name: "Live Public Meetings",
           url: "/public-meetings",
           icon: "fas fa-video",
