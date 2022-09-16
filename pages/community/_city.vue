@@ -6,6 +6,7 @@
       :tabs="tabs"
       :backgroundImage="image_url"
       :events="listOfEvents"
+      :showName="showName"
       :destinations="listOfDestinations"
       :directory="listOfOrganizations"
       :community="community"
@@ -21,25 +22,8 @@ import CommunityNavigation from "~/layouts/partials/CommunityNavigation"
 import { generalMixin } from "~/mixins/general"
 
 export default {
-  layout: "office",
-
-  mixins: [generalMixin],
-
-  components: { CommunityNavigation },
-
-  data: () => ({
-    collapseOnScroll: true,
-    community_category_id: "",
-    image_url: null,
-    employment_tag_id: 30,
-    items: [
-      { title: "Home", icon: "mdi-home-city" },
-      { title: "My Account", icon: "mdi-account" },
-      { title: "Users", icon: "mdi-account-group-outline" },
-    ],
-  }),
-
   async asyncData({ store, route }) {
+    let showName = false
     let tagsoptions = { getPrimary: true }
     const communities = await store.dispatch("getCommunities", true)
     const tags = await store.dispatch("getTags", tagsoptions)
@@ -47,9 +31,9 @@ export default {
     tags.forEach(({ id, slug }) => {
       if (route.params.city === slug) city_tag_id = id
     })
-    const community = communities.filter(
+    const community = communities.find(
       ({ tags, slug }) => tags.includes(city_tag_id) && slug
-    )[0]
+    )
 
     let listOfOrganizations = await store.dispatch("wuapi/getDirectory", {
       returnValue: true,
@@ -101,6 +85,7 @@ export default {
     )
 
     if (filteredEvents.length > 0) {
+      showName = true
       listOfEvents = filteredEvents
     }
     const countyProfiles = await store.dispatch("getCountyProfiles", {
@@ -110,6 +95,7 @@ export default {
     })
 
     return {
+      showName,
       communities,
       city_tag_id,
       listOfDestinations,
@@ -119,11 +105,23 @@ export default {
     }
   },
 
-  async fetch() {
-    await this.$store.dispatch("getOffices")
-    await this.$store.dispatch("getCategories")
-    await this.$store.dispatch("getJobsList")
-  },
+  layout: "office",
+
+  mixins: [generalMixin],
+
+  components: { CommunityNavigation },
+
+  data: () => ({
+    collapseOnScroll: true,
+    community_category_id: "",
+    image_url: null,
+    employment_tag_id: 30,
+    items: [
+      { title: "Home", icon: "mdi-home-city" },
+      { title: "My Account", icon: "mdi-account" },
+      { title: "Users", icon: "mdi-account-group-outline" },
+    ],
+  }),
 
   computed: {
     tabs() {
