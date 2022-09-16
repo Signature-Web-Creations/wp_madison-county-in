@@ -105,7 +105,7 @@
 
           <v-tab-item id="tabs-icons-text-2" :style="adjustWidth">
             <v-container class="tab-pane fade px-md-16">
-              <h1 v-html="community.name + ' Events'"></h1>
+              <h1 v-html="eventListingTitle"></h1>
               <BaseEventList
                 :events="events"
                 :showFilters="showFilters.destinations"
@@ -155,6 +155,10 @@ export default {
       type: Array,
       required: true,
     },
+    showName: {
+      type: Boolean,
+      default: false,
+    },
     resources: [Array, Boolean],
     backgroundImage: {
       type: String,
@@ -176,6 +180,11 @@ export default {
         directory: true,
       },
     }
+  },
+  computed: {
+    eventListingTitle() {
+      return `${this.showName ? this.community.name : "Community"} Events`
+    },
   },
 }
 </script>
