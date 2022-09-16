@@ -99,7 +99,6 @@ export default {
       "wuapi/getOrganization",
       route.params.id
     )
-    console.log("this the front", organization)
 
     //   let relatedCategories = ""
     //   this.organization.categories.forEach((element, index) => {

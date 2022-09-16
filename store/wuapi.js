@@ -640,7 +640,6 @@ export const actions = {
         if (options.type == "featured") {
           commit("UPDATE_FEATURED_EVENTS", events)
         } else if (options.type == "latest" && !options.returnValue) {
-          console.log("else case->", events)
           commit("UPDATE_LATEST_EVENTS", events)
         }
         return events
