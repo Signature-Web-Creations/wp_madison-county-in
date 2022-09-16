@@ -99,17 +99,8 @@ export default {
     const filteredEvents = listOfEvents.filter(
       (events) => events.city.toLowerCase() === community.slug
     )
-    if (filteredEvents.length === 0) {
-      listOfEvents = await store.dispatch("wuapi/getEvents", {
-        returnValue: true,
-        type: "latest",
-        limit: "100",
-        zip: communities.filter(
-          ({ tags, slug }) => tags.includes(city_tag_id) && slug
-        )[0].zip,
-        distance: 5,
-      })
-    } else {
+
+    if (filteredEvents.length > 0) {
       listOfEvents = filteredEvents
     }
     const countyProfiles = await store.dispatch("getCountyProfiles", {
