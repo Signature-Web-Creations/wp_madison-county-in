@@ -208,6 +208,17 @@ export default {
       ],
       wuSections: [
         {
+          name: "Jobs",
+          url: "/employment",
+          icon: "fa fa-briefcase",
+        },
+
+        {
+          name: "Community Events",
+          url: "/events",
+          icon: "fas fa-calendar-alt",
+        },
+        {
           name: "Community Events",
           url: "/events",
           icon: "fas fa-calendar-alt",
