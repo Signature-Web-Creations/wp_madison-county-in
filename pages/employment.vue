@@ -22,7 +22,7 @@
             ></v-tab-item>
             <v-tab-item value="localJobs"
               ><iframe
-                src="https://www.whatsup247.com/widgetsv2/get?id=deeff6adfddc0c3f2cba7242dd0ee89c"
+                src="https://www.whatsup247.com/widgetsv2/get?id=c2d6bb1b91c53b36adfb2cbaefc0b43a"
                 style="width: 100%; height: 800px; border: 0;"
               ></iframe
             ></v-tab-item>
